@@ -4,6 +4,15 @@ import Layout from "../layouts/Layout.astro";
 import Label from "../components/Label.astro";
 ---
 
+<script>
+  const btn = document.getElementById("test-btn") as HTMLElement;
+  const grid = document.getElementById("astro-layout-grid") as HTMLElement;
+
+  btn.addEventListener("click", () => {
+    grid.style.display = grid.style.display === "block" ? "none" : "block";
+  });
+</script>
+
 <Layout>
   <section
     class="z-[2] mx-auto flex h-full w-full max-w-[1728px] items-center justify-center px-4 md:px-5"
@@ -29,7 +38,7 @@ import Label from "../components/Label.astro";
       <div class="flex flex-col items-center gap-4">
         <button
           class="relative flex w-fit cursor-pointer flex-col justify-center overflow-hidden rounded-md border-[2px] border-black bg-white px-4 py-2 text-sm shadow-[3px_3px_0px_1.5px_#000000] transition-all duration-200 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0.5px_0.5px_0px_0.25px_#000000] md:text-base"
-          >&#x2318; + &#x21E7; + g or click</button
+          id="test-btn">&#x2318; + &#x21E7; + g or click</button
         >
         <pre
           class="rounded-sm border-2 border-black/25 bg-white px-3 py-1 text-xs text-black/50 hover:cursor-copy">npm install astro-layoutgrid</pre>
