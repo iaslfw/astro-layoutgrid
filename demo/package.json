@@ -1,0 +1,19 @@
+{
+  "name": "astro-layoutgrid-demo",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource-variable/work-sans": "^5.2.6",
+    "@tailwindcss/vite": "^4.1.13",
+    "animejs": "^4.1.3",
+    "astro": "^5.13.5",
+    "astro-icon": "^1.1.5",
+    "tailwindcss": "^4.1.13"
+  }
+}

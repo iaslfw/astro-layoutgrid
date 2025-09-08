@@ -1,0 +1,30 @@
+---
+import "@fontsource-variable/work-sans";
+import "../styles/global.css";
+
+import Layoutgrid from "astro-layoutgrid";
+import GridBackground from "../components/GridBackground.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro - Layoutgrid Component</title>
+    <meta
+      name="description"
+      content="A zero-dependency layout-grid component for Astro"
+    />
+  </head>
+
+  <body class="relative w-screen h-screen overflow-x-hidden font-sans">
+    <Layoutgrid />
+
+    <main class="relative w-full h-full z-10">
+      <GridBackground />
+      <slot />
+    </main>
+  </body>
+</html>

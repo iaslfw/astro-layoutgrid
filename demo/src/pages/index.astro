@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import Label from "../components/Label.astro";
+---
+
+<Layout>
+  <section
+    class="w-full h-full max-w-[1728px] px-4 md:px-5 mx-auto flex items-center justify-center z-[2]"
+  >
+    <div class="flex flex-col gap-6 md:gap-8 items-center">
+      <div class="flex flex-col text-center gap-5 items-center">
+        <Label />
+
+        <div class="flex flex-col max-w-none md:max-w-2/3 gap-4 items-center">
+          <h1 class="text-4xl md:text-5xl font-bold">
+            A <span class="color-highlight">0-deps</span> layout-grid component for
+            AstroJS
+          </h1>
+
+          <div class="max-w-4/5">
+            <p class="text-body secondary">
+              Seamlessly integrate a zero-dependency responsive grid layout into
+              your AstroJS projects. (Fully adjustable ofc)
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <button
+          class="relative bg-white text-sm md:text-base w-fit px-4 py-2 border-[2px] border-black rounded-md flex flex-col justify-center transition-all duration-200 ease-out shadow-[3px_3px_0px_1.5px_#000000] overflow-hidden cursor-pointer hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0.5px_0.5px_0px_0.25px_#000000]"
+          >&#x2318; + &#x21E7; + g or click</button
+        >
+        <pre
+          class="text-xs border-2 rounded-sm px-3 py-1 border-black/25 bg-white text-black/50 hover:cursor-copy">npm install astro-layoutgrid</pre>
+      </div>
+    </div>
+  </section>
+</Layout>

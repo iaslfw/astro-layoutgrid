@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Work Sans Variable", sans-serif;
+
+  --color-highlight: oklch(87.1% 0.15 154.449);
+}
+
+@layer utilities {
+  ::selection {
+    @apply bg-highlight text-black;
+  }
+
+  .text-headline {
+    @apply text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+  }
+
+  .text-body {
+    @apply text-sm md:text-base font-normal;
+  }
+
+  .secondary {
+    @apply opacity-50;
+  }
+}
