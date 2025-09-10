@@ -12,11 +12,11 @@
   }
 
   .text-headline {
-    @apply text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+    @apply text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl;
   }
 
   .text-body {
-    @apply text-sm md:text-base font-normal;
+    @apply text-sm font-normal md:text-base;
   }
 
   .secondary {
