@@ -7,15 +7,15 @@
 
 # Astro LayoutGrid v1.0 Release Checklist
 
-## 🚨 CRITICAL ISSUES (Must Fix Before v2)
+## 🚨 CRITICAL ISSUES (Must Fix Before v1)
 
 ### 1. Package Configuration Issues 
  ✔  **Fix index.ts import path**: Currently imports from `./src/LayoutGrid.astro` but file is named `Layoutgrid.astro` @started(25-09-11 17:09) @done(25-09-11 17:10) @lasted(1m31s)
  ✔  **Add license field** to package.json (required for NPM publishing) @started(25-09-11 17:10) @done(25-09-11 17:10) @lasted(1m)
  ✔  **Add author field** to package.json @started(25-09-11 17:11) @done(25-09-11 17:11) @lasted(25s)
- ☐  **Fix main field**: Should point to compiled output, not TypeScript source
- ☐  **Add proper exports configuration** for ESM/CJS compatibility
- ☐  **Add build script** and build process for distribution
+ ✔  **Fix main field**: Should point to compiled output, not TypeScript source @done(25-09-11 17:52)
+ ✔  **Add proper exports configuration** for ESM/CJS compatibility @done(25-09-11 17:52)
+ ✔  **Add build script** and build process for distribution @done(25-09-11 17:55)
 
 ### 2. Missing Essential Files
  ✔  **Create LICENSE file** (MIT, Apache 2.0, or other appropriate license) @done(25-09-11 17:11)
@@ -38,16 +38,15 @@
 
 ### 4. Build System
  ☐  **Set up build pipeline** (TypeScript compilation)
- ☐  **Add dist/ folder** for compiled output
- ☐  **Configure proper entry points** in package.json
- ☐  **Add pre-publish script** to ensure build runs before publishing
- ☐  **Test package installation** with `npm pack` and local testing
+ ✔  **Add dist/ folder** for compiled output @done(25-09-11 18:19)
+ ✔  **Configure proper entry points** in package.json @done(25-09-11 18:02)
+ ✔  **Add pre-publish script** to ensure build runs before publishing @done(25-09-11 18:02)
+ ☐  **Test package installation** with `npm pack` and local testing -> error: Failed to resolve entry for package "astro-layoutgrid". The package may have incorrect main/module/exports specified in its package.json.
 
 ### 5. File Organization
- ☐  **Rename Layoutgrid.astro → LayoutGrid.astro** for consistency
  ☐  **Add proper TypeScript declarations** (.d.ts files)
- ☐  **Ensure all imports use correct casing**
- ☐  **Verify all file paths** in imports
+ ✔  **Ensure all imports use correct casing** @done(25-09-11 18:02)
+ ✔  **Verify all file paths** in imports @done(25-09-11 18:02)
 
 ## 🧪 TESTING & QUALITY
 

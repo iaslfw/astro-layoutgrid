@@ -2,21 +2,12 @@
 	"name": "astro-layoutgrid",
 	"version": "1.0.0",
 	"description": "A zero-dependency layout grid component for AstroJS.",
-	"main": "index.ts",
-	"type": "module",
-	"license": "MIT",
 	"author": "Sebastian Wolf, IaSlf",
-	"exports": {
-		".": "./index.ts"
-	},
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/iaslfw/astro-layoutgrid.git"
 	},
-	"files": [
-		"src",
-		"index.ts"
-	],
 	"keywords": [
 		"astro-component",
 		"withastro",
@@ -25,11 +16,33 @@
 		"tooling",
 		"utils"
 	],
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"files": [
+		"dist",
+		"src",
+		"index.ts"
+	],
 	"scripts": {
+		"build": "tsc && npm run copy-astro",
+		"copy-astro": "mkdir -p dist/src && cp src/*.astro dist/src/ && cp index.ts dist/",
+		"localtest": "npm run build && npm pack",
+		"prepublishOnly": "npm run build",
 		"format": "npx prettier . --write",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"typecheck": "tsc --noEmit"
+	},
+	"peerDependencies": {
+		"astro": "^5.0.0"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.35.0",
@@ -39,8 +52,5 @@
 		"eslint": "^9.35.0",
 		"eslint-plugin-astro": "^1.3.1",
 		"typescript": "^5.7.3"
-	},
-	"peerDependencies": {
-		"astro": "^5.0.0"
 	}
 }

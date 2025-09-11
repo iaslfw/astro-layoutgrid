@@ -10,8 +10,9 @@ tests/
 coverage/
 
 # Linting and formatting
-.eslintrc*
+eslint.config.js*
 .prettierrc*
+.prettierignore
 .editorconfig
 
 # CI/CD and development
