@@ -1,26 +1,42 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 
-import Label from "../components/Label.astro";
+import Label from "@components/Label.astro";
+import Popup from "@components/Popup.astro";
 ---
 
 <script>
+  import { animate } from "animejs";
   import confetti from "canvas-confetti";
 
-  const toggleBtn = document.getElementById("toggle-btn") as HTMLElement;
-  const copyBtn = document.getElementById("copy-btn") as HTMLElement;
+  const toggleButton = document.getElementById("toggle-btn") as HTMLElement;
+  const editButton = document.getElementById("edit-btn");
+  const copyButton = document.getElementById("copy-btn") as HTMLElement;
   const grid = document.getElementById("astro-layout-grid") as HTMLElement;
 
-  toggleBtn.addEventListener("click", () => {
+  toggleButton.addEventListener("click", () => {
     grid.style.display = grid.style.display === "block" ? "none" : "block";
   });
 
-  copyBtn.addEventListener("click", async (e: MouseEvent) => {
+  editButton?.addEventListener("click", () => {
+    const popup = document.getElementById("settings-popup") as HTMLElement;
+
+    animate(popup, {
+      opacity: [0, 1],
+      y: [20, 0],
+      duration: 200,
+      onBegin: () => {
+        popup.classList.remove("pointer-events-none");
+      },
+    });
+  });
+
+  copyButton.addEventListener("click", async (e: MouseEvent) => {
     await navigator.clipboard.writeText("npm i astro-layoutgrid");
 
     const { clientX, clientY } = e;
-    const originalText = copyBtn.innerHTML;
-    copyBtn.innerHTML = `<pre class="text-sm">Copied! 🎉</pre>`;
+    const originalText = copyButton.innerHTML;
+    copyButton.innerHTML = `<pre class="text-sm">Copied! 🎉</pre>`;
 
     confetti({
       particleCount: 125,
@@ -29,27 +45,29 @@ import Label from "../components/Label.astro";
     });
 
     setTimeout(() => {
-      copyBtn.innerHTML = originalText;
+      copyButton.innerHTML = originalText;
     }, 2000);
   });
 </script>
 
 <Layout>
   <section
-    class="z-[2] mx-auto flex h-full w-full max-w-[1728px] items-center justify-center px-4 md:px-5"
+    class="z-[2] mx-auto flex h-full w-full max-w-[1728px] items-center justify-center px-3 md:px-5"
   >
-    <div class="flex flex-col items-center gap-6 md:gap-8">
-      <div class="flex flex-col items-center gap-5 text-center">
+    <Popup />
+
+    <div class="flex flex-col items-center gap-10 md:gap-8">
+      <div class="flex flex-col items-center gap-3 text-center">
         <Label />
 
-        <div class="flex max-w-none flex-col items-center gap-4 md:max-w-2/3">
+        <div class="flex max-w-none flex-col items-center gap-3 md:max-w-2/3">
           <h1 class="text-4xl font-bold md:text-5xl">
             A <span class="text-highlight">0-deps</span> layout-grid component for
             AstroJS
           </h1>
 
-          <div class="max-w-4/5">
-            <p class="text-body secondary">
+          <div class="max-w-none md:max-w-4/5">
+            <p class="text-body_secondary">
               Seamlessly integrate a zero-dependency responsive grid layout into
               your AstroJS projects. (Fully adjustable ofc)
             </p>
@@ -61,13 +79,10 @@ import Label from "../components/Label.astro";
         <!-- Action buttons -->
         <div class="flex flex-row gap-2">
           <button
-            class="relative flex w-fit cursor-pointer flex-col justify-center overflow-hidden rounded-md border-[2px] border-black bg-white px-4 py-2 text-sm shadow-[3px_3px_0px_1.5px_#000000] transition-all duration-200 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0.5px_0.5px_0px_0.25px_#000000] md:text-base"
+            class="cui-shadow cui-border pri-button flex w-fit flex-col"
             id="toggle-btn">&#x2318; + &#x21E7; + g or click</button
           >
-          <button
-            class="relative flex w-fit cursor-pointer flex-col justify-center overflow-hidden rounded-md border-[2px] border-black bg-white px-4 py-2 text-sm shadow-[3px_3px_0px_1.5px_#000000] transition-all duration-200 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0.5px_0.5px_0px_0.25px_#000000] md:text-base"
-            id="edit-btn"
-          >
+          <button class="cui-shadow cui-border pri-button w-fit" id="edit-btn">
             <svg
               width="24"
               height="24"
@@ -90,10 +105,7 @@ import Label from "../components/Label.astro";
         <div
           class="rounded-lg bg-black px-4 py-2 text-white transition-all duration-200"
         >
-          <button
-            class="group flex h-full cursor-pointer items-center gap-2"
-            id="copy-btn"
-          >
+          <button class="group flex h-full items-center gap-2" id="copy-btn">
             <pre class="text-sm">npm i astro-layoutgrid</pre>
             <svg
               width="24"

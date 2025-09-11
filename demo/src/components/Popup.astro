@@ -1,0 +1,232 @@
+---
+import Cross from "@components/svg-components/Cross.astro";
+---
+
+<script>
+  import { animate } from "animejs";
+
+  const grid = document.getElementById("astro-layout-grid") as HTMLElement;
+  const gridParent = grid!.parentNode as HTMLElement;
+  const popup = document.getElementById("settings-popup") as HTMLElement;
+  const form = document.getElementById("settings-form") as HTMLFormElement;
+  const subButton = document.getElementById(
+    "submit-button"
+  ) as HTMLButtonElement;
+  const closeButton = document.getElementById(
+    "close-button"
+  ) as HTMLButtonElement;
+
+  subButton?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const settings = Object.fromEntries(formData);
+
+    console.log(settings);
+
+    gridParent.setAttribute(
+      "data-desktop-columns",
+      settings.columnsDesk.toString()
+    );
+    gridParent.setAttribute(
+      "data-tablet-columns",
+      settings.columnsTab.toString()
+    );
+    gridParent.setAttribute(
+      "data-mobile-columns",
+      settings.columnsMob.toString()
+    );
+    // grid.setAttribute("data-gutter", settings.gutter.toString());
+    // grid.setAttribute("data-margin", settings.margin.toString());
+    // grid.setAttribute("data-color", settings.color.toString());
+    // grid.setAttribute("data-opacity", settings.opacity.toString());
+    // grid.setAttribute("data-max-width", settings.maxWidth.toString());
+
+    grid.style.display = grid.style.display === "block" ? "none" : "block";
+  });
+
+  document.addEventListener("keydown", (e) => {
+    console.log(e.key);
+    if (e.key != "Escape") return;
+    animate(popup, {
+      opacity: [1, 0],
+      y: [0, 20],
+      duration: 150,
+      onComplete: () => {
+        popup.classList.add("pointer-events-none");
+      },
+    });
+  });
+
+  closeButton?.addEventListener("click", () => {
+    animate(popup, {
+      opacity: [1, 0],
+      y: [0, 20],
+      duration: 150,
+      onComplete: () => {
+        popup.classList.add("pointer-events-none");
+      },
+    });
+  });
+</script>
+
+<aside
+  id="settings-popup"
+  class="pointer-events-none fixed top-0 left-0 z-50 flex h-dvh w-screen items-center justify-center bg-black/20 px-3 opacity-0"
+>
+  <div
+    class="cui-border relative flex h-max max-h-[75vh] w-full max-w-lg flex-col bg-white md:max-h-none lg:w-[32vw] lg:max-w-none"
+  >
+    <button
+      id="close-button"
+      class="absolute top-4 right-4 z-10 md:top-6 md:right-6"
+    >
+      <Cross />
+    </button>
+
+    <div class="flex flex-shrink-0 flex-col gap-2 p-4 lg:p-6">
+      <h1 class="text-subheadline">Grid-Settings</h1>
+      <p class="text-body_secondary">Modify the grid based on your needs.</p>
+    </div>
+
+    <form
+      class="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 md:overflow-visible lg:px-6"
+      id="settings-form"
+    >
+      <div class="flex flex-col gap-10 pb-4">
+        <div class="flex w-full flex-col gap-4">
+          <!-- Adjust column-number -->
+          <div class="flex w-full flex-col items-center gap-2 md:flex-row">
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="columnsMob">
+                Columns [mobile]
+              </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="columnsMob"
+                name="columnsMob"
+                value="12"
+                min="1"
+                max="16"
+              />
+            </div>
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="columnsTab">
+                Columns [tablet]
+              </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="columnsTab"
+                name="columnsTab"
+                value="8"
+                min="1"
+                max="16"
+              />
+            </div>
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="columnsDesk">
+                Columns [desktop]
+              </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="columnsDesk"
+                name="columnsDesk"
+                value="4"
+                min="1"
+                max="16"
+              />
+            </div>
+          </div>
+
+          <!-- Adjust margin & gutter -->
+          <div class="flex w-full flex-col items-center gap-2 md:flex-row">
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="gutter"> Gutter in px </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="gutter"
+                name="gutter"
+                max="200"
+                min="1"
+                value="16"
+              />
+            </div>
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="margin"> Margin in px </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="margin"
+                name="margin"
+                max="200"
+                min="1"
+                value="16"
+              />
+            </div>
+          </div>
+
+          <!-- Adjust Grid-style settings -->
+          <div class="flex w-full flex-col items-center gap-2 md:flex-row">
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="color"> Color </label>
+              <input
+                class="cui-border cui-input"
+                type="color"
+                id="color"
+                name="color"
+                value="#ff0000"
+              />
+            </div>
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="opacity"> Opacity </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="opacity"
+                name="opacity"
+                min="0"
+                max="1"
+                step="0.1"
+                value="0.25"
+              />
+            </div>
+            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+              <label class="text-body_small" for="maxWidth">
+                Max-width in vw
+              </label>
+              <input
+                class="cui-border cui-input"
+                type="number"
+                id="maxWidth"
+                name="maxWidth"
+                min="1"
+                max="100"
+                value="100"
+              />
+            </div>
+          </div>
+
+          <!-- Adjust visibility of bg-color -->
+          <div>
+            <input
+              type="checkbox"
+              id="toggle-bg"
+              class="border-2 active:bg-black"
+            />
+            <label for="toggle-bg">Show background color</label>
+          </div>
+        </div>
+
+        <button
+          class="cui-shadow cui-border pri-button mt-6 flex-shrink-0"
+          id="submit-button"
+        >
+          Apply Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</aside>

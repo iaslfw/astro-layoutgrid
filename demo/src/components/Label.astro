@@ -1,34 +1,15 @@
-<aside class="flex flex-row gap-2 items-center relative">
-  <svg
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
-    viewBox="0 0 24 24"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M3.675 20.971a.508.508 0 0 1-.65-.637L5.615 9.21c.12-.374.6-.475.862-.183l7.756 7.544a.51.51 0 0 1-.212.82zm7.219-11.695L13.3 6.66q1.925-2.091.48-3.66M8 5.25v-.5m12-.25V4m0 9.5V13m-2 5.5V18m-4.219-5.586 2.406-2.615q2.407-2.616 4.813 0"
-    ></path>
-  </svg>
+---
+import ConfettiIcon from "./svg-components/Confetti.astro";
+import CircleIcon from "./svg-components/Circle.astro";
+---
 
-  <label class="relative text-body">V1.0.0 out now!</label>
+<aside class="relative w-max">
+  <div class="flex flex-row items-center gap-2">
+    <ConfettiIcon />
+    <label class="text-body relative">V1.0.0 out now!</label>
+  </div>
 
-  <svg
-    width="196"
-    height="38"
-    viewBox="0 0 196 38"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    class="absolute left-1/2 -translate-x-1/2"
-  >
-    <path
-      d="M1 15.3238C19.0391 12.0992 68.446 5.73985 121.761 6.09981C188.406 6.54977 195.922 19.5983 194.92 20.9482C193.918 22.2981 197.425 25.4477 145.814 31.2971C94.2018 37.1465 50.6074 38.4964 34.0716 35.3467C17.5358 32.197 8.01519 29.0474 21.0434 21.8481C34.0716 14.6489 83.4403 2.4 111 1.50009C138.56 0.600184 154.988 3.82502 160.5 4.5"
-      stroke="#7BF1A8"
-      stroke-width="1.75"
-      stroke-linecap="round"></path>
-  </svg>
+  <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+    <CircleIcon />
+  </div>
 </aside>

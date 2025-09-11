@@ -6,20 +6,67 @@
   --color-highlight: oklch(87.1% 0.15 154.449);
 }
 
-@layer utilities {
+@layer base {
   ::selection {
     @apply bg-highlight text-black;
   }
 
+  button {
+    @apply cursor-pointer;
+  }
+
+  input:focus {
+    @apply ring-highlight ring-2;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    margin: 0;
+  }
+}
+
+@layer utilities {
   .text-headline {
     @apply text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl;
   }
 
-  .text-body {
-    @apply text-sm font-normal md:text-base;
+  .text-subheadline {
+    @apply text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl;
   }
 
-  .secondary {
-    @apply opacity-50;
+  .text-body_primary {
+    @apply text-base font-normal text-black md:text-base;
+  }
+
+  .text-body_secondary {
+    @apply text-base font-normal text-gray-400 md:text-base;
+  }
+
+  .text-body_small {
+    @apply text-sm font-normal;
+  }
+
+  .debug {
+    @apply border border-solid border-red-500;
+  }
+}
+
+@layer components {
+  .pri-button {
+    @apply relative overflow-hidden bg-white px-4 py-2 text-sm md:text-base;
+  }
+
+  .cui-shadow {
+    @apply shadow-[3px_3px_0px_1.5px_#000000] transition-all duration-200 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0.5px_0.5px_0px_0.25px_#000000];
+  }
+
+  .cui-border {
+    @apply rounded-md border-2 border-black;
+  }
+
+  .cui-input {
+    @apply w-full min-w-0 px-2 py-1;
   }
 }

@@ -1,6 +1,6 @@
 ---
 interface LayoutgridProps {
-  columns?: number; // default 12
+  desktopColumns?: number; // default 12
   tabletColumns?: number;
   mobileColumns?: number;
   gutter?: number | [number, number, number]; // [mobile, tablet, desktop]
@@ -12,7 +12,7 @@ interface LayoutgridProps {
 }
 
 const {
-  columns = 12,
+  desktopColumns = 12,
   tabletColumns = 8,
   mobileColumns = 4,
   gutter = [0.75, 1, 1],
@@ -110,7 +110,6 @@ const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
     }
 
     handleKeydown(event: KeyboardEvent) {
-      // default 12
       if (
         (event.metaKey || event.ctrlKey) &&
         event.shiftKey &&
@@ -124,20 +123,20 @@ const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
     createGridColumns() {
       if (!this.columnsContainer) return;
 
-      // default 12
       this.columnsContainer.innerHTML = "";
 
-      // default 12
-      const columns = parseInt(this.dataset.columns || "12");
+      const desktopColumns = parseInt(this.dataset.desktopColumns || "12");
       const tabletColumns = parseInt(this.dataset.tabletColumns || "8");
       const mobileColumns = parseInt(this.dataset.mobileColumns || "4");
 
-      // default 12
       const gutterValues = JSON.parse(this.dataset.gutter || "[1.5, 1.5, 1.5]");
       const marginValues = JSON.parse(this.dataset.margin || "[2, 2, 2]");
 
-      // default 12
-      this.createColumnsForBreakpoint(columns, "desktop", gutterValues[2]);
+      this.createColumnsForBreakpoint(
+        desktopColumns,
+        "desktop",
+        gutterValues[2]
+      );
       this.createColumnsForBreakpoint(tabletColumns, "tablet", gutterValues[1]);
       this.createColumnsForBreakpoint(mobileColumns, "mobile", gutterValues[0]);
     }
@@ -174,7 +173,8 @@ const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
         const column = document.createElement("div");
         const showBackground = this.dataset.showBackground === "true";
 
-        column.style.border = "1px solid";
+        column.style.borderLeft = "1px solid";
+        column.style.borderRight = "1px solid";
         column.style.borderColor = this.dataset.gridColor || "#ff0000";
         column.style.boxSizing = "border-box";
 
@@ -221,7 +221,7 @@ const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
 </script>
 
 <layout-grid
-  data-columns={columns}
+  data-desktop-columns={desktopColumns}
   data-tablet-columns={tabletColumns}
   data-mobile-columns={mobileColumns}
   data-gutter={JSON.stringify(gutterArray)}
@@ -231,7 +231,7 @@ const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
   data-max-width={maxWidth}
   data-show-background={showBackground}
 >
-  <aside id="astro-layout-grid" class="layoutgrid-overlay">
+  <aside class="layoutgrid-overlay" id="astro-layout-grid">
     <div class="grid-container" style={`max-width: ${maxWidth};`}>
       <div class="layout-grid-columns"></div>
     </div>
