@@ -1,3 +1,27 @@
+/**
+ * Creates a normalized configuration object from HTML dataset attributes.
+ *
+ * This function processes the dataset attributes from a DOM element and converts
+ * them into a structured configuration object with proper type casting and default
+ * values. It handles the conversion from string-based HTML attributes to the
+ * appropriate JavaScript types needed for grid rendering.
+ *
+ * @param dataset - The DOMStringMap containing data attributes from an HTML element
+ *
+ * @returns A normalized configuration object with typed properties and defaults applied
+ *
+ * @remarks
+ * The function performs several type conversions:
+ * - String numbers are parsed to integers for columns and breakpoints
+ * - JSON strings are parsed to arrays for gutter and margin values
+ * - String floats are parsed for opacity values
+ * - Boolean strings ("true"/"false") are converted to actual booleans
+ *
+ * All properties have sensible defaults that align with common design system patterns,
+ * particularly following Tailwind CSS breakpoint conventions.
+ *
+ * @since 1.0.0
+ */
 export const createConfig = (dataset: DOMStringMap) => {
   return {
     columns: {

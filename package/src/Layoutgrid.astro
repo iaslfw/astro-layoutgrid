@@ -1,7 +1,34 @@
 ---
+/**
+ * LayoutGrid - Responsive Grid Overlay Component for Astro
+ *
+ * A customizable grid overlay system that provides visual alignment guides
+ * for responsive web development. Features include:
+ * - Responsive breakpoints (mobile, tablet, desktop)
+ * - Configurable column counts and spacing
+ * - Keyboard toggle functionality (Cmd/Ctrl + Shift + G)
+ * - ResizeObserver for real-time responsive updates
+ * - Visual customization options
+ *
+ * @component
+ * @example
+ * ```astro
+ * // Basic usage with defaults
+ * <Layoutgrid />
+ *
+ * // Custom configuration
+ * <Layoutgrid
+ *   desktopColumns={16}
+ *   gutter={[0.5, 1, 1.5]}
+ *   gridColor="#0066cc"
+ *   showBackground={true}
+ * />
+ * ```
+ */
 import type { LayoutgridProps } from "./types";
 import { prepareGridData } from "./utils";
 
+// Process and normalize component props with default values
 const gridData = prepareGridData(Astro.props as LayoutgridProps);
 const {
   mobileColumns,
@@ -19,6 +46,13 @@ const {
 ---
 
 <script>
+  /**
+   * Client-side script for the LayoutGrid component.
+   *
+   * This script defines a custom element that manages the responsive grid overlay,
+   * handles keyboard shortcuts, and provides real-time responsive updates using
+   * the ResizeObserver API.
+   */
   import type { Breakpoint } from "./types";
   import { createConfig } from "./config";
   import {
@@ -28,74 +62,134 @@ const {
     isGridToggleShortcut,
   } from "./utils";
 
+  /**
+   * Custom HTML Element class for the responsive layout grid overlay.
+   *
+   * Manages the lifecycle of the grid overlay, including:
+   * - Responsive breakpoint detection and updates
+   * - Dynamic column generation based on current breakpoint
+   * - Keyboard shortcut handling for grid visibility toggle
+   * - ResizeObserver integration for real-time responsive behavior
+   *
+   * @extends HTMLElement
+   */
   class LayoutGrid extends HTMLElement {
+    /** Current visibility state of the grid overlay */
     private isVisible = false;
+    /** Reference to the main overlay container element */
     private gridElement: HTMLElement | null = null;
+    /** Reference to the grid container with max-width and padding */
     private gridContainer: HTMLElement | null = null;
+    /** Reference to the columns container with CSS Grid layout */
     private gridColumns: HTMLElement | null = null;
+    /** ResizeObserver instance for responsive behavior monitoring */
     private resizeObserver: ResizeObserver | null = null;
+    /** Current active breakpoint based on viewport width */
     private currentBreakpoint: Breakpoint = "mobile";
+
+    /**
+     * Configuration object created from dataset attributes.
+     * Automatically updates when dataset changes.
+     */
     private get config() {
       return createConfig(this.dataset);
     }
 
     constructor() {
       super();
+      // Bind methods to preserve 'this' context in event handlers
       this.handleKeydown = this.handleKeydown.bind(this);
       this.handleResize = this.handleResize.bind(this);
     }
 
+    /**
+     * Called when the custom element is connected to the DOM.
+     *
+     * Sets up all necessary references, event listeners, and initializes
+     * the grid system with responsive behavior monitoring.
+     */
     connectedCallback() {
+      // Get references to DOM elements for grid management
       this.gridElement = this.querySelector(
         ".layoutgrid-overlay"
       ) as HTMLElement;
       this.gridContainer = this.querySelector(".grid-container") as HTMLElement;
       this.gridColumns = this.querySelector(".grid-columns") as HTMLElement;
 
+      // Set up global keyboard shortcut listener
       document.addEventListener("keydown", this.handleKeydown);
 
+      // Apply max-width constraint to grid container
       if (this.gridContainer) {
         this.gridContainer.style.maxWidth = this.dataset.maxWidth || "100vw";
       }
 
+      // Initialize ResizeObserver to monitor viewport changes
+      // Observing documentElement captures all viewport size changes
       this.resizeObserver = new ResizeObserver(this.handleResize);
       this.resizeObserver.observe(document.documentElement);
 
+      // Initialize grid with current viewport settings
       this.updateGrid();
+      // Start with grid hidden (toggle with keyboard shortcut)
       this.hideGrid();
     }
 
+    /**
+     * Called when the custom element is disconnected from the DOM.
+     *
+     * Cleans up event listeners and observers to prevent memory leaks.
+     */
     disconnectedCallback() {
       document.removeEventListener("keydown", this.handleKeydown);
       this.resizeObserver?.disconnect();
     }
 
+    /**
+     * Handles viewport resize events and updates grid if breakpoint changes.
+     *
+     * This method is called by the ResizeObserver whenever the viewport size
+     * changes. It checks if the new size triggers a different breakpoint and
+     * updates the grid layout accordingly.
+     */
     private handleResize() {
       const newBreakpoint = getBreakpoint(
         window.innerWidth,
         this.config.breakpoints.tablet,
         this.config.breakpoints.desktop
       );
+
+      // Only update if breakpoint actually changed to avoid unnecessary work
       if (newBreakpoint !== this.currentBreakpoint) {
         this.currentBreakpoint = newBreakpoint;
         this.updateGrid();
       }
     }
 
+    /**
+     * Updates the grid layout based on the current breakpoint.
+     *
+     * This method recalculates and applies all responsive grid properties:
+     * - Column count based on current breakpoint
+     * - Gutter spacing between columns
+     * - Margin padding around the grid container
+     * - Recreates all column elements with current styling
+     */
     private updateGrid() {
       if (!this.gridColumns || !this.gridContainer) return;
 
+      // Get breakpoint-specific configuration values
       const breakpointIndex = getBreakpointIndex(this.currentBreakpoint);
       const columnCount = this.config.columns[this.currentBreakpoint];
       const gutterValue = this.config.gutter[breakpointIndex];
       const marginValue = this.config.margin[breakpointIndex];
 
-      // Update styles
+      // Apply responsive spacing styles
       this.gridContainer.style.paddingInline = `${marginValue}rem`;
       this.gridColumns.style.gap = `${gutterValue}rem`;
       this.gridColumns.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
 
-      // Create columns
+      // Recreate grid columns with current styling configuration
       this.gridColumns.innerHTML = "";
       for (let i = 0; i < columnCount; i++) {
         this.gridColumns.appendChild(
@@ -108,6 +202,14 @@ const {
       }
     }
 
+    /**
+     * Handles keyboard events and toggles grid visibility for the shortcut.
+     *
+     * Listens for the Cmd/Ctrl + Shift + G combination and prevents the
+     * default browser behavior while toggling the grid overlay.
+     *
+     * @param event - The keyboard event to check
+     */
     private handleKeydown(event: KeyboardEvent) {
       if (isGridToggleShortcut(event)) {
         event.preventDefault();
@@ -115,6 +217,12 @@ const {
       }
     }
 
+    /**
+     * Toggles the visibility state of the grid overlay.
+     *
+     * Switches between visible and hidden states, updating both the
+     * internal state and the DOM display property.
+     */
     toggleGrid() {
       this.isVisible = !this.isVisible;
       if (this.gridElement) {
@@ -122,6 +230,11 @@ const {
       }
     }
 
+    /**
+     * Hides the grid overlay and updates the internal state.
+     *
+     * Used during initialization and when programmatically hiding the grid.
+     */
     hideGrid() {
       this.isVisible = false;
       if (this.gridElement) {
@@ -158,20 +271,38 @@ const {
 </layout-grid>
 
 <style>
+  /* 
+    Grid overlay styles
+    
+    The overlay is positioned fixed to cover the entire viewport
+    and uses pointer-events: none to avoid interfering with
+    page interactions while providing visual alignment guides.
+  */
+
   .layoutgrid-overlay {
     position: fixed;
-    inset: 0;
-    display: none;
-    pointer-events: none;
+    inset: 0; /* Equivalent to top: 0; right: 0; bottom: 0; left: 0; */
+    display: none; /* Hidden by default, toggled via JavaScript */
+    pointer-events: none; /* Allow clicks to pass through to underlying content */
     width: 100vw;
     height: 100vh;
   }
 
+  /* 
+    Grid container provides the responsive max-width constraint
+    and centers the grid within the viewport. Padding is applied
+    via JavaScript based on the current breakpoint's margin values.
+  */
   .grid-container {
     height: 100%;
-    margin: 0 auto;
+    margin: 0 auto; /* Center the grid horizontally */
   }
 
+  /* 
+    Grid columns container uses CSS Grid layout.
+    The grid-template-columns and gap properties are set
+    dynamically via JavaScript based on the current breakpoint.
+  */
   .grid-columns {
     display: grid;
     height: 100%;
