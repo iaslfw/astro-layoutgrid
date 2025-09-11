@@ -7,5 +7,11 @@
         "parser": "astro"
       }
     }
-  ]
+  ],
+  "bracketSameLine": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "useTabs": true,
+  "tabWidth": 2
 }

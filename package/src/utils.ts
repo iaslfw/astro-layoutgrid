@@ -1,4 +1,4 @@
-import type { LayoutgridProps, GridData, Breakpoint } from "./types";
+import type { LayoutgridProps, GridData, Breakpoint } from './types';
 
 /**
  * Prepares and normalizes grid configuration data from component props.
@@ -33,36 +33,36 @@ import type { LayoutgridProps, GridData, Breakpoint } from "./types";
  * @since 1.0.0
  */
 export function prepareGridData(props: LayoutgridProps): GridData {
-  const {
-    desktopColumns = 12,
-    tabletColumns = 8,
-    mobileColumns = 4,
-    gutter = [0.75, 1, 1],
-    margin = [0.75, 1, 1],
-    gridColor = "#ff0000",
-    gridOpacity = 0.1,
-    maxWidth = "100vw",
-    showBackground = false,
-    tabletBreakpoint = 768,
-    desktopBreakpoint = 1024,
-  } = props;
+	const {
+		desktopColumns = 12,
+		tabletColumns = 8,
+		mobileColumns = 4,
+		gutter = [0.75, 1, 1],
+		margin = [0.75, 1, 1],
+		gridColor = '#ff0000',
+		gridOpacity = 0.1,
+		maxWidth = '100vw',
+		showBackground = false,
+		tabletBreakpoint = 768,
+		desktopBreakpoint = 1024,
+	} = props;
 
-  const gutterArray = Array.isArray(gutter) ? gutter : [gutter, gutter, gutter];
-  const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
+	const gutterArray = Array.isArray(gutter) ? gutter : [gutter, gutter, gutter];
+	const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
 
-  return {
-    mobileColumns,
-    tabletColumns,
-    desktopColumns,
-    tabletBreakpoint,
-    desktopBreakpoint,
-    gutterArray,
-    marginArray,
-    gridColor,
-    gridOpacity,
-    maxWidth,
-    showBackground,
-  };
+	return {
+		mobileColumns,
+		tabletColumns,
+		desktopColumns,
+		tabletBreakpoint,
+		desktopBreakpoint,
+		gutterArray,
+		marginArray,
+		gridColor,
+		gridOpacity,
+		maxWidth,
+		showBackground,
+	};
 }
 
 /**
@@ -99,13 +99,13 @@ export function prepareGridData(props: LayoutgridProps): GridData {
  * @since 1.0.0
  */
 export function getBreakpoint(
-  width: number,
-  tabletBreakpoint: number,
-  desktopBreakpoint: number,
+	width: number,
+	tabletBreakpoint: number,
+	desktopBreakpoint: number,
 ): Breakpoint {
-  if (width >= desktopBreakpoint) return "desktop";
-  if (width >= tabletBreakpoint) return "tablet";
-  return "mobile";
+	if (width >= desktopBreakpoint) return 'desktop';
+	if (width >= tabletBreakpoint) return 'tablet';
+	return 'mobile';
 }
 
 /**
@@ -122,14 +122,14 @@ export function getBreakpoint(
  * @since 1.0.0
  */
 export function getBreakpointIndex(breakpoint: Breakpoint): number {
-  switch (breakpoint) {
-    case "desktop":
-      return 2;
-    case "tablet":
-      return 1;
-    default:
-      return 0; // mobile
-  }
+	switch (breakpoint) {
+		case 'desktop':
+			return 2;
+		case 'tablet':
+			return 1;
+		default:
+			return 0; // mobile
+	}
 }
 
 /**
@@ -165,19 +165,19 @@ export function getBreakpointIndex(breakpoint: Breakpoint): number {
  * @since 1.0.0
  */
 export function createGridColumn(
-  color: string,
-  opacity: number,
-  showBackground: boolean,
+	color: string,
+	opacity: number,
+	showBackground: boolean,
 ): HTMLElement {
-  const column = document.createElement("div");
-  column.className = "grid-column";
-  Object.assign(column.style, {
-    borderInline: `1px solid ${color}`,
-    boxSizing: "border-box",
-    backgroundColor: showBackground ? color : "transparent",
-    opacity: showBackground ? opacity.toString() : "1",
-  });
-  return column;
+	const column = document.createElement('div');
+	column.className = 'grid-column';
+	Object.assign(column.style, {
+		borderInline: `1px solid ${color}`,
+		boxSizing: 'border-box',
+		backgroundColor: showBackground ? color : 'transparent',
+		opacity: showBackground ? opacity.toString() : '1',
+	});
+	return column;
 }
 
 /**
@@ -213,7 +213,5 @@ export function createGridColumn(
  * @since 1.0.0
  */
 export function isGridToggleShortcut(event: KeyboardEvent): boolean {
-  return (
-    (event.metaKey || event.ctrlKey) && event.shiftKey && event.code === "KeyG"
-  );
+	return (event.metaKey || event.ctrlKey) && event.shiftKey && event.code === 'KeyG';
 }

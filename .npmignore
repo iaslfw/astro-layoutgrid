@@ -1,0 +1,40 @@
+# Development configuration
+tsconfig.json
+.astro/
+
+# Testing files
+*.test.*
+*.spec.*
+__tests__/
+tests/
+coverage/
+
+# Linting and formatting
+.eslintrc*
+.prettierrc*
+.editorconfig
+
+# CI/CD and development
+.github/
+.vscode/
+CONTRIBUTING.md
+CHANGELOG.md
+todo
+TODO.md
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment
+.env*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts (when you add build process)
+dist/
+build/
+*.tsbuildinfo
