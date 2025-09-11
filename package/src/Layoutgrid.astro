@@ -1,218 +1,131 @@
 ---
-interface LayoutgridProps {
-  desktopColumns?: number; // default 12
-  tabletColumns?: number;
-  mobileColumns?: number;
-  gutter?: number | [number, number, number]; // [mobile, tablet, desktop]
-  margin?: number | [number, number, number]; // [mobile, tablet, desktop]
-  gridColor?: string;
-  gridOpacity?: number;
-  maxWidth?: string;
-  showBackground?: boolean; // default false - if true shows background, if false shows only borders
-}
+import type { LayoutgridProps } from "./types";
+import { prepareGridData } from "./utils";
 
+const gridData = prepareGridData(Astro.props as LayoutgridProps);
 const {
-  desktopColumns = 12,
-  tabletColumns = 8,
-  mobileColumns = 4,
-  gutter = [0.75, 1, 1],
-  margin = [0.75, 1, 1],
-  gridColor = "#ff0000",
-  gridOpacity = 0.1,
-  maxWidth = "100vw",
-  showBackground = false,
-} = Astro.props as LayoutgridProps;
-
-const gutterArray = Array.isArray(gutter) ? gutter : [gutter, gutter, gutter];
-const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
+  mobileColumns,
+  tabletColumns,
+  desktopColumns,
+  tabletBreakpoint,
+  desktopBreakpoint,
+  gutterArray,
+  marginArray,
+  gridColor,
+  gridOpacity,
+  maxWidth,
+  showBackground,
+} = gridData;
 ---
 
 <script>
+  import type { Breakpoint } from "./types";
+  import { createConfig } from "./config";
+  import {
+    getBreakpoint,
+    getBreakpointIndex,
+    createGridColumn,
+    isGridToggleShortcut,
+  } from "./utils";
+
   class LayoutGrid extends HTMLElement {
     private isVisible = false;
     private gridElement: HTMLElement | null = null;
-    private columnsContainer: HTMLElement | null = null;
+    private gridContainer: HTMLElement | null = null;
+    private gridColumns: HTMLElement | null = null;
+    private resizeObserver: ResizeObserver | null = null;
+    private currentBreakpoint: Breakpoint = "mobile";
+    private get config() {
+      return createConfig(this.dataset);
+    }
 
     constructor() {
       super();
       this.handleKeydown = this.handleKeydown.bind(this);
+      this.handleResize = this.handleResize.bind(this);
     }
 
     connectedCallback() {
       this.gridElement = this.querySelector(
-        "#astro-layout-grid"
+        ".layoutgrid-overlay"
       ) as HTMLElement;
-      this.columnsContainer = this.querySelector(
-        ".layout-grid-columns"
-      ) as HTMLElement;
+      this.gridContainer = this.querySelector(".grid-container") as HTMLElement;
+      this.gridColumns = this.querySelector(".grid-columns") as HTMLElement;
 
       document.addEventListener("keydown", this.handleKeydown);
-      this.createGridColumns();
-      this.updateResponsiveMargins();
-      this.hideGrid();
-      this.updateResponsiveVisibility();
 
-      // Update margins and visibility on resize
-      window.addEventListener("resize", () => {
-        this.updateResponsiveMargins();
-        this.updateResponsiveVisibility();
-      });
+      if (this.gridContainer) {
+        this.gridContainer.style.maxWidth = this.dataset.maxWidth || "100vw";
+      }
+
+      this.resizeObserver = new ResizeObserver(this.handleResize);
+      this.resizeObserver.observe(document.documentElement);
+
+      this.updateGrid();
+      this.hideGrid();
     }
 
     disconnectedCallback() {
       document.removeEventListener("keydown", this.handleKeydown);
-      window.removeEventListener("resize", () => {
-        this.updateResponsiveMargins();
-        this.updateResponsiveVisibility();
-      });
+      this.resizeObserver?.disconnect();
     }
 
-    updateResponsiveMargins() {
-      const container = this.querySelector(".grid-container") as HTMLElement;
-      if (!container) return;
-
-      const marginValues = JSON.parse(this.dataset.margin || "[2, 2, 2]");
-      const screenWidth = window.innerWidth;
-
-      let marginValue;
-      if (screenWidth >= 1024) {
-        marginValue = marginValues[2]; // Desktop
-      } else if (screenWidth >= 768) {
-        marginValue = marginValues[1]; // Tablet
-      } else {
-        marginValue = marginValues[0]; // Mobile
+    private handleResize() {
+      const newBreakpoint = getBreakpoint(
+        window.innerWidth,
+        this.config.breakpoints.tablet,
+        this.config.breakpoints.desktop
+      );
+      if (newBreakpoint !== this.currentBreakpoint) {
+        this.currentBreakpoint = newBreakpoint;
+        this.updateGrid();
       }
-
-      container.style.paddingLeft = `${marginValue}rem`;
-      container.style.paddingRight = `${marginValue}rem`;
     }
 
-    updateResponsiveVisibility() {
-      if (!this.columnsContainer) return;
+    private updateGrid() {
+      if (!this.gridColumns || !this.gridContainer) return;
 
-      const screenWidth = window.innerWidth;
-      const containers = this.columnsContainer.querySelectorAll(
-        "[data-breakpoint]"
-      ) as NodeListOf<HTMLElement>;
+      const breakpointIndex = getBreakpointIndex(this.currentBreakpoint);
+      const columnCount = this.config.columns[this.currentBreakpoint];
+      const gutterValue = this.config.gutter[breakpointIndex];
+      const marginValue = this.config.margin[breakpointIndex];
 
-      containers.forEach((container) => {
-        const breakpoint = container.dataset.breakpoint;
+      // Update styles
+      this.gridContainer.style.paddingInline = `${marginValue}rem`;
+      this.gridColumns.style.gap = `${gutterValue}rem`;
+      this.gridColumns.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
 
-        if (breakpoint === "mobile") {
-          container.style.display = screenWidth < 768 ? "grid" : "none";
-        } else if (breakpoint === "tablet") {
-          container.style.display =
-            screenWidth >= 768 && screenWidth < 1024 ? "grid" : "none";
-        } else if (breakpoint === "desktop") {
-          container.style.display = screenWidth >= 1024 ? "grid" : "none";
-        }
-      });
+      // Create columns
+      this.gridColumns.innerHTML = "";
+      for (let i = 0; i < columnCount; i++) {
+        this.gridColumns.appendChild(
+          createGridColumn(
+            this.config.gridColor,
+            this.config.gridOpacity,
+            this.config.showBackground
+          )
+        );
+      }
     }
 
-    handleKeydown(event: KeyboardEvent) {
-      if (
-        (event.metaKey || event.ctrlKey) &&
-        event.shiftKey &&
-        event.code === "KeyG"
-      ) {
+    private handleKeydown(event: KeyboardEvent) {
+      if (isGridToggleShortcut(event)) {
         event.preventDefault();
         this.toggleGrid();
       }
     }
 
-    createGridColumns() {
-      if (!this.columnsContainer) return;
-
-      this.columnsContainer.innerHTML = "";
-
-      const desktopColumns = parseInt(this.dataset.desktopColumns || "12");
-      const tabletColumns = parseInt(this.dataset.tabletColumns || "8");
-      const mobileColumns = parseInt(this.dataset.mobileColumns || "4");
-
-      const gutterValues = JSON.parse(this.dataset.gutter || "[1.5, 1.5, 1.5]");
-      const marginValues = JSON.parse(this.dataset.margin || "[2, 2, 2]");
-
-      this.createColumnsForBreakpoint(
-        desktopColumns,
-        "desktop",
-        gutterValues[2]
-      );
-      this.createColumnsForBreakpoint(tabletColumns, "tablet", gutterValues[1]);
-      this.createColumnsForBreakpoint(mobileColumns, "mobile", gutterValues[0]);
-    }
-
-    createColumnsForBreakpoint(
-      columnCount: number,
-      breakpoint: string,
-      gutterValue: number
-    ) {
-      if (!this.columnsContainer) return;
-
-      const container = document.createElement("div");
-      container.className = `grid-${breakpoint}`;
-
-      // default 12
-      container.style.display = "grid";
-      container.style.height = "100%";
-      container.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
-      container.style.gap = gutterValue + "rem";
-
-      // default 12
-      if (breakpoint === "mobile") {
-        container.style.display = "grid";
-        container.dataset.breakpoint = "mobile";
-      } else if (breakpoint === "tablet") {
-        container.style.display = "none";
-        container.dataset.breakpoint = "tablet";
-      } else if (breakpoint === "desktop") {
-        container.style.display = "none";
-        container.dataset.breakpoint = "desktop";
-      }
-
-      for (let i = 0; i < columnCount; i++) {
-        const column = document.createElement("div");
-        const showBackground = this.dataset.showBackground === "true";
-
-        column.style.borderLeft = "1px solid";
-        column.style.borderRight = "1px solid";
-        column.style.borderColor = this.dataset.gridColor || "#ff0000";
-        column.style.boxSizing = "border-box";
-
-        if (showBackground) {
-          column.style.backgroundColor = this.dataset.gridColor || "#ff0000";
-          column.style.opacity = this.dataset.gridOpacity || "0.1";
-        } else {
-          column.style.backgroundColor = "transparent";
-          column.style.opacity = "1";
-        }
-
-        container.appendChild(column);
-      }
-
-      this.columnsContainer.appendChild(container);
-    }
-
     toggleGrid() {
       this.isVisible = !this.isVisible;
-
-      if (this.isVisible) {
-        this.showGrid();
-      } else {
-        this.hideGrid();
-      }
-    }
-
-    showGrid() {
       if (this.gridElement) {
-        this.gridElement.style.display = "block";
-        console.log("Layout grid: ON");
+        this.gridElement.style.display = this.isVisible ? "block" : "none";
       }
     }
 
     hideGrid() {
+      this.isVisible = false;
       if (this.gridElement) {
         this.gridElement.style.display = "none";
-        console.log("Layout grid: OFF");
       }
     }
   }
@@ -221,45 +134,46 @@ const marginArray = Array.isArray(margin) ? margin : [margin, margin, margin];
 </script>
 
 <layout-grid
-  data-desktop-columns={desktopColumns}
-  data-tablet-columns={tabletColumns}
   data-mobile-columns={mobileColumns}
+  data-tablet-columns={tabletColumns}
+  data-desktop-columns={desktopColumns}
+  data-tablet-breakpoint={tabletBreakpoint}
+  data-desktop-breakpoint={desktopBreakpoint}
   data-gutter={JSON.stringify(gutterArray)}
   data-margin={JSON.stringify(marginArray)}
   data-grid-color={gridColor}
   data-grid-opacity={gridOpacity}
-  data-max-width={maxWidth}
   data-show-background={showBackground}
+  data-max-width={maxWidth}
 >
-  <aside class="layoutgrid-overlay" id="astro-layout-grid">
-    <div class="grid-container" style={`max-width: ${maxWidth};`}>
-      <div class="layout-grid-columns"></div>
+  <aside
+    class="layoutgrid-overlay"
+    style={`z-index: 1000;`}
+    id="astro-layout-grid"
+  >
+    <div class="grid-container">
+      <div class="grid-columns"></div>
     </div>
   </aside>
 </layout-grid>
 
 <style>
   .layoutgrid-overlay {
-    pointer-events: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
+    inset: 0;
     display: none;
-    height: 100vh;
+    pointer-events: none;
     width: 100vw;
+    height: 100vh;
   }
 
   .grid-container {
-    margin-left: auto;
-    margin-right: auto;
     height: 100%;
+    margin: 0 auto;
   }
 
-  .layout-grid-columns {
-    position: relative;
+  .grid-columns {
+    display: grid;
     height: 100%;
   }
 </style>
