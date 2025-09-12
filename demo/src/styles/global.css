@@ -48,6 +48,10 @@
     @apply text-sm font-normal;
   }
 
+  .aligned-width {
+    @apply w-[92.5vw] md:w-[47.5vw] lg:w-[32vw];
+  }
+
   .debug {
     @apply border border-solid border-red-500;
   }

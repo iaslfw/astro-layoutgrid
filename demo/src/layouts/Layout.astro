@@ -3,7 +3,8 @@ import "@fontsource-variable/work-sans";
 import "../styles/global.css";
 
 import Layoutgrid from "astro-layoutgrid";
-import GridBackground from "../components/GridBackground.astro";
+import GridBackground from "@components/GridBackground.astro";
+import Navigation from "@components/Navigation.astro";
 ---
 
 <html lang="en">
@@ -19,10 +20,11 @@ import GridBackground from "../components/GridBackground.astro";
     />
   </head>
 
-  <body class="relative w-screen h-screen overflow-x-hidden font-sans">
+  <body class="relative h-screen w-screen overflow-x-hidden font-sans">
     <Layoutgrid />
 
-    <main class="relative w-full h-full z-10">
+    <Navigation />
+    <main class="relative z-10 h-full w-full">
       <GridBackground />
       <slot />
     </main>

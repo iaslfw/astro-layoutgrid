@@ -1,0 +1,23 @@
+---
+import Staricon from "./svgs/Star.astro";
+import GithubLogo from "./svgs/github-mark.svg";
+---
+
+<header
+  class="cui-border aligned-width fixed top-3 left-1/2 z-50 -translate-x-1/2 bg-white px-3 py-2 md:top-4"
+>
+  <div class="flex w-full flex-row items-center justify-between">
+    <div class="flex flex-row items-center gap-1">
+      <Staricon />
+      <p class="text-body_primary">by 12345 people</p>
+    </div>
+
+    <a
+      class="flex flex-row items-center gap-2"
+      href="https://www.github.com/iaslfw/astro-layoutgrid"
+      target="_blank"
+    >
+      <GithubLogo width={25} height={24} viewBox={"0 0 24 24"} />
+    </a>
+  </div>
+</header>

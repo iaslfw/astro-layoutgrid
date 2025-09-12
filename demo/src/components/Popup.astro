@@ -1,5 +1,5 @@
 ---
-import Cross from "@components/svg-components/Cross.astro";
+import Cross from "@components/svgs/Cross.astro";
 ---
 
 <script>
@@ -15,13 +15,35 @@ import Cross from "@components/svg-components/Cross.astro";
   const closeButton = document.getElementById(
     "close-button"
   ) as HTMLButtonElement;
+  const closePopup = () => {
+    animate(popup, {
+      opacity: [1, 0],
+      y: [0, 20],
+      duration: 150,
+      onComplete: () => {
+        popup.classList.add("pointer-events-none");
+      },
+    });
+  };
+
+  // data-mobile-columns="4"
+  // data-tablet-columns="8"
+  // data-desktop-columns="12"
+  // data-tablet-breakpoint="768"
+  // data-desktop-breakpoint="1024"
+  // data-gutter="[0.75,1,1]"
+  // data-margin="[0.75,1,1]"
+  // data-grid-color="#ff0000"
+  // data-grid-opacity="0.1"
+  // data-show-background="false"
+  // data-max-width="100vw"
+  // data-astro-cid-4bath36q="true"
 
   subButton?.addEventListener("click", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     const settings = Object.fromEntries(formData);
-
-    console.log(settings);
+    console.log("Settings: ", settings);
 
     gridParent.setAttribute(
       "data-desktop-columns",
@@ -35,37 +57,31 @@ import Cross from "@components/svg-components/Cross.astro";
       "data-mobile-columns",
       settings.columnsMob.toString()
     );
-    // grid.setAttribute("data-gutter", settings.gutter.toString());
-    // grid.setAttribute("data-margin", settings.margin.toString());
-    // grid.setAttribute("data-color", settings.color.toString());
-    // grid.setAttribute("data-opacity", settings.opacity.toString());
-    // grid.setAttribute("data-max-width", settings.maxWidth.toString());
 
-    grid.style.display = grid.style.display === "block" ? "none" : "block";
+    console.log(gridParent);
+
+    window.dispatchEvent(new Event("resize"));
+
+    grid.style.display = "none";
+    requestAnimationFrame(() => {
+      grid.style.display = "block";
+
+      // Reset button after update
+      setTimeout(() => {
+        subButton.textContent = "Apply Changes";
+        subButton.disabled = false;
+      }, 500);
+    });
   });
 
   document.addEventListener("keydown", (e) => {
     console.log(e.key);
     if (e.key != "Escape") return;
-    animate(popup, {
-      opacity: [1, 0],
-      y: [0, 20],
-      duration: 150,
-      onComplete: () => {
-        popup.classList.add("pointer-events-none");
-      },
-    });
+    closePopup();
   });
 
   closeButton?.addEventListener("click", () => {
-    animate(popup, {
-      opacity: [1, 0],
-      y: [0, 20],
-      duration: 150,
-      onComplete: () => {
-        popup.classList.add("pointer-events-none");
-      },
-    });
+    closePopup();
   });
 </script>
 
@@ -105,8 +121,8 @@ import Cross from "@components/svg-components/Cross.astro";
                 type="number"
                 id="columnsMob"
                 name="columnsMob"
-                value="12"
-                min="1"
+                value="4"
+                min="2"
                 max="16"
               />
             </div>
@@ -120,7 +136,7 @@ import Cross from "@components/svg-components/Cross.astro";
                 id="columnsTab"
                 name="columnsTab"
                 value="8"
-                min="1"
+                min="2"
                 max="16"
               />
             </div>
@@ -133,8 +149,8 @@ import Cross from "@components/svg-components/Cross.astro";
                 type="number"
                 id="columnsDesk"
                 name="columnsDesk"
-                value="4"
-                min="1"
+                value="12"
+                min="2"
                 max="16"
               />
             </div>
@@ -189,7 +205,7 @@ import Cross from "@components/svg-components/Cross.astro";
                 name="opacity"
                 min="0"
                 max="1"
-                step="0.1"
+                step="0.01"
                 value="0.25"
               />
             </div>
@@ -214,6 +230,7 @@ import Cross from "@components/svg-components/Cross.astro";
             <input
               type="checkbox"
               id="toggle-bg"
+              name="toggleBg"
               class="border-2 active:bg-black"
             />
             <label for="toggle-bg">Show background color</label>
