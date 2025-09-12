@@ -7,7 +7,8 @@ A lightweight, zero-dependency responsive grid overlay component for Astro that 
 [![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
 
 ## Demo
-[<img src="https://github.com/iaslfw/astro-layoutgrid/tree/main/demo/src/assets/thumbnail.png">](astro-layoutgrid-demo.netlify.app)
+
+[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/demo/src/assets/thumbnail.png)](https://astro-layoutgrid-demo.netlify.app)
 
 ## ✨ Features
 
