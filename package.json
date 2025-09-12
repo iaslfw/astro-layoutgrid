@@ -1,8 +1,8 @@
 {
-  "name": "astro-layoutgrid",
-  "version": "1.0.0",
-  "workspaces": [
-    "demo",
-    "package/*"
-  ]
+	"name": "astro-layoutgrid",
+	"version": "1.0.0",
+	"workspaces": [
+		"demo/*",
+		"package/*"
+	]
 }

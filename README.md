@@ -248,7 +248,12 @@ import LayoutGrid from 'astro-layoutgrid';
 <LayoutGrid gridColor="#ef4444" />
 
 <!-- 16-column design system grid -->
-<LayoutGrid desktopColumns={16} gridColor="#3b82f6" showBackground={true} gridOpacity={0.05} />
+<LayoutGrid
+	desktopColumns={16}
+	gridColor="#3b82f6"
+	showBackground={true}
+	gridOpacity={0.05}
+/>
 ```
 
 ## 🌐 Browser Support
