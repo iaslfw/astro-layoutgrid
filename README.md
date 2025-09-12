@@ -6,6 +6,9 @@ A lightweight, zero-dependency responsive grid overlay component for Astro that 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
 
+## Demo
+[<img src="https://github.com/iaslfw/astro-layoutgrid/tree/main/demo/src/assets/thumbnail.png">](astro-layoutgrid-demo.netlify.app)
+
 ## ✨ Features
 
 - 🎯 **Responsive Grid Overlay** - Visual grid system with mobile, tablet, and desktop breakpoints

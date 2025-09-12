@@ -1,7 +1,10 @@
 ---
 import Staricon from "./svgs/Star.astro";
-import GithubLogo from "./svgs/github-mark.svg";
+import Image from "astro/components/Image.astro";
+import GithubLogo from "@assets/github-mark.png";
+
 ---
+
 
 <header
   class="cui-border aligned-width fixed top-3 left-1/2 z-50 -translate-x-1/2 bg-white px-3 py-2 md:top-4"
@@ -9,7 +12,7 @@ import GithubLogo from "./svgs/github-mark.svg";
   <div class="flex w-full flex-row items-center justify-between">
     <div class="flex flex-row items-center gap-1">
       <Staricon />
-      <p class="text-body_primary">by 12345 people</p>
+      <p class="text-body_primary">star it</p>
     </div>
 
     <a
@@ -17,7 +20,7 @@ import GithubLogo from "./svgs/github-mark.svg";
       href="https://www.github.com/iaslfw/astro-layoutgrid"
       target="_blank"
     >
-      <GithubLogo width={25} height={24} viewBox={"0 0 24 24"} />
+      <Image src={GithubLogo} alt="GitHub Logo" width={24} height={24} inferSize={false} />
     </a>
   </div>
 </header>
