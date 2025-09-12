@@ -26,3 +26,4 @@ pnpm-debug.log*
 # miscellaneous
 .vscode/
 todo
+*.todo

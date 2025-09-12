@@ -1,18 +1,19 @@
 {
 	"extends": "astro/tsconfigs/strict",
-	"include": [".astro/types.d.ts", "**/*"],
-	"exclude": ["dist", "node_modules"],
 	"compilerOptions": {
-		"jsx": "preserve",
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
 		"declaration": true,
 		"declarationMap": true,
-		"emitDeclarationOnly": true,
-		"outDir": "./dist",
-		"rootDir": "./",
+		"outDir": "dist",
+		"rootDir": ".",
+		"strict": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "bundler",
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
-	}
+		"esModuleInterop": true,
+		"jsx": "preserve"
+	},
+	"include": ["src/**/*", "index.ts"],
+	"exclude": ["dist", "node_modules"]
 }

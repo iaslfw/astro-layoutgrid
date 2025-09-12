@@ -41,7 +41,7 @@
  ✔  **Add dist/ folder** for compiled output @done(25-09-11 18:19)
  ✔  **Configure proper entry points** in package.json @done(25-09-11 18:02)
  ✔  **Add pre-publish script** to ensure build runs before publishing @done(25-09-11 18:02)
- ☐  **Test package installation** with `npm pack` and local testing -> error: Failed to resolve entry for package "astro-layoutgrid". The package may have incorrect main/module/exports specified in its package.json.
+ ✔  **Test package installation** with `npm pack` and local testing -> error: Failed to resolve entry for package "astro-layoutgrid". The package may have incorrect main/module/exports specified in its package.json. @done(25-09-12 14:46)
 
 ### 5. File Organization
  ☐  **Add proper TypeScript declarations** (.d.ts files)
