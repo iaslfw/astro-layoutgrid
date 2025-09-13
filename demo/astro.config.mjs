@@ -13,5 +13,5 @@ export default defineConfig({
 
   integrations: [],
   adapter: netlify(),
-  output: "server",
+  output: "static",
 });
