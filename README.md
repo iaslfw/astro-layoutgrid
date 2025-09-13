@@ -94,6 +94,7 @@ import LayoutGrid from 'astro-layoutgrid';
 | `showBackground`    | `boolean`                            | `false`        | Show colored column backgrounds                    |
 | `tabletBreakpoint`  | `number`                             | `768`          | Tablet breakpoint in pixels                        |
 | `desktopBreakpoint` | `number`                             | `1024`         | Desktop breakpoint in pixels                       |
+| `zIndex` | `number`                             | `1000`         | zIndex of the                       |
 
 ### Responsive Configuration
 

@@ -45,6 +45,7 @@ export function prepareGridData(props: LayoutgridProps): GridData {
 		showBackground = false,
 		tabletBreakpoint = 768,
 		desktopBreakpoint = 1024,
+		zIndex = 1000,
 	} = props;
 
 	const gutterArray = Array.isArray(gutter) ? gutter : [gutter, gutter, gutter];
@@ -62,6 +63,7 @@ export function prepareGridData(props: LayoutgridProps): GridData {
 		gridOpacity,
 		maxWidth,
 		showBackground,
+		zIndex
 	};
 }
 

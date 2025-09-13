@@ -41,6 +41,8 @@ export interface GridData {
 	maxWidth: string;
 	/** Whether to display colored backgrounds in grid columns */
 	showBackground: boolean;
+	/** z-index value for the grid overlay */
+	zIndex: number;
 }
 
 /**
@@ -83,4 +85,6 @@ export interface LayoutgridProps {
 	tabletBreakpoint?: number;
 	/** Minimum viewport width in pixels to trigger desktop layout. @default 1024 */
 	desktopBreakpoint?: number;
+	/** z-index value for the grid overlay @default 1000*/
+	zIndex: number;
 }

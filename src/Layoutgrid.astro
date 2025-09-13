@@ -42,6 +42,7 @@ const {
 	gridOpacity,
 	maxWidth,
 	showBackground,
+	zIndex,
 } = gridData;
 ---
 
@@ -252,7 +253,7 @@ const {
 	data-grid-opacity={gridOpacity}
 	data-show-background={showBackground}
 	data-max-width={maxWidth}>
-	<aside class="layoutgrid-overlay" style={`z-index: 1000;`} id="astro-layout-grid">
+	<aside class="layoutgrid-overlay" style={`z-index: ${zIndex};`} id="astro-layout-grid">
 		<div class="grid-container">
 			<div class="grid-columns"></div>
 		</div>

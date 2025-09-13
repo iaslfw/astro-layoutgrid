@@ -7,62 +7,83 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.1...HEAD
-[1.1.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...v1.0.0
-[0.3.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.8...v0.1.0
-[0.0.8]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.7...v0.0.8
-[0.0.7]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.6...v0.0.7
-[0.0.6]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.5...v0.0.6
-[0.0.5]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.4...v0.0.5
-[0.0.4]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.3...v0.0.4
-[0.0.3]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.2...v0.0.3
-[0.0.2]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.1
+## [1.1.0] - 2025-09-13
+
+### Added
+
+- **zIndex Configuration**: Added configurable z-index property for better layer control
+  - New `zIndex` prop in component interface for controlling overlay stacking
+  - Allows developers to position grid above or below other elements as needed
+  - Improves integration with complex layouts and modal overlays
+
+### Enhanced
+
+- **TypeScript Support**: Extended type definitions to include zIndex property
+- **Component Flexibility**: Better control over grid positioning in layered interfaces
+
+## [1.0.1] - 2025-09-13
+
+### Changed
+
+- **Project Structure**: Moved demo folder to separate project for cleaner package organization
+- **Package Organization**: Restructured project with standard npm package layout
+  - Moved all package files from `/package/` subdirectory to root level
+  - Updated [`package.json`](package.json ) entry points to reflect new structure
+  - Cleaned up unnecessary build files and directories
+- **Simplified Dependencies**: Removed workspace configuration for independent package management
+
+### Fixed
+
+- **README Demo Section**: Improved demo image alt text for better accessibility
+- **Package Entry Points**: Corrected file paths in [`package.json`](package.json ) after restructuring
+
+### Removed
+
+- **Demo Folder**: Moved to separate repository for better separation of concerns
+- **Build Dependencies**: Removed unused TypeScript compilation and build artifacts
 
 ## [1.0.0] - 2025-09-12
 
 ### Added
 
-- Initial release of Astro LayoutGrid component
-- Zero-dependency layout grid system for AstroJS
-- Customizable grid with configurable rows, columns, and gaps
-- Responsive breakpoint support (mobile, tablet, desktop)
-- Interactive toggle functionality with keyboard shortcuts
-- TypeScript support with full type definitions
-- Astro component integration (.astro file format)
-- Configurable visual styling (colors, opacity, z-index)
-- Accessibility features and ARIA support
-- MIT license for open source usage
+- **Initial Release**: First stable version of Astro LayoutGrid component
+- **Core Grid System**: Zero-dependency layout grid for AstroJS applications
+- **Responsive Configuration**: Customizable grid with configurable rows, columns, and gaps
+- **Breakpoint Support**: Mobile, tablet, and desktop responsive breakpoints
+- **Interactive Controls**: Toggle grid visibility with keyboard shortcuts
+- **TypeScript Support**: Full TypeScript integration with type definitions
+- **Astro Integration**: Native `.astro` component format for seamless integration
+- **Visual Customization**: Configurable colors, opacity, and z-index settings
+- **Accessibility**: ARIA support and keyboard navigation
+- **Documentation**: Comprehensive README with usage examples and API documentation
 
 ### Features
 
 - **Grid Configuration**: Adjustable rows and columns per breakpoint
-- **Responsive Design**: Mobile-first approach with breakpoint customization
-- **Keyboard Shortcuts**: Toggle grid visibility with configurable keys
-- **Visual Customization**: Customizable colors, gaps, and opacity
+- **Responsive Design**: Mobile-first approach with customizable breakpoints
+- **Keyboard Shortcuts**: Configurable hotkeys for grid toggle functionality
+- **Visual Styling**: Customizable grid colors, gaps, and transparency
 - **Developer Tools**: Perfect for layout debugging and design alignment
-- **Zero Dependencies**: Lightweight with no external dependencies
-- **TypeScript Ready**: Full TypeScript support and declarations
+- **Zero Dependencies**: Lightweight package with no external dependencies
+- **Modern Standards**: ESM modules, TypeScript ready, Astro 5.0+ compatible
 
-### Technical
+### Technical Details
 
-- Source distribution package (no build step required)
-- ESM module format
-- Peer dependency: Astro ^5.0.0
-- Compatible with modern browsers
-- Proper npm package configuration
-- Comprehensive documentation and examples
+- **Package Type**: Source distribution (no build step required)
+- **Module Format**: ESM (ECMAScript modules)
+- **Peer Dependencies**: Astro ^5.0.0
+- **Browser Support**: Modern browsers with ES2022+ support
+- **License**: MIT License for open source usage
+- **Package Size**: Minimal footprint with zero dependencies
 
 ---
 
-**Initial Release Notes:**
+**Release Notes:**
 
-This is the first stable release of Astro LayoutGrid, providing developers with a powerful, lightweight solution for layout debugging and design alignment in AstroJS applications. The component has been thoroughly tested and is ready for production use.
+**v1.1.0** added the functionality to change the zIndex of the component for better controls.
+
+**v1.0.1** focuses on improving the package structure and maintainability by adopting standard npm package conventions and separating development concerns.
+
+**v1.0.0** was the initial stable release, providing developers with a powerful, lightweight solution for layout debugging and design alignment in AstroJS applications.
 
 For installation instructions, usage examples, and full documentation, please see the [README.md](README.md).
-
-What is a changelog?
