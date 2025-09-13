@@ -1,6 +1,6 @@
 {
 	"name": "astro-layoutgrid",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A zero-dependency layout grid component for AstroJS.",
 	"author": "Sebastian Wolf, IaSlf",
 	"license": "MIT",
@@ -14,7 +14,8 @@
 		"devtools",
 		"dev-overlay",
 		"tooling",
-		"utils"
+		"utils",
+		"component"
 	],
 	"type": "module",
 	"main": "dist/index.js",
