@@ -1,12 +1,17 @@
 ---
 import ConfettiIcon from "@components/svgs/Confetti.astro";
 import CircleIcon from "@components/svgs/Circle.astro";
+import latestVersion from "latest-version";
+
+const version = await latestVersion("astro-layoutgrid");
 ---
 
 <aside class="relative w-max">
   <div class="flex flex-row items-center gap-2">
     <ConfettiIcon />
-    <label class="text-body relative">V1.1.0 out now!</label>
+    <p class="text-body relative">
+      <span class="font-bold">v{version}</span> out now!
+    </p>
   </div>
 
   <div class="absolute -top-3 left-1/2 -translate-x-1/2">

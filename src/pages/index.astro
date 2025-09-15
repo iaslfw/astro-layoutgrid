@@ -15,7 +15,9 @@ import Popup from "@components/Popup.astro";
   const grid = document.getElementById("astro-layout-grid") as HTMLElement;
 
   toggleButton.addEventListener("click", () => {
-    grid.style.display = grid.style.display === "block" ? "none" : "block";
+    const style = grid.style.display;
+    const isVisible = style === "block";
+    grid.style.display = isVisible ? "" : "block";
   });
 
   editButton?.addEventListener("click", () => {
@@ -82,7 +84,11 @@ import Popup from "@components/Popup.astro";
             class="cui-shadow cui-border pri-button flex w-fit flex-col"
             id="toggle-btn">&#x2318; + &#x21E7; + g or click</button
           >
-          <button class="cui-shadow cui-border pri-button w-fit opacity-50 text-gray-400" id="edit-btn" disabled>
+          <button
+            class="cui-shadow cui-border pri-button w-fit text-gray-400 opacity-50"
+            id="edit-btn"
+            disabled
+          >
             <svg
               width="24"
               height="24"
