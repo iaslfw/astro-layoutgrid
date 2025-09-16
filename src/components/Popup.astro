@@ -5,8 +5,6 @@ import Cross from "@components/svgs/Cross.astro";
 <script>
   import { animate } from "animejs";
 
-  const grid = document.getElementById("astro-layout-grid") as HTMLElement;
-  const gridParent = grid!.parentNode as HTMLElement;
   const popup = document.getElementById("settings-popup") as HTMLElement;
   const form = document.getElementById("settings-form") as HTMLFormElement;
   const subButton = document.getElementById(
@@ -26,24 +24,15 @@ import Cross from "@components/svgs/Cross.astro";
     });
   };
 
-  // data-mobile-columns="4"
-  // data-tablet-columns="8"
-  // data-desktop-columns="12"
-  // data-tablet-breakpoint="768"
-  // data-desktop-breakpoint="1024"
-  // data-gutter="[0.75,1,1]"
-  // data-margin="[0.75,1,1]"
-  // data-grid-color="#ff0000"
-  // data-grid-opacity="0.1"
-  // data-show-background="false"
-  // data-max-width="100vw"
-  // data-astro-cid-4bath36q="true"
-
   subButton?.addEventListener("click", (e) => {
     e.preventDefault();
+    const grid = document.getElementById("astro-layout-grid") as HTMLElement;
+    const gridParent = grid!.parentNode as HTMLElement;
     const formData = new FormData(form);
     const settings = Object.fromEntries(formData);
     console.log("Settings: ", settings);
+
+    document.body.removeChild(gridParent);
 
     gridParent.setAttribute(
       "data-desktop-columns",
@@ -57,21 +46,26 @@ import Cross from "@components/svgs/Cross.astro";
       "data-mobile-columns",
       settings.columnsMob.toString()
     );
+    gridParent.setAttribute(
+      "data-gutter",
+      JSON.stringify(settings.gutter.toString())
+    );
+    gridParent.setAttribute(
+      "data-margin",
+      JSON.stringify(settings.margin.toString())
+    );
+    gridParent.setAttribute("data-grid-color", settings.color.toString());
+    gridParent.setAttribute("data-grid-opacity", settings.opacity.toString());
+    gridParent.setAttribute("data-max-width", settings.maxWidth.toString());
+    gridParent.setAttribute(
+      "data-show-background",
+      settings.toggleBg ? "true" : "false"
+    );
 
-    console.log(gridParent);
+    document.body.appendChild(gridParent);
+    console.log("Grid Parent: ", gridParent);
 
-    window.dispatchEvent(new Event("resize"));
-
-    grid.style.display = "none";
-    requestAnimationFrame(() => {
-      grid.style.display = "block";
-
-      // Reset button after update
-      setTimeout(() => {
-        subButton.textContent = "Apply Changes";
-        subButton.disabled = false;
-      }, 500);
-    });
+    grid.style.display = "block";
   });
 
   document.addEventListener("keydown", (e) => {
@@ -159,27 +153,27 @@ import Cross from "@components/svgs/Cross.astro";
           <!-- Adjust margin & gutter -->
           <div class="flex w-full flex-col items-center gap-2 md:flex-row">
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="gutter"> Gutter in px </label>
+              <label class="text-body_small" for="gutter"> Gutter in rem</label>
               <input
                 class="cui-border cui-input"
                 type="number"
                 id="gutter"
                 name="gutter"
-                max="200"
-                min="1"
-                value="16"
+                max="10"
+                min="0.2"
+                value="1"
               />
             </div>
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="margin"> Margin in px </label>
+              <label class="text-body_small" for="margin"> Margin in rem</label>
               <input
                 class="cui-border cui-input"
                 type="number"
                 id="margin"
                 name="margin"
-                max="200"
-                min="1"
-                value="16"
+                max="10"
+                min="0.2"
+                value="1"
               />
             </div>
           </div>

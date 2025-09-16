@@ -22,6 +22,29 @@ import Popup from "@components/Popup.astro";
 
   editButton?.addEventListener("click", () => {
     const popup = document.getElementById("settings-popup") as HTMLElement;
+    const inputs = popup.querySelectorAll("input") as NodeListOf<
+      HTMLInputElement | HTMLSelectElement
+    >;
+    const defaults = {
+      columnsDesk: 12,
+      columnsTab: 8,
+      columnsMob: 4,
+      gutter: 1,
+      margin: 1,
+      color: "#ff0000",
+      opacity: 0.25,
+      maxWidth: 1280,
+      toggleBg: false,
+    };
+
+    inputs.forEach((input) => {
+      const name = input.name as keyof typeof defaults;
+      if (input.type === "checkbox") {
+        input.checked = defaults[name] as boolean;
+      } else {
+        input.value = defaults[name].toString();
+      }
+    });
 
     animate(popup, {
       opacity: [0, 1],
@@ -84,11 +107,7 @@ import Popup from "@components/Popup.astro";
             class="cui-shadow cui-border pri-button flex w-fit flex-col"
             id="toggle-btn">&#x2318; + &#x21E7; + g or click</button
           >
-          <button
-            class="cui-shadow cui-border pri-button w-fit text-gray-400 opacity-50"
-            id="edit-btn"
-            disabled
-          >
+          <button class="cui-shadow cui-border pri-button w-fit" id="edit-btn">
             <svg
               width="24"
               height="24"
