@@ -5,10 +5,11 @@ A lightweight, zero-dependency responsive grid overlay component for Astro that 
 [![NPM Version](https://img.shields.io/npm/v/astro-layoutgrid)](https://www.npmjs.com/package/astro-layoutgrid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/934dc2b3-32c2-45a1-b902-3bfb0fef6c26/deploy-status)](https://app.netlify.com/projects/astro-layoutgrid-demo/deploys)
 
 ## Demo
 
-[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/demo/src/assets/thumbnail.png)](https://astro-layoutgrid-demo.netlify.app)
+[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/thumbnail.png)](https://astro-layoutgrid-demo.netlify.app)
 
 ## ✨ Features
 
