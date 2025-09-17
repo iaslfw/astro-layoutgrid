@@ -2,7 +2,6 @@
 import Layout from "@layouts/Layout.astro";
 
 import Label from "@components/Label.astro";
-import Popup from "@components/Popup.astro";
 ---
 
 <script>
@@ -21,8 +20,10 @@ import Popup from "@components/Popup.astro";
   });
 
   editButton?.addEventListener("click", () => {
-    const popup = document.getElementById("settings-popup") as HTMLElement;
-    const inputs = popup.querySelectorAll("input") as NodeListOf<
+    const popupContainer = document.getElementById(
+      "settings-popup"
+    ) as HTMLElement;
+    const inputs = popupContainer.querySelectorAll("input") as NodeListOf<
       HTMLInputElement | HTMLSelectElement
     >;
     const defaults = {
@@ -46,12 +47,13 @@ import Popup from "@components/Popup.astro";
       }
     });
 
-    animate(popup, {
+    animate(popupContainer, {
       opacity: [0, 1],
-      y: [20, 0],
       duration: 200,
+      y: [20, 0],
       onBegin: () => {
-        popup.classList.remove("pointer-events-none");
+        popupContainer.classList.remove("pointer-events-none");
+        popupContainer.setAttribute("data-visible", "true");
       },
     });
   });
@@ -79,8 +81,6 @@ import Popup from "@components/Popup.astro";
   <section
     class="z-[2] mx-auto flex h-full w-full max-w-[1728px] items-center justify-center px-3 md:px-5"
   >
-    <!-- <Popup /> -->
-
     <div class="flex flex-col items-center gap-10 md:gap-8">
       <div class="flex flex-col items-center gap-3 text-center">
         <Label />
