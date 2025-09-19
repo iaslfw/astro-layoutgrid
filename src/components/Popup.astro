@@ -13,6 +13,7 @@ import Cross from "@components/svgs/Cross.astro";
   const closeButton = document.getElementById(
     "close-button"
   ) as HTMLButtonElement;
+
   const closePopup = () => {
     animate(popup, {
       opacity: [1, 0],
@@ -20,6 +21,7 @@ import Cross from "@components/svgs/Cross.astro";
       duration: 150,
       onComplete: () => {
         popup.classList.add("pointer-events-none");
+        popup.setAttribute("data-visible", "false");
       },
     });
   };
@@ -29,6 +31,7 @@ import Cross from "@components/svgs/Cross.astro";
     const grid = document.getElementById("astro-layout-grid") as HTMLElement;
     const gridParent = grid!.parentNode as HTMLElement;
     const formData = new FormData(form);
+
     const settings = Object.fromEntries(formData);
     console.log("Settings: ", settings);
 
@@ -46,14 +49,8 @@ import Cross from "@components/svgs/Cross.astro";
       "data-mobile-columns",
       settings.columnsMob.toString()
     );
-    gridParent.setAttribute(
-      "data-gutter",
-      JSON.stringify(settings.gutter.toString())
-    );
-    gridParent.setAttribute(
-      "data-margin",
-      JSON.stringify(settings.margin.toString())
-    );
+    gridParent.setAttribute("data-gutter", `[${settings.gutter}]`);
+    gridParent.setAttribute("data-margin", `[${settings.margin}]`);
     gridParent.setAttribute("data-grid-color", settings.color.toString());
     gridParent.setAttribute("data-grid-opacity", settings.opacity.toString());
     gridParent.setAttribute("data-max-width", settings.maxWidth.toString());
@@ -69,8 +66,9 @@ import Cross from "@components/svgs/Cross.astro";
   });
 
   document.addEventListener("keydown", (e) => {
-    console.log(e.key);
-    if (e.key != "Escape") return;
+    const popupIsVisible = popup.getAttribute("data-visible") === "true";
+
+    if (e.key != "Escape" || !popupIsVisible) return;
     closePopup();
   });
 
@@ -81,9 +79,11 @@ import Cross from "@components/svgs/Cross.astro";
 
 <aside
   id="settings-popup"
+  data-visible="false"
   class="pointer-events-none fixed top-0 left-0 z-50 flex h-dvh w-screen items-center justify-center bg-black/20 px-3 opacity-0"
 >
   <div
+    id="popup-overlay"
     class="cui-border relative flex h-max max-h-[75vh] w-full max-w-lg flex-col bg-white md:max-h-none lg:w-[32vw] lg:max-w-none"
   >
     <button
@@ -93,7 +93,7 @@ import Cross from "@components/svgs/Cross.astro";
       <Cross />
     </button>
 
-    <div class="flex flex-shrink-0 flex-col gap-2 p-4 lg:p-6">
+    <div class="flex flex-shrink-0 flex-col gap-1 p-4 lg:p-6">
       <h1 class="text-subheadline">Grid-Settings</h1>
       <p class="text-body_secondary">Modify the grid based on your needs.</p>
     </div>
@@ -108,44 +108,44 @@ import Cross from "@components/svgs/Cross.astro";
           <div class="flex w-full flex-col items-center gap-2 md:flex-row">
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
               <label class="text-body_small" for="columnsMob">
-                Columns [mobile]
+                Columns (sm)
               </label>
               <input
                 class="cui-border cui-input"
                 type="number"
                 id="columnsMob"
                 name="columnsMob"
-                value="4"
                 min="2"
                 max="16"
+                placeholder="4"
               />
             </div>
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
               <label class="text-body_small" for="columnsTab">
-                Columns [tablet]
+                Columns (md)
               </label>
               <input
                 class="cui-border cui-input"
                 type="number"
                 id="columnsTab"
                 name="columnsTab"
-                value="8"
                 min="2"
                 max="16"
+                placeholder="8"
               />
             </div>
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
               <label class="text-body_small" for="columnsDesk">
-                Columns [desktop]
+                Columns (lg)
               </label>
               <input
                 class="cui-border cui-input"
                 type="number"
                 id="columnsDesk"
                 name="columnsDesk"
-                value="12"
                 min="2"
                 max="16"
+                placeholder="12"
               />
             </div>
           </div>
@@ -153,27 +153,21 @@ import Cross from "@components/svgs/Cross.astro";
           <!-- Adjust margin & gutter -->
           <div class="flex w-full flex-col items-center gap-2 md:flex-row">
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="gutter"> Gutter in rem</label>
+              <label class="text-body_small" for="gutter"> Gutter (rem) </label>
               <input
                 class="cui-border cui-input"
-                type="number"
                 id="gutter"
                 name="gutter"
-                max="10"
-                min="0.2"
-                value="1"
+                placeholder="1 | 1, 1.5, 2"
               />
             </div>
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="margin"> Margin in rem</label>
+              <label class="text-body_small" for="margin">Margin (rem) </label>
               <input
                 class="cui-border cui-input"
-                type="number"
                 id="margin"
                 name="margin"
-                max="10"
-                min="0.2"
-                value="1"
+                placeholder="1 | 0.75, 1, 1"
               />
             </div>
           </div>
@@ -200,26 +194,22 @@ import Cross from "@components/svgs/Cross.astro";
                 min="0"
                 max="1"
                 step="0.01"
-                value="0.25"
+                placeholder="0.15"
               />
             </div>
             <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
               <label class="text-body_small" for="maxWidth">
-                Max-width in vw
+                Max-width in px
               </label>
               <input
                 class="cui-border cui-input"
-                type="number"
                 id="maxWidth"
                 name="maxWidth"
-                min="1"
-                max="100"
-                value="100"
+                placeholder="1280px"
               />
             </div>
           </div>
 
-          <!-- Adjust visibility of bg-color -->
           <div>
             <input
               type="checkbox"
