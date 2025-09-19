@@ -2,9 +2,10 @@
 import "@styles/global.css";
 import "@fontsource-variable/work-sans";
 
-import Layoutgrid from "astro-layoutgrid"
+import Layoutgrid from "astro-layoutgrid";
 import GridBackground from "@components/GridBackground.astro";
 import Navigation from "@components/Navigation.astro";
+import Popup from "@components/Popup.astro";
 ---
 
 <html lang="en">
@@ -24,6 +25,7 @@ import Navigation from "@components/Navigation.astro";
     <Layoutgrid />
 
     <Navigation />
+    <Popup />
     <main class="relative z-10 h-full w-full">
       <GridBackground />
       <slot />
