@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-09-19
+
+### Added
+
+- **Typescript Intellisense**: See the props by your IDE when using this component
+
+### Enhanced
+
+- **Gutter and margin**: From now on, you can set your margin and gutter in two different ways
+  - Let it as it was now. Meaning you can still use an array for finer controls based on viewport sizes
+  - Set one number for all viewports
+
 ## [1.1.0] - 2025-09-13
 
 ### Added

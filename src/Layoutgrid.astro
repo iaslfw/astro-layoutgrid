@@ -28,6 +28,9 @@
 import type { LayoutgridProps } from './types';
 import { prepareGridData } from './utils';
 
+// Define component props interface for TypeScript IntelliSense
+export interface Props extends LayoutgridProps {}
+
 // Process and normalize component props with default values
 const gridData = prepareGridData(Astro.props as LayoutgridProps);
 const {

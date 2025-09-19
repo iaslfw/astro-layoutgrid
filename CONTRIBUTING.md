@@ -23,7 +23,7 @@ This project and everyone participating in it is governed by our commitment to c
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or pnpm
 - Git
 - Basic knowledge of TypeScript and Astro
@@ -32,12 +32,14 @@ This project and everyone participating in it is governed by our commitment to c
 
 1. Fork the repository on GitHub
 2. Clone your fork locally:
+
 3. ```bash
    git clone https://github.com/YOUR_USERNAME/astro-layoutgrid.git
    cd astro-layoutgrid
    ```
 
 4. Add the original repository as upstream:
+
    ```bash
    git remote add upstream https://github.com/iaslfw/astro-layoutgrid.git
    ```
@@ -45,26 +47,31 @@ This project and everyone participating in it is governed by our commitment to c
 ## Development Setup
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Run type checking:**
+
    ```bash
    npm run typecheck
    ```
 
 3. **Run linting:**
+
    ```bash
    npm run lint
    ```
 
 4. **Format code:**
+
    ```bash
    npm run format
    ```
 
 5. **Test package locally:**
+
    ```bash
    npm run testLocal
    ```
@@ -73,7 +80,7 @@ This project and everyone participating in it is governed by our commitment to c
 
 ### Types of Contributions
 
-All major several types of contributions are welcomed:
+Several types of contributions are welcomed:
 
 - **Bug fixes**
 - **New features**
@@ -84,7 +91,7 @@ All major several types of contributions are welcomed:
 - **Accessibility improvements**
 - **Feature request**
 
-### Me and the package are looking for
+### What We're Looking For
 
 - **Bug Reports**: Clear, reproducible issues with examples
 - **Feature Requests**: Well-thought-out proposals that align with the project goals
@@ -110,6 +117,7 @@ All major several types of contributions are welcomed:
 ### PR Workflow
 
 1. **Create a feature branch:**
+
    ```bash
    git checkout -b feat/your-feature-name
    # or
@@ -123,6 +131,7 @@ All major several types of contributions are welcomed:
    - Update documentation if needed
 
 3. **Test your changes:**
+
    ```bash
    npm run typecheck
    npm run lint
@@ -130,12 +139,14 @@ All major several types of contributions are welcomed:
    ```
 
 4. **Commit your changes:**
+
    ```bash
    git add .
    git commit -m "feat: add zIndex configuration support"
    ```
 
 5. **Push to your fork:**
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -324,6 +335,6 @@ By contributing to Astro LayoutGrid, you agree that your contributions will be l
 
 ---
 
-**Thank you for contributing to Astro LayoutGrid!** 
+**Thank you for contributing to Astro LayoutGrid!**
 
 Your contributions help make this project better for the entire Astro community.

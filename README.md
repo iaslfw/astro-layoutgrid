@@ -87,15 +87,15 @@ import LayoutGrid from 'astro-layoutgrid';
 | `desktopColumns`    | `number`                             | `12`           | Number of columns on desktop (≥1024px)             |
 | `tabletColumns`     | `number`                             | `8`            | Number of columns on tablet (768px-1023px)         |
 | `mobileColumns`     | `number`                             | `4`            | Number of columns on mobile (<768px)               |
-| `gutter`            | `number \| [number, number, number]` | `[0.75, 1, 1]` | Column spacing in rem [mobile, tablet, desktop]    |
-| `margin`            | `number \| [number, number, number]` | `[0.75, 1, 1]` | Container margins in rem [mobile, tablet, desktop] |
+| `gutter`            | `number \| [number, number, number]` | `1` | Column spacing in rem [mobile, tablet, desktop]    |
+| `margin`            | `number \| [number, number, number]` | `1` | Container margins in rem [mobile, tablet, desktop] |
 | `gridColor`         | `string`                             | `"#ff0000"`    | CSS color for grid lines and backgrounds           |
 | `gridOpacity`       | `number`                             | `0.1`          | Opacity for column backgrounds (0-1)               |
 | `maxWidth`          | `string`                             | `"100vw"`      | Maximum width constraint (CSS value)               |
 | `showBackground`    | `boolean`                            | `false`        | Show colored column backgrounds                    |
 | `tabletBreakpoint`  | `number`                             | `768`          | Tablet breakpoint in pixels                        |
 | `desktopBreakpoint` | `number`                             | `1024`         | Desktop breakpoint in pixels                       |
-| `zIndex` | `number`                             | `1000`         | zIndex of the                       |
+| `zIndex` | `number`                             | `1000`         | z-index of the grid overlay element                       |
 
 ### Responsive Configuration
 

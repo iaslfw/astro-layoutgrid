@@ -1,6 +1,6 @@
 {
 	"name": "astro-layoutgrid",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "A zero-dependency layout grid component for AstroJS.",
 	"author": "Sebastian Wolf, IaSlf",
 	"homepage": "https://astro-layoutgrid-demo.netlify.app",
@@ -27,6 +27,7 @@
 			"import": "./index.ts",
 			"types": "./index.ts"
 		},
+		"./astro": "./src/astro.d.ts",
 		"./package.json": "./package.json"
 	},
 	"files": [
