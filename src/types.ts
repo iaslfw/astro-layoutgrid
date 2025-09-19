@@ -16,7 +16,7 @@ export type Breakpoint = 'mobile' | 'tablet' | 'desktop';
  * default values have been applied and array formats have been standardized.
  * It contains all the necessary data for rendering the responsive grid overlay.
  *
- * @since 1.0.0
+ * @since 1.2.0
  */
 export interface GridData {
 	/** Number of columns to display on mobile devices */
@@ -30,9 +30,9 @@ export interface GridData {
 	/** Minimum width in pixels to trigger desktop layout */
 	desktopBreakpoint: number;
 	/** Gutter spacing in rem for [mobile, tablet, desktop] breakpoints */
-	gutterArray: number[];
+	gutterArray: number | number[];
 	/** Margin spacing in rem for [mobile, tablet, desktop] breakpoints */
-	marginArray: number[];
+	marginArray: number | number[];
 	/** CSS color value for grid lines and backgrounds */
 	gridColor: string;
 	/** Opacity level (0-1) for grid background when showBackground is true */
@@ -64,13 +64,13 @@ export interface LayoutgridProps {
 	/**
 	 * Gutter spacing between columns in rem units.
 	 * Can be a single number (applied to all breakpoints) or an array [mobile, tablet, desktop].
-	 * @default [0.75, 1, 1]
+	 * @default 1
 	 */
 	gutter?: number | [number, number, number];
 	/**
 	 * Margin spacing around the grid container in rem units.
 	 * Can be a single number (applied to all breakpoints) or an array [mobile, tablet, desktop].
-	 * @default [0.75, 1, 1]
+	 * @default 1
 	 */
 	margin?: number | [number, number, number];
 	/** CSS color value for grid lines and column backgrounds. @default "#ff0000" */
@@ -86,5 +86,5 @@ export interface LayoutgridProps {
 	/** Minimum viewport width in pixels to trigger desktop layout. @default 1024 */
 	desktopBreakpoint?: number;
 	/** z-index value for the grid overlay @default 1000*/
-	zIndex: number;
+	zIndex?: number;
 }

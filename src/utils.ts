@@ -20,7 +20,7 @@ import type { LayoutgridProps, GridData, Breakpoint } from './types';
  * // Custom configuration
  * const customConfig = prepareGridData({
  *   desktopColumns: 16,
- *   gutter: [1, 1.5, 2],
+ *   gutter: 1,
  *   gridColor: "#0066cc",
  *   showBackground: true
  * });
@@ -37,8 +37,8 @@ export function prepareGridData(props: LayoutgridProps): GridData {
 		desktopColumns = 12,
 		tabletColumns = 8,
 		mobileColumns = 4,
-		gutter = [0.75, 1, 1],
-		margin = [0.75, 1, 1],
+		gutter = 1,
+		margin = 1,
 		gridColor = '#ff0000',
 		gridOpacity = 0.1,
 		maxWidth = '100vw',
