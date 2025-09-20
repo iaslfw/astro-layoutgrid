@@ -44,7 +44,7 @@ jobs:
           contains(github.event.pull_request.title, 'Bump') && 
           !contains(github.event.pull_request.title, 'major') &&
           !contains(github.event.pull_request.title, 'Bump astro from')
-        uses: urkle/pushover-action@master
+        uses: clivern/pushover-actions@master
         with:
           app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
           user-key: ${{ secrets.PUSHOVER_USER_KEY }}
@@ -73,7 +73,7 @@ jobs:
         if: |
           contains(github.event.pull_request.title, 'major') ||
           contains(github.event.pull_request.title, 'Bump astro from')
-        uses: urkle/pushover-action@master
+        uses: clivern/pushover-actions@master
         with:
           app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
           user-key: ${{ secrets.PUSHOVER_USER_KEY }}
