@@ -19,7 +19,7 @@ jobs:
       
       - name: Send Pushover notification on success
         if: success()
-        uses: urkle/pushover-action@master
+        uses: clivern/pushover-actions@master
         with:
           app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
           user-key: ${{ secrets.PUSHOVER_USER_KEY }}
