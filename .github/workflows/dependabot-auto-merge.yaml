@@ -1,0 +1,85 @@
+name: Dependabot Auto-merge
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      
+      - name: Send Pushover notification on success
+        if: success()
+        uses: urkle/pushover-action@master
+        with:
+          app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
+          user-key: ${{ secrets.PUSHOVER_USER_KEY }}
+          title: "Dependabot Update"
+          message: |
+            ${{ github.event.pull_request.title }}
+            All quality-checks passed! See PR below:
+            🔗 ${{ github.event.pull_request.html_url }}
+      
+      - name: Auto-merge minor and patch updates
+        if: |
+          contains(github.event.pull_request.title, 'Bump') && 
+          !contains(github.event.pull_request.title, 'major') &&
+          !contains(github.event.pull_request.title, 'Bump astro from')
+        run: |
+          gh pr merge --auto --squash "${{ github.event.pull_request.number }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Send auto-merge notification
+        if: |
+          contains(github.event.pull_request.title, 'Bump') && 
+          !contains(github.event.pull_request.title, 'major') &&
+          !contains(github.event.pull_request.title, 'Bump astro from')
+        uses: urkle/pushover-action@master
+        with:
+          app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
+          user-key: ${{ secrets.PUSHOVER_USER_KEY }}
+          title: "Update - Automatically Merged"
+          message: |
+            ${{ github.event.pull_request.title }}
+            Automatically merged the following pull request:
+            🔗 ${{ github.event.pull_request.html_url }}
+          priority: 0
+          
+      - name: Comment on major or Astro updates
+        if: |
+          contains(github.event.pull_request.title, 'major') ||
+          contains(github.event.pull_request.title, 'Bump astro from')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚨 **Major update detected!** Please review this manually before merging.\n\nThis could contain breaking changes that require attention.'
+            })
+            
+      - name: Send manual review notification
+        if: |
+          contains(github.event.pull_request.title, 'major') ||
+          contains(github.event.pull_request.title, 'Bump astro from')
+        uses: urkle/pushover-action@master
+        with:
+          app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
+          user-key: ${{ secrets.PUSHOVER_USER_KEY }}
+          title: "Manual Review Required"
+          message: |
+            ${{ github.event.pull_request.title }}
+            New major update of dependencies released - requires manual review. See details below:
+            ${{ github.event.pull_request.html_url }}
+          priority: 1

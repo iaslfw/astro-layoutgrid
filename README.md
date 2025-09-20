@@ -11,24 +11,26 @@ A lightweight, zero-dependency responsive grid overlay component for Astro that 
 
 [![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/thumbnail.png)](https://astro-layoutgrid-demo.netlify.app)
 
-## ✨ Features
+Remember, by clicking the thumbnail you can access the component-demo
 
-- 🎯 **Responsive Grid Overlay** - Visual grid system with mobile, tablet, and desktop breakpoints
-- ⌨️ **Keyboard Toggle** - Quick show/hide with `Cmd/Ctrl + Shift + G`
-- 🔧 **Highly Customizable** - Configure columns, spacing, colors, and breakpoints
-- 📱 **Real-time Responsive** - Uses ResizeObserver for instant breakpoint updates
-- 🎨 **Visual Flexibility** - Border-only or filled column display options
-- 🚀 **Zero Dependencies** - Lightweight and fast
-- 🔒 **TypeScript Support** - Full type safety with comprehensive interfaces
-- 🌐 **SSR Compatible** - Works with Astro's server-side rendering
+## Features
 
-## 📦 Installation
+- **Responsive Grid Overlay** - Visual grid system with mobile, tablet, and desktop breakpoints
+- **Keyboard Toggle** - Quick show/hide with `Cmd/Ctrl + Shift + G`
+- **Highly Customizable** - Configure columns, spacing, colors, and breakpoints
+- **Real-time Responsive** - Uses ResizeObserver for instant breakpoint updates
+- **Visual Flexibility** - Border-only or filled column display options
+- **Zero Dependencies** - Lightweight and fast
+- **TypeScript Support** - Full type safety with comprehensive interfaces
+- **SSR Compatible** - Works with Astro's server-side rendering
+
+## Installation
 
 ```bash
 npm install astro-layoutgrid
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Basic Usage
 
@@ -75,10 +77,11 @@ import LayoutGrid from 'astro-layoutgrid';
 	maxWidth="1400px"
 	tabletBreakpoint={768}
 	desktopBreakpoint={1200}
+	zIndex={123}
 />
 ```
 
-## 📚 API Reference
+## API Reference
 
 ### Props
 
@@ -117,7 +120,7 @@ You can configure spacing in two ways:
 >
 ```
 
-## 🎨 Visual Examples
+## Visual Examples
 
 ### Standard Grid (Tailwind-like)
 
@@ -146,14 +149,14 @@ You can configure spacing in two ways:
 <LayoutGrid tabletBreakpoint={600} desktopBreakpoint={1200} maxWidth="1400px" />
 ```
 
-## ⌨️ Keyboard Shortcuts
+## Keyboard Shortcuts
 
 | Shortcut                           | Action                 |
 | ---------------------------------- | ---------------------- |
 | `Cmd + Shift + G` (Mac)            | Toggle grid visibility |
 | `Ctrl + Shift + G` (Windows/Linux) | Toggle grid visibility |
 
-## 🎯 Use Cases
+## Use Cases
 
 ### Design System Implementation
 
@@ -221,7 +224,7 @@ import LayoutGrid from 'astro-layoutgrid';
 >
 ```
 
-## 🔧 Advanced Configuration
+## Advanced Configuration
 
 ### Environment-Based Configuration
 
@@ -262,14 +265,14 @@ import LayoutGrid from 'astro-layoutgrid';
 />
 ```
 
-## 🌐 Browser Support
+## Browser Support
 
-- ✅ **Modern Browsers** - Chrome 88+, Firefox 87+, Safari 14+, Edge 88+
-- ✅ **ResizeObserver** - Required for responsive behavior
-- ✅ **Custom Elements** - Required for component functionality
-- ✅ **CSS Grid** - Required for layout
+- **Modern Browsers** - Chrome 88+, Firefox 87+, Safari 14+, Edge 88+
+- **ResizeObserver** - Required for responsive behavior
+- **Custom Elements** - Required for component functionality
+- **CSS Grid** - Required for layout
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### Grid Not Visible
 
@@ -291,20 +294,28 @@ import LayoutGrid from 'astro-layoutgrid';
 2. Check that all prop types match the interface definitions
 3. Verify array formats for `gutter` and `margin` props
 
-## 📝 Contributing
+## Contributing
 
 Contributions and ideas are welcome! Please visit the [Contributing Guide](CONTRIBUTING.md) for more details.
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
+- Built by purpose, driven by lazieness of copy-pasting within projects
 - Inspired by CSS Grid systems and design tools like Figma
 - Built for the amazing [Astro](https://astro.build) community
 - Thanks to all contributors and users providing feedback
+- Built with love, tears and a lot of caramell-cappucino
 
----
 
-**Made with ❤️, ☕️ and 🥲 for the Astro community**
+<a href="https://www.star-history.com/#iaslfw/astro-layoutgrid&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
+ </picture>
+</a>
+

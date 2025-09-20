@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to Astro LayoutGrid! We welcome contributions from the community and are grateful for any help you can provide.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
@@ -15,11 +15,11 @@ Thank you for your interest in contributing to Astro LayoutGrid! We welcome cont
 - [Documentation](#documentation)
 - [Release Process](#release-process)
 
-## 🤝 Code of Conduct
+## Code of Conduct
 
 This project and everyone participating in it is governed by our commitment to creating a welcoming and inclusive environment. Please be respectful and constructive in all interactions.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -166,7 +166,7 @@ Several types of contributions are welcomed:
 
 We follow conventional commits:
 
-```
+```zsh
 type(scope): description
 
 Types:
@@ -221,7 +221,7 @@ For feature requests, please include:
 
 ### File Structure
 
-```
+```zsh
 src/
 ├── Layoutgrid.astro     # Main component
 ├── types.ts             # Type definitions
@@ -282,7 +282,7 @@ We welcome contributions to add:
 
 ### Versioning
 
-We follow [Semantic Versioning](https://semver.org/):
+This project follows the [Semantic Versioning](https://semver.org/):
 
 - **MAJOR** (x.0.0) - Breaking changes
 - **MINOR** (1.x.0) - New features (backward compatible)

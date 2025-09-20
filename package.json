@@ -16,7 +16,8 @@
 		"dev-overlay",
 		"tooling",
 		"utils",
-		"component"
+		"component",
+		"integration"
 	],
 	"type": "module",
 	"main": "index.ts",
