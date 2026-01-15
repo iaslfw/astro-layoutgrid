@@ -3,7 +3,7 @@
 	"version": "1.2.0",
 	"description": "A zero-dependency layout grid component for AstroJS.",
 	"author": "Sebastian Wolf, IaSlf",
-	"homepage": "https://astro-layoutgrid-demo.netlify.app",
+	"homepage": "https://astro-layoutgrid-demo.iaslfw.workers.dev",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

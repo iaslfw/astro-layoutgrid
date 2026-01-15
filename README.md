@@ -9,7 +9,7 @@ A lightweight, zero-dependency responsive grid overlay component for Astro that 
 
 ## Demo
 
-[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/thumbnail.png)](https://astro-layoutgrid-demo.netlify.app)
+[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/thumbnail.png)](https://astro-layoutgrid-demo.iaslfw.workers.dev)
 
 Remember, by clicking the thumbnail you can access the component-demo
 
