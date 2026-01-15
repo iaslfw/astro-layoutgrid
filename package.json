@@ -5,19 +5,16 @@
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
-    "preview": "npx astro build && wrangler pages dev ./dist",
-    "ship": "wrangler pages deploy",
+    "ship": "astro build && npx wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
-    "@fontsource-variable/work-sans": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "animejs": "^4.2.2",
     "astro": "^5.16.9",
     "astro-layoutgrid": "^1.2.0",
     "canvas-confetti": "^1.9.4",
-    "latest-version": "^9.0.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

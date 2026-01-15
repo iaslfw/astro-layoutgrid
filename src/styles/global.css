@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Work Sans Variable";
+  src: url("/WorkSans-Variable.woff2") format("woff2-variations");
+  display: "swap";
+}
+
 @theme {
   --font-sans: "Work Sans Variable", sans-serif;
 

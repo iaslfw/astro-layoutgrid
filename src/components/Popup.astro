@@ -26,54 +26,56 @@ import Cross from "@components/svgs/Cross.astro";
     });
   };
 
-  subButton?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const grid = document.getElementById("astro-layout-grid") as HTMLElement;
-    const gridParent = grid!.parentNode as HTMLElement;
-    const formData = new FormData(form);
+  window.addEventListener("DOMContentLoaded", () => {
+    subButton?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const grid = document.getElementById("astro-layout-grid") as HTMLElement;
+      const gridParent = grid!.parentNode as HTMLElement;
+      const formData = new FormData(form);
 
-    const settings = Object.fromEntries(formData);
-    console.log("Settings: ", settings);
+      const settings = Object.fromEntries(formData);
+      console.log("Settings: ", settings);
 
-    document.body.removeChild(gridParent);
+      document.body.removeChild(gridParent);
 
-    gridParent.setAttribute(
-      "data-desktop-columns",
-      settings.columnsDesk.toString()
-    );
-    gridParent.setAttribute(
-      "data-tablet-columns",
-      settings.columnsTab.toString()
-    );
-    gridParent.setAttribute(
-      "data-mobile-columns",
-      settings.columnsMob.toString()
-    );
-    gridParent.setAttribute("data-gutter", `[${settings.gutter}]`);
-    gridParent.setAttribute("data-margin", `[${settings.margin}]`);
-    gridParent.setAttribute("data-grid-color", settings.color.toString());
-    gridParent.setAttribute("data-grid-opacity", settings.opacity.toString());
-    gridParent.setAttribute("data-max-width", settings.maxWidth.toString());
-    gridParent.setAttribute(
-      "data-show-background",
-      settings.toggleBg ? "true" : "false"
-    );
+      gridParent.setAttribute(
+        "data-desktop-columns",
+        settings.columnsDesk.toString()
+      );
+      gridParent.setAttribute(
+        "data-tablet-columns",
+        settings.columnsTab.toString()
+      );
+      gridParent.setAttribute(
+        "data-mobile-columns",
+        settings.columnsMob.toString()
+      );
+      gridParent.setAttribute("data-gutter", `[${settings.gutter}]`);
+      gridParent.setAttribute("data-margin", `[${settings.margin}]`);
+      gridParent.setAttribute("data-grid-color", settings.color.toString());
+      gridParent.setAttribute("data-grid-opacity", settings.opacity.toString());
+      gridParent.setAttribute("data-max-width", settings.maxWidth.toString());
+      gridParent.setAttribute(
+        "data-show-background",
+        settings.toggleBg ? "true" : "false"
+      );
 
-    document.body.appendChild(gridParent);
-    console.log("Grid Parent: ", gridParent);
+      document.body.appendChild(gridParent);
+      console.log("Grid Parent: ", gridParent);
 
-    grid.style.display = "block";
-  });
+      grid.style.display = "block";
+    });
 
-  document.addEventListener("keydown", (e) => {
-    const popupIsVisible = popup.getAttribute("data-visible") === "true";
+    document.addEventListener("keydown", (e) => {
+      const popupIsVisible = popup.getAttribute("data-visible") === "true";
 
-    if (e.key != "Escape" || !popupIsVisible) return;
-    closePopup();
-  });
+      if (e.key != "Escape" || !popupIsVisible) return;
+      closePopup();
+    });
 
-  closeButton?.addEventListener("click", () => {
-    closePopup();
+    closeButton?.addEventListener("click", () => {
+      closePopup();
+    });
   });
 </script>
 

@@ -8,55 +8,61 @@ import Label from "@components/Label.astro";
   import { animate } from "animejs";
   import confetti from "canvas-confetti";
 
-  const toggleButton = document.getElementById("toggle-btn") as HTMLElement;
-  const editButton = document.getElementById("edit-btn");
-  const copyButton = document.getElementById("copy-btn") as HTMLElement;
-  const grid = document.getElementById("astro-layout-grid") as HTMLElement;
+  window.addEventListener("DOMContentLoaded", () => {
+    const toggleButton = document.getElementById("toggle-btn") as HTMLElement;
+    const editButton = document.getElementById("edit-btn");
+    const copyButton = document.getElementById("copy-btn") as HTMLElement;
+    const grid = document.getElementById("astro-layout-grid") as HTMLElement;
 
-  toggleButton.addEventListener("click", () => {
-    const style = grid.style.display;
-    const isVisible = style === "block";
-    grid.style.display = isVisible ? "" : "block";
-  });
+    if (toggleButton && grid) {
+      toggleButton.addEventListener("click", () => {
+        const style = grid.style.display;
+        const isVisible = style === "block";
+        grid.style.display = isVisible ? "" : "block";
+      });
+    }
 
-  editButton?.addEventListener("click", () => {
-    const popupContainer = document.getElementById(
-      "settings-popup"
-    ) as HTMLElement;
-    const form = popupContainer.querySelector(
-      "#settings-form"
-    ) as HTMLFormElement;
-    const inputs = popupContainer.querySelectorAll("input") as NodeListOf<
-      HTMLInputElement | HTMLSelectElement
-    >;
+    editButton?.addEventListener("click", () => {
+      const popupContainer = document.getElementById(
+        "settings-popup"
+      ) as HTMLElement;
+      const form = popupContainer.querySelector(
+        "#settings-form"
+      ) as HTMLFormElement;
+      const inputs = popupContainer.querySelectorAll("input") as NodeListOf<
+        HTMLInputElement | HTMLSelectElement
+      >;
 
-    animate(popupContainer, {
-      opacity: [0, 1],
-      duration: 200,
-      y: [20, 0],
-      onBegin: () => {
-        popupContainer.classList.remove("pointer-events-none");
-        popupContainer.setAttribute("data-visible", "true");
-      },
-    });
-  });
-
-  copyButton.addEventListener("click", async (e: MouseEvent) => {
-    await navigator.clipboard.writeText("npm i astro-layoutgrid");
-
-    const { clientX, clientY } = e;
-    const originalText = copyButton.innerHTML;
-    copyButton.innerHTML = `<pre class="text-sm">Copied! 🎉</pre>`;
-
-    confetti({
-      particleCount: 125,
-      startVelocity: 30,
-      spread: 150,
+      animate(popupContainer, {
+        opacity: [0, 1],
+        duration: 200,
+        y: [20, 0],
+        onBegin: () => {
+          popupContainer.classList.remove("pointer-events-none");
+          popupContainer.setAttribute("data-visible", "true");
+        },
+      });
     });
 
-    setTimeout(() => {
-      copyButton.innerHTML = originalText;
-    }, 2000);
+    if (copyButton) {
+      copyButton.addEventListener("click", async (e: MouseEvent) => {
+        await navigator.clipboard.writeText("npm i astro-layoutgrid");
+
+        const { clientX, clientY } = e;
+        const originalText = copyButton.innerHTML;
+        copyButton.innerHTML = `<pre class="text-sm">Copied! 🎉</pre>`;
+
+        confetti({
+          particleCount: 125,
+          startVelocity: 30,
+          spread: 150,
+        });
+
+        setTimeout(() => {
+          copyButton.innerHTML = originalText;
+        }, 2000);
+      });
+    }
   });
 </script>
 
