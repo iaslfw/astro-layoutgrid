@@ -25,4 +25,4 @@ pnpm-debug.log*
 .vscode/
 
 # Local Netlify folder
-.netlify
+.wrangler

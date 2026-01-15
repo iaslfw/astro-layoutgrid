@@ -36,6 +36,10 @@
     @apply text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl;
   }
 
+  .text-title {
+    @apply text-lg font-bold tracking-tight md:text-xl;
+  }
+
   .text-body_primary {
     @apply text-base font-normal text-black md:text-base;
   }
