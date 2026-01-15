@@ -25,8 +25,8 @@
  * />
  * ```
  */
-import type { LayoutgridProps } from './types';
-import { prepareGridData } from './utils';
+import type { LayoutgridProps } from './libs/types';
+import { prepareGridData } from './libs/utils';
 
 // Define component props interface for TypeScript IntelliSense
 export interface Props extends LayoutgridProps {}
@@ -57,14 +57,14 @@ const {
 	 * handles keyboard shortcuts, and provides real-time responsive updates using
 	 * the ResizeObserver API.
 	 */
-	import type { Breakpoint } from './types';
-	import { createConfig } from './config';
+	import type { Breakpoint } from './libs/types';
+	import { createConfig } from './libs/config';
 	import {
 		getBreakpoint,
 		getBreakpointIndex,
 		createGridColumn,
 		isGridToggleShortcut,
-	} from './utils';
+	} from './libs/utils';
 
 	/**
 	 * Custom HTML Element class for the responsive layout grid overlay.

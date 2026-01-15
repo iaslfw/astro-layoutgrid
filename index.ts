@@ -5,5 +5,5 @@ import Layoutgrid from './src/Layoutgrid.astro';
 export default Layoutgrid;
 
 // Export all types for TypeScript users
-export type { Breakpoint, GridData, LayoutgridProps } from './src/types';
-export type { LayoutgridProps as GridProps } from './src/types';
+export type { Breakpoint, GridData, LayoutgridProps } from './src/libs/types';
+export type { LayoutgridProps as GridProps } from './src/libs/types';
