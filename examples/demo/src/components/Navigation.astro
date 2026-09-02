@@ -1,0 +1,31 @@
+---
+import Github from "@components/svgs/Github.astro";
+import Menu from "@components/svgs/Menu.astro";
+---
+
+<header
+  class="cui-border aligned-width fixed top-3 left-1/2 z-40 -translate-x-1/2 bg-white px-3 py-2 md:top-4"
+>
+  <div class="flex w-full flex-row items-center justify-between">
+    <a
+      class="flex flex-row items-center gap-2"
+      href="https://www.github.com/iaslfw/astro-layoutgrid"
+      target="_blank"
+    >
+      <Github />
+    </a>
+
+    <div class="flex flex-row items-baseline gap-6">
+      <a href="/" class="text-body hover:underline">
+        <span>Demo</span>
+      </a>
+      <a href="/blog" class="text-body hover:underline">
+        <span>Changelog</span>
+      </a>
+    </div>
+
+    <button class="md:hidden">
+      <Menu />
+    </button>
+  </div>
+</header>

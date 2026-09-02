@@ -1,0 +1,27 @@
+---
+import ConfettiIcon from "@components/svgs/Confetti.astro";
+import CircleIcon from "@components/svgs/Circle.astro";
+
+let version = "1.2.0";
+try {
+  const response = await fetch("https://registry.npmjs.org/astro-layoutgrid");
+  const data = await response.json();
+  // @ts-ignore
+  version = data["dist-tags"].latest;
+} catch (e) {
+  console.error("Failed to fetch version", e);
+}
+---
+
+<aside class="relative w-max">
+  <div class="flex flex-row items-center gap-2">
+    <ConfettiIcon />
+    <p class="text-body relative">
+      <span class="">v{version}</span> out now!
+    </p>
+  </div>
+
+  <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+    <CircleIcon />
+  </div>
+</aside>
