@@ -1,0 +1,27 @@
+{
+	"name": "astro-layoutgrid-monorepo",
+	"private": true,
+	"type": "module",
+	"description": "Monorepo für astro-layoutgrid: das Package, die Demo und ein Playground.",
+	"license": "MIT",
+	"engines": {
+		"node": ">=20"
+	},
+	"workspaces": [
+		"packages/*",
+		"examples/*",
+		"playground"
+	],
+	"scripts": {
+		"dev": "npm run dev --workspace astro-layoutgrid-demo",
+		"dev:playground": "npm run dev --workspace astro-layoutgrid-playground",
+		"build": "npm run build --workspaces --if-present",
+		"typecheck": "npm run typecheck --workspaces --if-present",
+		"lint": "npm run lint --workspaces --if-present",
+		"format": "prettier . --write",
+		"ship:demo": "npm run ship --workspace astro-layoutgrid-demo"
+	},
+	"devDependencies": {
+		"prettier": "^3.8.0"
+	}
+}

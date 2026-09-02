@@ -4,6 +4,9 @@ on:
   release:
     types: [created]
 
+env:
+  PACKAGE_DIR: packages/astro-layoutgrid
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,8 +16,8 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run typecheck
-      - run: npm run lint
+      - run: npm run typecheck --workspace astro-layoutgrid
+      - run: npm run lint --workspace astro-layoutgrid
 
   publish-npm:
     needs: build
@@ -27,5 +30,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm publish
+        working-directory: ${{ env.PACKAGE_DIR }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
