@@ -17,4 +17,4 @@ in `src/layouts/Layout.astro` — Props dort anpassen.
 
 Dieser Playground wird **nie deployt** und darf unaufgeraeumt bleiben. Debug-Seiten und Repro-Cases
 gehoeren hierher und sollen committet werden, damit sie wiederauffindbar sind — nicht in die Demo,
-die eine oeffentliche Website ist. Siehe `docs/adr/0003-apps-verzeichnis.md`.
+die eine oeffentliche Website ist.

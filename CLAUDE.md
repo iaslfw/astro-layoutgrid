@@ -37,9 +37,9 @@ so there is no mechanism by which the overlay could reach a user's bundle. The c
 followed by a grep for the overlay in the emitted HTML: it must find nothing.
 
 The package contains **no `.astro` file** and must not gain one — that is what keeps it clear of
-BL-01. See `docs/adr/0005-integration-neubau-dev-only.md` for the direction, and
-**[`docs/NEUBAU.md`](./docs/NEUBAU.md)** for the plan: what is finished, which questions are already
-answered, and what comes next. Start there rather than re-deriving the design.
+BL-01. See `docs/adr/0005-integration-neubau-dev-only.md` for the direction and `docs/NEUBAU.md`
+for the plan — both in the local, uncommitted `docs/` directory described under **Open work**. Start
+there rather than re-deriving the design.
 
 It is the only workspace with tests (`node:test` plus `linkedom`, 27 of them). They import from
 `dist/`, not `src/`, so that they exercise the emitted output — a package that typechecks but emits
@@ -104,9 +104,26 @@ that passes here says nothing about whether the published tarball works. See BL-
 
 ## Open work
 
-Findings from the code review and project scan live in **[`docs/BACKLOG.md`](./docs/BACKLOG.md)**,
-numbered `BL-01` and up and ordered by priority. Start there rather than re-deriving problems from
-the source. When you finish an item, set its `Status` to `done` in the same change that fixes it.
+`docs/` is a **local working directory and is deliberately not checked in** — it is listed in
+`.gitignore`. It holds the backlog, the architecture decision records and the plan for the rewrite:
+notes for whoever is working on this repository, not documentation for its users. That is why
+nothing below is a link: after a fresh clone these files do not exist, and a link would only
+promise otherwise.
 
-Direction decisions that are settled — and one that deliberately is not — are recorded in
-[`docs/adr/`](./docs/adr/).
+If `docs/` is missing, you are in a clone rather than the working copy, and the references in this
+file point at nothing. Say so rather than guessing at their contents, and do not recreate them from
+memory — reconstructed decision records are worse than absent ones, because they read as though
+someone decided.
+
+Where it is present, it contains:
+
+- `docs/BACKLOG.md` — every known defect and improvement, numbered `BL-01` and up, ordered by
+  priority. Start there rather than re-deriving problems from the source. When you finish an item,
+  set its `Status` to `done` in the same change that fixes it.
+- `docs/NEUBAU.md` — the plan for the rewrite: what is finished, which design questions are already
+  answered, and what comes next.
+- `docs/adr/` — direction decisions that are settled, and one that deliberately is not.
+
+Because the backlog is not in the repository, `BL-` numbers appearing in commit messages cannot be
+looked up from a clone. That is accepted: the commit messages here carry their own reasoning and do
+not depend on the backlog to be understood.

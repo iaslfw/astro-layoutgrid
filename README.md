@@ -11,7 +11,7 @@ Dieses Repository enthält das npm-Package `astro-layoutgrid` sowie die Projekte
 | Ordner                                  | Workspace                      | Zweck                                                                                                                                                                                            |
 | --------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `packages/astro-layoutgrid`             | `astro-layoutgrid`             | Das veröffentlichte Package, Version 1.x. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).**                                                                 |
-| `packages/astro-layoutgrid-integration` | `astro-layoutgrid-integration` | Der Neubau: eine Astro-Integration mit Dev-Toolbar-App. Dev-only, privat, noch nicht veröffentlicht. Siehe [ADR-0005](./docs/adr/0005-integration-neubau-dev-only.md).                           |
+| `packages/astro-layoutgrid-integration` | `astro-layoutgrid-integration` | Der Neubau: eine Astro-Integration mit Dev-Toolbar-App. Dev-only, privat, noch nicht veröffentlicht.                                                                                             |
 | `apps/demos/astro`                      | `astro-layoutgrid-demo`        | Die öffentliche Demo unter [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployt auf Cloudflare Workers. Sie ist eine Website, keine Testfläche. |
 | `apps/playgrounds/astro`                | `astro-layoutgrid-playground`  | Eine nackte Astro-Instanz zum Ausprobieren und für Repro-Cases. Wird nie deployt und darf unaufgeräumt sein.                                                                                     |
 
@@ -20,7 +20,7 @@ Demo und Playground binden das Package über den npm-Workspace ein. Eine Änderu
 
 Unter `apps/` liegt, was man startet; unter `packages/`, was man importiert. Die zusätzliche Ebene
 (`demos/astro`, `playgrounds/astro`) hält Platz für Varianten anderer Frameworks, ohne dass dafür
-später umbenannt werden muss. Siehe [`docs/adr/0003-apps-verzeichnis.md`](./docs/adr/0003-apps-verzeichnis.md).
+später umbenannt werden muss.
 
 ## Einstieg
 
@@ -47,7 +47,6 @@ Alle im Repo-Root auszuführen:
 
 Linting und Formatierung sind **einmal im Root** konfiguriert — `.oxlintrc.json`, `.prettierrc` und
 `.prettierignore`. Kein Workspace hat eigene Tooling-Configs, und ESLint gibt es hier nicht mehr.
-Siehe [`docs/adr/0004-tooling.md`](./docs/adr/0004-tooling.md).
 
 Einen einzelnen Workspace ansprechen:
 
