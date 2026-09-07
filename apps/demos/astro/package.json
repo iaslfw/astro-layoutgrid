@@ -9,17 +9,17 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^12.6.12",
-		"@tailwindcss/vite": "^4.1.18",
-		"animejs": "^4.2.2",
-		"astro": "^5.16.9",
+		"@astrojs/cloudflare": "^14.3.0",
+		"@tailwindcss/vite": "^4.3.3",
+		"animejs": "^4.5.0",
+		"astro": "^7.3.1",
 		"astro-layoutgrid": "*",
 		"canvas-confetti": "^1.9.4",
-		"tailwindcss": "^4.1.18"
+		"tailwindcss": "^4.3.3"
 	},
 	"devDependencies": {
 		"@types/canvas-confetti": "^1.9.0",
-		"wrangler": "^4.59.2"
+		"wrangler": "^4.129.1"
 	},
 	"private": true
 }

@@ -5,7 +5,7 @@
 	"description": "Monorepo für astro-layoutgrid: das Package, die Demo und ein Playground.",
 	"license": "MIT",
 	"engines": {
-		"node": ">=20"
+		"node": ">=22.12.0"
 	},
 	"workspaces": [
 		"packages/*",
@@ -24,8 +24,8 @@
 	},
 	"devDependencies": {
 		"oxlint": "1.82.0",
-		"prettier": "^3.8.0",
+		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "0.14.1",
-		"prettier-plugin-tailwindcss": "^0.7.2"
+		"prettier-plugin-tailwindcss": "^0.8.1"
 	}
 }

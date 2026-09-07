@@ -55,7 +55,7 @@ To target one workspace: `npm run <script> --workspace astro-layoutgrid`.
 
 ## Before you change anything
 
-Two things will look like your fault and are not:
+Three things will look like your fault and are not:
 
 - **`npm run typecheck` fails.** `index.ts(4,24): error TS2307: Cannot find module
 './src/Layoutgrid.astro'`. This is a pre-existing bug, reproducible at commit `ea0b204` from before
@@ -65,6 +65,11 @@ Two things will look like your fault and are not:
   `Label.astro`, and still exits 0. That is deliberate: those three are BL-22 and should stay visible
   without failing the lint gate. Do not silence them with an inline disable comment — fix them as
   part of BL-22 or leave them alone.
+- **The demo builds but does not run.** Since the update to Astro 7 and `@astrojs/cloudflare` 14 it
+  answers every request with `[object Object]` instead of HTML, under both `astro preview` and
+  `wrangler dev`, while `astro build` exits 0. **Do not run `npm run ship:demo`** until this is
+  fixed — it would publish a broken demo. See BL-29. The playground renders correctly, so the package
+  itself is fine under Astro 7.
 
 Also worth knowing before you trust a green build: because demo and playground read the package
 through a workspace symlink, they never exercise `files` or `exports` from `package.json`. A build
