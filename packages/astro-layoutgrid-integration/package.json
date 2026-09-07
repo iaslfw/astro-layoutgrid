@@ -1,0 +1,30 @@
+{
+	"name": "astro-layoutgrid-integration",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"license": "MIT",
+	"exports": {
+		".": "./dist/index.js",
+		"./package.json": "./package.json"
+	},
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md",
+		"LICENCE"
+	],
+	"scripts": {
+		"build": "tsc",
+		"typecheck": "tsc --noEmit",
+		"test": "npm run build && node --test"
+	},
+	"peerDependencies": {
+		"astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
+	},
+	"devDependencies": {
+		"astro": "^7.3.1",
+		"linkedom": "0.18.13",
+		"typescript": "^7.0.2"
+	}
+}
