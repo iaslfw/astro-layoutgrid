@@ -8,11 +8,22 @@ This repository is a monorepo holding the package together with the two projects
 
 ## Layout
 
-| Path                        | Workspace                     | What it is                                                                                                                                       |
-| --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/astro-layoutgrid` | `astro-layoutgrid`            | The published package. Its own README is the user-facing documentation.                                                                          |
-| `examples/demo`             | `astro-layoutgrid-demo`       | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers. |
-| `playground`                | `astro-layoutgrid-playground` | A bare Astro app for trying things out without the demo's styling.                                                                               |
+`packages/` holds what you import; `apps/` holds what you run.
+
+| Path                      | Workspace                     | What it is                                                                                                                                        |
+| ------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`          | The published package. Its own README is the user-facing documentation.                                                                           |
+| `apps/demos/astro`        | `astro-layoutgrid-demo`       | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers.  |
+| `apps/playgrounds/astro`  | `astro-layoutgrid-playground` | A bare Astro app for trying things out and for reproduction cases. Never deployed.                                                                |
+
+The extra level under `apps/` is deliberate: a demo or playground for another framework becomes
+`apps/demos/<framework>` without renaming anything. The workspace glob is `apps/*/*`. See
+`docs/adr/0003-apps-verzeichnis.md`.
+
+**The demo is a website, not a test surface.** `npm run ship:demo` deploys whatever is in the working
+tree, so anything you park there to try it out can go public by accident. Experiments, debug pages
+and reproduction cases belong in the playground, which is never deployed and is allowed to be messy.
+Treat an edit to the demo as an edit to production.
 
 Demo and playground depend on `astro-layoutgrid` as `"*"`, which npm resolves to the local workspace.
 **A change under `packages/astro-layoutgrid` is visible in both immediately** — there is no `npm pack`

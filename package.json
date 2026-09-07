@@ -9,8 +9,7 @@
 	},
 	"workspaces": [
 		"packages/*",
-		"examples/*",
-		"playground"
+		"apps/*/*"
 	],
 	"scripts": {
 		"dev": "npm run dev --workspace astro-layoutgrid-demo",

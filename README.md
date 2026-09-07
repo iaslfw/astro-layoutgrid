@@ -11,10 +11,15 @@ Dieses Repository enthält das npm-Package `astro-layoutgrid` sowie die Projekte
 | Ordner | Workspace | Zweck |
 | --- | --- | --- |
 | `packages/astro-layoutgrid` | `astro-layoutgrid` | Das veröffentlichte Package. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).** |
-| `examples/demo` | `astro-layoutgrid-demo` | Die öffentliche Demo unter [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployt auf Cloudflare Workers. |
-| `playground` | `astro-layoutgrid-playground` | Eine nackte Astro-Instanz zum schnellen Ausprobieren, ohne das Styling der Demo. |
+| `apps/demos/astro` | `astro-layoutgrid-demo` | Die öffentliche Demo unter [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployt auf Cloudflare Workers. Sie ist eine Website, keine Testfläche. |
+| `apps/playgrounds/astro` | `astro-layoutgrid-playground` | Eine nackte Astro-Instanz zum Ausprobieren und für Repro-Cases. Wird nie deployt und darf unaufgeräumt sein. |
 
-Demo und Playground binden das Package über den npm-Workspace ein. Eine Änderung unter `packages/astro-layoutgrid` ist dort also sofort sichtbar — ohne `npm pack` und ohne Veröffentlichung.
+Demo und Playground binden das Package über den npm-Workspace ein. Eine Änderung unter
+`packages/astro-layoutgrid` ist dort also sofort sichtbar — ohne `npm pack` und ohne Veröffentlichung.
+
+Unter `apps/` liegt, was man startet; unter `packages/`, was man importiert. Die zusätzliche Ebene
+(`demos/astro`, `playgrounds/astro`) hält Platz für Varianten anderer Frameworks, ohne dass dafür
+später umbenannt werden muss. Siehe [`docs/adr/0003-apps-verzeichnis.md`](./docs/adr/0003-apps-verzeichnis.md).
 
 ## Einstieg
 
