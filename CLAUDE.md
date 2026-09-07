@@ -10,15 +10,41 @@ This repository is a monorepo holding the package together with the two projects
 
 `packages/` holds what you import; `apps/` holds what you run.
 
-| Path                        | Workspace                     | What it is                                                                                                                                       |
-| --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/astro-layoutgrid` | `astro-layoutgrid`            | The published package. Its own README is the user-facing documentation.                                                                          |
-| `apps/demos/astro`          | `astro-layoutgrid-demo`       | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers. |
-| `apps/playgrounds/astro`    | `astro-layoutgrid-playground` | A bare Astro app for trying things out and for reproduction cases. Never deployed.                                                               |
+| Path                                    | Workspace                      | What it is                                                                                                                                       |
+| --------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/astro-layoutgrid`             | `astro-layoutgrid`             | The published package, version 1.x. In maintenance only — see below.                                                                             |
+| `packages/astro-layoutgrid-integration` | `astro-layoutgrid-integration` | The rewrite in progress: an Astro integration with a Dev Toolbar app. Private, not published.                                                    |
+| `apps/demos/astro`                      | `astro-layoutgrid-demo`        | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers. |
+| `apps/playgrounds/astro`                | `astro-layoutgrid-playground`  | A bare Astro app for trying things out and for reproduction cases. Never deployed.                                                               |
 
 The extra level under `apps/` is deliberate: a demo or playground for another framework becomes
 `apps/demos/<framework>` without renaming anything. The workspace glob is `apps/*/*`. See
 `docs/adr/0003-apps-verzeichnis.md`.
+
+## The rewrite
+
+`packages/astro-layoutgrid-integration` is a **greenfield rewrite**, not a refactor. When working on
+it, assume the existing component does not exist. The open findings in `packages/astro-layoutgrid` —
+the duplicated configuration source (BL-03), the missing runtime API (BL-04) — are **not
+prerequisites**: the new code is meant not to have those defects rather than to inherit repaired
+versions of them. Do not start there and migrate across; that inverts the agreed order. The old
+package, the demo and the rest get cleaned up **afterwards**.
+
+The integration is **dev-only by construction**. A `mode: 'always'` option that would have injected
+the overlay into production builds was considered and rejected, because it turns the dev-only
+guarantee into a setting someone can get wrong. Dev Toolbar apps do not exist in production builds,
+so there is no mechanism by which the overlay could reach a user's bundle. The check is a build
+followed by a grep for the overlay in the emitted HTML: it must find nothing.
+
+The package contains **no `.astro` file** and must not gain one — that is what keeps it clear of
+BL-01. See `docs/adr/0005-integration-neubau-dev-only.md` for the direction, and
+**[`docs/NEUBAU.md`](./docs/NEUBAU.md)** for the plan: what is finished, which questions are already
+answered, and what comes next. Start there rather than re-deriving the design.
+
+It is the only workspace with tests (`node:test` plus `linkedom`, 27 of them). They import from
+`dist/`, not `src/`, so that they exercise the emitted output — a package that typechecks but emits
+something unusable is the failure this repository has shipped twice. Keep new tests on `dist/` for
+the same reason, and run `npm test` from the root.
 
 **The demo is a website, not a test surface.** `npm run ship:demo` deploys whatever is in the working
 tree, so anything you park there to try it out can go public by accident. Experiments, debug pages
@@ -39,6 +65,7 @@ npm run dev              # the demo
 npm run dev:playground   # the bare playground
 npm run build            # every workspace
 npm run typecheck        # every workspace
+npm run test             # builds, then runs node:test in every workspace that has tests
 npm run lint             # oxlint across the whole repository
 npm run lint:fix         # oxlint --fix
 npm run format           # Prettier across the repository

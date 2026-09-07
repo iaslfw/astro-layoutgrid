@@ -8,11 +8,12 @@ Dieses Repository enthält das npm-Package `astro-layoutgrid` sowie die Projekte
 
 ## Struktur
 
-| Ordner                      | Workspace                     | Zweck                                                                                                                                                                                            |
-| --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/astro-layoutgrid` | `astro-layoutgrid`            | Das veröffentlichte Package. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).**                                                                              |
-| `apps/demos/astro`          | `astro-layoutgrid-demo`       | Die öffentliche Demo unter [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployt auf Cloudflare Workers. Sie ist eine Website, keine Testfläche. |
-| `apps/playgrounds/astro`    | `astro-layoutgrid-playground` | Eine nackte Astro-Instanz zum Ausprobieren und für Repro-Cases. Wird nie deployt und darf unaufgeräumt sein.                                                                                     |
+| Ordner                                  | Workspace                      | Zweck                                                                                                                                                                                            |
+| --------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/astro-layoutgrid`             | `astro-layoutgrid`             | Das veröffentlichte Package, Version 1.x. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).**                                                                 |
+| `packages/astro-layoutgrid-integration` | `astro-layoutgrid-integration` | Der Neubau: eine Astro-Integration mit Dev-Toolbar-App. Dev-only, privat, noch nicht veröffentlicht. Siehe [ADR-0005](./docs/adr/0005-integration-neubau-dev-only.md).                           |
+| `apps/demos/astro`                      | `astro-layoutgrid-demo`        | Die öffentliche Demo unter [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployt auf Cloudflare Workers. Sie ist eine Website, keine Testfläche. |
+| `apps/playgrounds/astro`                | `astro-layoutgrid-playground`  | Eine nackte Astro-Instanz zum Ausprobieren und für Repro-Cases. Wird nie deployt und darf unaufgeräumt sein.                                                                                     |
 
 Demo und Playground binden das Package über den npm-Workspace ein. Eine Änderung unter
 `packages/astro-layoutgrid` ist dort also sofort sichtbar — ohne `npm pack` und ohne Veröffentlichung.
@@ -37,6 +38,7 @@ Alle im Repo-Root auszuführen:
 | ---------------------- | -------------------------------------------------- |
 | `npm run build`        | Baut alle Workspaces, die ein `build`-Script haben |
 | `npm run typecheck`    | Typprüfung über alle Workspaces                    |
+| `npm test`             | Baut und führt die Tests aus (`node:test`)         |
 | `npm run lint`         | oxlint über das gesamte Repository                 |
 | `npm run lint:fix`     | oxlint mit `--fix`                                 |
 | `npm run format`       | Prettier über das gesamte Repository               |
