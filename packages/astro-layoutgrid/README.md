@@ -1,313 +1,103 @@
-# Astro LayoutGrid
+# astro-layoutgrid
 
-A lightweight, zero-dependency responsive grid overlay component for Astro that helps developers align content with visual precision. Perfect for design system implementation, responsive development, and ensuring consistent layouts across breakpoints.
+A responsive column grid you can lay over any page while you build it, to check that things line up.
 
-[![NPM Version](https://img.shields.io/npm/v/astro-layoutgrid)](https://www.npmjs.com/package/astro-layoutgrid)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
+Version 2 is **a real Astro integration**. Version 1 was a component: you imported it, pasted it into
+every layout, remembered a keyboard shortcut nobody had told you about, and shipped its code to your
+users. This one goes in `astro.config` and nowhere else.
 
-## Demo
+```js
+import { defineConfig } from 'astro/config';
+import layoutgrid from 'astro-layoutgrid';
 
-[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/thumbnail.png)](https://astro-layoutgrid-demo.iaslfw.workers.dev)
+export default defineConfig({
+  integrations: [layoutgrid()],
+});
+```
 
-Remember, by clicking the thumbnail you can access the component-demo
+That is the whole installation. No import in your layouts, no markup, nothing to remember: the grid
+appears as a button in the Astro dev toolbar.
 
-## Features
-
-- **Responsive Grid Overlay** - Visual grid system with mobile, tablet, and desktop breakpoints
-- **Keyboard Toggle** - Quick show/hide with `Cmd/Ctrl + Shift + G`
-- **Highly Customizable** - Configure columns, spacing, colors, and breakpoints
-- **Real-time Responsive** - Uses ResizeObserver for instant breakpoint updates
-- **Visual Flexibility** - Border-only or filled column display options
-- **Zero Dependencies** - Lightweight and fast
-- **TypeScript Support** - Full type safety with comprehensive interfaces
-- **SSR Compatible** - Works with Astro's server-side rendering
-
-## Installation
+## Install
 
 ```bash
-npm install astro-layoutgrid
+npm install -D astro-layoutgrid
 ```
 
-## Quick Start
+`-D` is deliberate. This is a development tool and never reaches your users — see
+[Dev-only, by construction](#dev-only-by-construction).
 
-### Basic Usage
+## Use it
 
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
----
+Click the layout grid button in the dev toolbar, or press <kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> +
+<kbd>G</kbd>. The shortcut presses the same button, so the toolbar and the grid can never disagree
+about whether it is on.
 
-<html>
-  <head>
-    <title>My Astro Site</title>
-  </head>
-  <body>
-    <!-- Your content here -->
-    <main>
-      <h1>Welcome to my site</h1>
-      <p>Content that will be aligned with the grid</p>
-    </main>
+Whether the grid was on survives a reload, so it stays put across the dozens of reloads a working
+session actually involves.
 
-    <!-- Add the grid overlay -->
-    <LayoutGrid />
-  </body>
-</html>
+## Configure it
+
+Everything is configured in `astro.config`, and nothing anywhere else. One place to look, one place
+to change, and the file is the truth.
+
+```js
+layoutgrid({
+  columns: { mobile: 4, tablet: 8, desktop: 12 },
+  gutter: 1,
+  margin: { mobile: 1, tablet: 1.5, desktop: 2 },
+  color: '#ff0000',
+  maxWidth: '1200px',
+});
 ```
 
-Press `Cmd + Shift + G` (Mac) or `Ctrl + Shift + G` (Windows/Linux) to toggle the grid visibility.
+| Option           | Type                       | Default                                 | What it does                                           |
+| ---------------- | -------------------------- | --------------------------------------- | ------------------------------------------------------ |
+| `columns`        | `number` or per breakpoint | `{ mobile: 4, tablet: 8, desktop: 12 }` | Number of columns                                      |
+| `gutter`         | `number` or per breakpoint | `1`                                     | Space between columns, in rem                          |
+| `margin`         | `number` or per breakpoint | `1`                                     | Space either side of the grid, in rem                  |
+| `breakpoints`    | `{ tablet, desktop }`      | `{ tablet: 768, desktop: 1024 }`        | Viewport width in px at which each one starts          |
+| `color`          | `string`                   | `'#ff0000'`                             | Any CSS colour, for the lines and fills                |
+| `opacity`        | `number`                   | `0.1`                                   | Fill opacity, 0 to 1; used when `showBackground` is on |
+| `maxWidth`       | `string`                   | `'100vw'`                               | CSS max-width of the grid container                    |
+| `showBackground` | `boolean`                  | `false`                                 | Fill the columns instead of only outlining them        |
+| `zIndex`         | `number`                   | `1000`                                  | Stacking order of the overlay                          |
 
-### Custom Configuration
+Anything per-breakpoint takes a shorthand: `gutter: 1` means all three, `gutter: { mobile: 0.5 }`
+means mobile only and leaves the rest at their defaults.
 
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
----
+Values are corrected rather than rejected. A column count below one becomes one, an opacity of `7`
+becomes `1`, and a desktop breakpoint below the tablet one is lifted to match — because a tablet
+range with no width in it is a setting with no correct behaviour. A development tool that refuses to
+start over a typo would be the worse trade.
 
-<LayoutGrid
-  desktopColumns={16}
-  tabletColumns={12}
-  mobileColumns={6}
-  gutter={[1, 1.5, 2]}
-  margin={[1, 1.5, 2]}
-  gridColor="#0066cc"
-  gridOpacity={0.15}
-  showBackground={true}
-  maxWidth="1400px"
-  tabletBreakpoint={768}
-  desktopBreakpoint={1200}
-  zIndex={123}
-/>
-```
+Filled columns are mixed rather than faded, so the lines stay sharp at any opacity.
 
-## API Reference
+## Dev-only, by construction
 
-### Props
+Nothing here reaches a production build. Not because an option is set correctly, but because Astro's
+dev toolbar apps do not exist in one — there is no mechanism by which the overlay could get there.
 
-| Prop                | Type                                 | Default     | Description                                        |
-| ------------------- | ------------------------------------ | ----------- | -------------------------------------------------- |
-| `desktopColumns`    | `number`                             | `12`        | Number of columns on desktop (≥1024px)             |
-| `tabletColumns`     | `number`                             | `8`         | Number of columns on tablet (768px-1023px)         |
-| `mobileColumns`     | `number`                             | `4`         | Number of columns on mobile (<768px)               |
-| `gutter`            | `number \| [number, number, number]` | `1`         | Column spacing in rem [mobile, tablet, desktop]    |
-| `margin`            | `number \| [number, number, number]` | `1`         | Container margins in rem [mobile, tablet, desktop] |
-| `gridColor`         | `string`                             | `"#ff0000"` | CSS color for grid lines and backgrounds           |
-| `gridOpacity`       | `number`                             | `0.1`       | Opacity for column backgrounds (0-1)               |
-| `maxWidth`          | `string`                             | `"100vw"`   | Maximum width constraint (CSS value)               |
-| `showBackground`    | `boolean`                            | `false`     | Show colored column backgrounds                    |
-| `tabletBreakpoint`  | `number`                             | `768`       | Tablet breakpoint in pixels                        |
-| `desktopBreakpoint` | `number`                             | `1024`      | Desktop breakpoint in pixels                       |
-| `zIndex`            | `number`                             | `1000`      | z-index of the grid overlay element                |
+You can check it rather than take our word for it: run `astro build` and search the output for
+`layoutgrid-overlay`. There are no matches.
 
-### Responsive Configuration
+## Coming from version 1
 
-You can configure spacing in two ways:
+Version 1 was a component. If you have it, the move is:
 
-#### Single Value (Applied to All Breakpoints)
+1. Delete `<Layoutgrid />` from your layouts, and its import.
+2. Add `layoutgrid()` to `integrations` in `astro.config`, with the props you were passing.
+3. Two renames: `gridColor` is now `color`, `gridOpacity` is now `opacity`.
+4. Per-breakpoint values are objects now, not arrays. `gutter={[0.5, 1, 1]}` becomes
+   `gutter: { mobile: 0.5, tablet: 1, desktop: 1 }` — the array's positions meant mobile, tablet,
+   desktop, which nothing said out loud.
 
-```astro
-<LayoutGrid gutter={1.5} margin={2} />
-```
+The shortcut is unchanged.
 
-#### Array Values (Per Breakpoint)
+## Requirements
 
-```astro
-<LayoutGrid gutter={[0.75, 1.25, 1.5]} <!-- [mobile, tablet, desktop] -->
-  margin={[1, 1.5, 2]}
-  <!-- [mobile, tablet, desktop] -->
-  /></LayoutGrid
->
-```
+Astro 5, 6 or 7. Node 22.12 or newer, which is what Astro 7 asks for.
 
-## Visual Examples
+## Licence
 
-### Standard Grid (Tailwind-like)
-
-```astro
-<LayoutGrid />
-<!-- Uses defaults: 4/8/12 columns, standard breakpoints -->
-```
-
-### Design System Grid
-
-```astro
-<LayoutGrid
-  desktopColumns={16}
-  tabletColumns={12}
-  mobileColumns={6}
-  gutter={[1, 1.5, 2]}
-  gridColor="#6366f1"
-  showBackground={true}
-  gridOpacity={0.1}
-/>
-```
-
-### Custom Breakpoints
-
-```astro
-<LayoutGrid tabletBreakpoint={600} desktopBreakpoint={1200} maxWidth="1400px" />
-```
-
-## Keyboard Shortcuts
-
-| Shortcut                           | Action                 |
-| ---------------------------------- | ---------------------- |
-| `Cmd + Shift + G` (Mac)            | Toggle grid visibility |
-| `Ctrl + Shift + G` (Windows/Linux) | Toggle grid visibility |
-
-## Use Cases
-
-### Design System Implementation
-
-Perfect for implementing and validating design system grids:
-
-```astro
----
-// components/BaseLayout.astro
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<html>
-  <body>
-    <slot />
-
-    <!-- Development grid overlay -->
-    {
-      import.meta.env.DEV && (
-        <LayoutGrid
-          desktopColumns={12}
-          gutter={[16, 24, 32]}
-          margin={[16, 24, 80]}
-          gridColor="#e2e8f0"
-          showBackground={true}
-        />
-      )
-    }
-  </body>
-</html>
-```
-
-### Responsive Development
-
-Validate responsive layouts across breakpoints:
-
-```astro
-<LayoutGrid
-  mobileColumns={4}
-  tabletColumns={8}
-  desktopColumns={12}
-  tabletBreakpoint={768}
-  desktopBreakpoint={1024}
-/>
-```
-
-### Content Alignment
-
-Ensure content aligns with grid columns:
-
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<div class="container">
-  <div class="grid grid-cols-4 gap-4 md:grid-cols-8 lg:grid-cols-12">
-    <!-- Your grid content -->
-  </div>
-</div>
-
-<!-- Overlay to verify alignment -->
-<LayoutGrid gutter={1} <!-- 1rem="gap-4" in Tailwind -->
-  gridColor="#ef4444" gridOpacity={0.2}
-  /></LayoutGrid
->
-```
-
-## Advanced Configuration
-
-### Environment-Based Configuration
-
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
-
-const isDev = import.meta.env.DEV;
-const gridConfig = isDev
-  ? {
-      showBackground: true,
-      gridOpacity: 0.15,
-      gridColor: '#10b981',
-    }
-  : {};
----
-
-{isDev && <LayoutGrid {...gridConfig} />}
-```
-
-### Multiple Grid Systems
-
-```astro
----
-// For testing different grid systems
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<!-- Standard 12-column grid -->
-<LayoutGrid gridColor="#ef4444" />
-
-<!-- 16-column design system grid -->
-<LayoutGrid desktopColumns={16} gridColor="#3b82f6" showBackground={true} gridOpacity={0.05} />
-```
-
-## Browser Support
-
-- **Modern Browsers** - Chrome 88+, Firefox 87+, Safari 14+, Edge 88+
-- **ResizeObserver** - Required for responsive behavior
-- **Custom Elements** - Required for component functionality
-- **CSS Grid** - Required for layout
-
-## Troubleshooting
-
-### Grid Not Visible
-
-1. Check if keyboard shortcut is working: `Cmd/Ctrl + Shift + G`
-2. Verify the component is imported and used correctly
-3. Check browser console for any JavaScript errors
-4. Ensure `z-index: 1000` isn't being overridden by other elements
-
-### Columns Not Aligning
-
-1. Verify your CSS grid/flexbox setup matches the LayoutGrid configuration
-2. Check that `gutter` values match your CSS gap values
-3. Ensure `margin` values match your container padding
-4. Use browser dev tools to inspect grid overlay positioning
-
-### TypeScript Errors
-
-1. Ensure you're using TypeScript 4.5+ for proper Astro support
-2. Check that all prop types match the interface definitions
-3. Verify array formats for `gutter` and `margin` props
-
-## Contributing
-
-Contributions and ideas are welcome! Please visit the [Contributing Guide](CONTRIBUTING.md) for more details.
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built by purpose, driven by lazieness of copy-pasting within projects
-- Inspired by CSS Grid systems and design tools like Figma
-- Built for the amazing [Astro](https://astro.build) community
-- Thanks to all contributors and users providing feedback
-- Built with love, tears and a lot of caramell-cappucino
-
-<a href="https://www.star-history.com/#iaslfw/astro-layoutgrid&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
- </picture>
-</a>
+MIT © Sebastian Wolf

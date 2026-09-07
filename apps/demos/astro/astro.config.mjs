@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
-import cloudflare from '@astrojs/cloudflare';
+import layoutgrid from 'astro-layoutgrid';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +11,5 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 	},
 
-	integrations: [],
-	adapter: cloudflare(),
-	output: 'server',
+	integrations: [layoutgrid()],
 });

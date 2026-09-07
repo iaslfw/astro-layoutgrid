@@ -10,25 +10,25 @@ This repository is a monorepo holding the package together with the two projects
 
 `packages/` holds what you import; `apps/` holds what you run.
 
-| Path                                    | Workspace                      | What it is                                                                                                                                       |
-| --------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/astro-layoutgrid`             | `astro-layoutgrid`             | The published package, version 1.x. In maintenance only — see below.                                                                             |
-| `packages/astro-layoutgrid-integration` | `astro-layoutgrid-integration` | The rewrite in progress: an Astro integration with a Dev Toolbar app. Private, not published.                                                    |
-| `apps/demos/astro`                      | `astro-layoutgrid-demo`        | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers. |
-| `apps/playgrounds/astro`                | `astro-layoutgrid-playground`  | A bare Astro app for trying things out and for reproduction cases. Never deployed.                                                               |
+| Path                        | Workspace               | What it is                                                                                                                   |
+| --------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`      | The package: an Astro integration with a Dev Toolbar app, version 2. Still `private`, so it cannot be published by accident. |
+| `apps/demos/astro`          | `astro-layoutgrid-demo` | A local demo. Never deployed, allowed to be messy. `react/`, `svelte/` and `vue/` are empty placeholders.                    |
 
-The extra level under `apps/` is deliberate: a demo or playground for another framework becomes
-`apps/demos/<framework>` without renaming anything. The workspace glob is `apps/*/*`. See
-`docs/adr/0003-apps-verzeichnis.md`.
+**`apps/website` does not exist yet.** It is being set up from scratch and will be the project's
+entry point and the only workspace that is deployed. Until it is there, nothing in this repository is
+deployed at all. Add it back to `workspaces` in the root `package.json` when it appears — the list is
+written out rather than globbed, because there is one website and many demos. A demo for another
+framework becomes `apps/demos/<framework>` and needs no change. See
+`docs/adr/0006-website-und-lokale-demos.md`.
 
 ## The rewrite
 
-`packages/astro-layoutgrid-integration` is a **greenfield rewrite**, not a refactor. When working on
-it, assume the existing component does not exist. The open findings in `packages/astro-layoutgrid` —
-the duplicated configuration source (BL-03), the missing runtime API (BL-04) — are **not
-prerequisites**: the new code is meant not to have those defects rather than to inherit repaired
-versions of them. Do not start there and migrate across; that inverts the agreed order. The old
-package, the demo and the rest get cleaned up **afterwards**.
+`packages/astro-layoutgrid` is a **greenfield rewrite** of what used to live there, not a refactor
+of it. The 1.x component has been deleted; version 2 shares no code with it. Everything in the
+backlog numbered BL-01 through BL-14 describes that deleted code and is therefore moot — those
+entries should be closed as `wontfix` rather than worked on. Do not reconstruct the old component
+from the published 1.2.0 tarball to fix them.
 
 The integration is **dev-only by construction**. A `mode: 'always'` option that would have injected
 the overlay into production builds was considered and rejected, because it turns the dev-only
@@ -46,12 +46,11 @@ It is the only workspace with tests (`node:test` plus `linkedom`, 27 of them). T
 something unusable is the failure this repository has shipped twice. Keep new tests on `dist/` for
 the same reason, and run `npm test` from the root.
 
-**The demo is a website, not a test surface.** `npm run ship:demo` deploys whatever is in the working
-tree, so anything you park there to try it out can go public by accident. Experiments, debug pages
-and reproduction cases belong in the playground, which is never deployed and is allowed to be messy.
-Treat an edit to the demo as an edit to production.
+**Demos are local and never deployed.** Experiments, debug pages and reproduction cases belong in one
+of them; they are allowed to be messy. Deployment is the website's job alone, and the website does
+not exist yet — so at the moment nothing here reaches the public.
 
-Demo and playground depend on `astro-layoutgrid` as `"*"`, which npm resolves to the local workspace.
+The demo depends on `astro-layoutgrid` as `"*"`, which npm resolves to the local workspace.
 **A change under `packages/astro-layoutgrid` is visible in both immediately** — there is no `npm pack`
 step and nothing has to be published first. See `docs/adr/0001-monorepo-layout.md`.
 
@@ -61,8 +60,7 @@ Run these from the repository root.
 
 ```bash
 npm install              # links all workspaces; one lockfile lives here
-npm run dev              # the demo
-npm run dev:playground   # the bare playground
+npm run dev              # the Astro demo
 npm run build            # every workspace
 npm run typecheck        # every workspace
 npm run test             # builds, then runs node:test in every workspace that has tests
@@ -70,7 +68,6 @@ npm run lint             # oxlint across the whole repository
 npm run lint:fix         # oxlint --fix
 npm run format           # Prettier across the repository
 npm run format:check     # Prettier in check mode, for CI
-npm run ship:demo        # builds the demo and deploys it with Wrangler
 ```
 
 Linting and formatting are configured **once, at the root** — `.oxlintrc.json`, `.prettierrc` and
@@ -92,15 +89,15 @@ Three things will look like your fault and are not:
   `Label.astro`, and still exits 0. That is deliberate: those three are BL-22 and should stay visible
   without failing the lint gate. Do not silence them with an inline disable comment — fix them as
   part of BL-22 or leave them alone.
-- **The demo builds but does not run.** Since the update to Astro 7 and `@astrojs/cloudflare` 14 it
-  answers every request with `[object Object]` instead of HTML, under both `astro preview` and
-  `wrangler dev`, while `astro build` exits 0. **Do not run `npm run ship:demo`** until this is
-  fixed — it would publish a broken demo. See BL-29. The playground renders correctly, so the package
-  itself is fine under Astro 7.
+- **`@astrojs/cloudflare` 14 is broken here.** Anything using it answers every request with
+  `[object Object]` instead of HTML, under both `astro preview` and `wrangler dev`, while
+  `astro build` exits 0. This was reproduced on a nearly empty page, so the fault is the adapter's,
+  not the content's and not the package's. It will resurface the moment the website adds the adapter.
+  See BL-29.
 
-Also worth knowing before you trust a green build: because demo and playground read the package
-through a workspace symlink, they never exercise `files` or `exports` from `package.json`. A build
-that passes here says nothing about whether the published tarball works. See BL-16.
+Also worth knowing before you trust a green build: because the demo reads the package through a
+workspace symlink, it never exercises `files` or `exports` from `package.json`. A build that passes
+here says nothing about whether the published tarball works. See BL-16.
 
 ## Open work
 

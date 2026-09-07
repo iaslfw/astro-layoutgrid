@@ -8,26 +8,24 @@ Dieses Repository enthält das npm-Package `astro-layoutgrid` sowie die Projekte
 
 ## Struktur
 
-| Ordner                                  | Workspace                      | Zweck                                                                                                                                                                                            |
-| --------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/astro-layoutgrid`             | `astro-layoutgrid`             | Das veröffentlichte Package, Version 1.x. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).**                                                                 |
-| `packages/astro-layoutgrid-integration` | `astro-layoutgrid-integration` | Der Neubau: eine Astro-Integration mit Dev-Toolbar-App. Dev-only, privat, noch nicht veröffentlicht.                                                                                             |
-| `apps/demos/astro`                      | `astro-layoutgrid-demo`        | Die öffentliche Demo unter [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployt auf Cloudflare Workers. Sie ist eine Website, keine Testfläche. |
-| `apps/playgrounds/astro`                | `astro-layoutgrid-playground`  | Eine nackte Astro-Instanz zum Ausprobieren und für Repro-Cases. Wird nie deployt und darf unaufgeräumt sein.                                                                                     |
+| Ordner                      | Workspace               | Zweck                                                                                                                                                                      |
+| --------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`      | Das Package: eine Astro-Integration mit Dev-Toolbar-App, Version 2. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).** Noch `private`. |
+| `apps/demos/astro`          | `astro-layoutgrid-demo` | Eine lokale Demo. Wird nie deployt und darf unaufgeräumt sein. `react/`, `svelte/` und `vue/` sind leere Platzhalter.                                                      |
 
 Demo und Playground binden das Package über den npm-Workspace ein. Eine Änderung unter
 `packages/astro-layoutgrid` ist dort also sofort sichtbar — ohne `npm pack` und ohne Veröffentlichung.
 
-Unter `apps/` liegt, was man startet; unter `packages/`, was man importiert. Die zusätzliche Ebene
-(`demos/astro`, `playgrounds/astro`) hält Platz für Varianten anderer Frameworks, ohne dass dafür
-später umbenannt werden muss.
+Unter `apps/` liegt, was man startet; unter `packages/`, was man importiert. Es gibt **eine** Website
+und **viele** Demos — eine Demo für ein weiteres Framework wird zu `apps/demos/<framework>`.
+`apps/website` wird gerade neu aufgesetzt und fehlt daher noch; bis dahin wird nichts deployt. Siehe
+[`docs/adr/0006-website-und-lokale-demos.md`](./docs/adr/0006-website-und-lokale-demos.md).
 
 ## Einstieg
 
 ```bash
 npm install          # einmalig, im Repo-Root - verlinkt alle Workspaces
 npm run dev          # startet die Demo
-npm run dev:playground
 ```
 
 ## Nützliche Befehle

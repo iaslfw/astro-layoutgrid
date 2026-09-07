@@ -9,19 +9,17 @@
 	},
 	"workspaces": [
 		"packages/*",
-		"apps/*/*"
+		"apps/demos/*"
 	],
 	"scripts": {
 		"dev": "npm run dev --workspace astro-layoutgrid-demo",
-		"dev:playground": "npm run dev --workspace astro-layoutgrid-playground",
 		"build": "npm run build --workspaces --if-present",
 		"typecheck": "npm run typecheck --workspaces --if-present",
 		"test": "npm run test --workspaces --if-present",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix",
 		"format": "prettier . --write",
-		"format:check": "prettier . --check",
-		"ship:demo": "npm run ship --workspace astro-layoutgrid-demo"
+		"format:check": "prettier . --check"
 	},
 	"devDependencies": {
 		"oxlint": "1.82.0",

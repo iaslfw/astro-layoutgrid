@@ -3,13 +3,12 @@
 	"type": "module",
 	"version": "1.0.0",
 	"scripts": {
-		"dev": "astro dev --host",
+		"dev": "astro dev",
 		"build": "astro build",
-		"ship": "astro build && npx wrangler deploy",
+		"preview": "astro preview",
 		"astro": "astro"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.3.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"animejs": "^4.5.0",
 		"astro": "^7.3.1",
@@ -18,8 +17,8 @@
 		"tailwindcss": "^4.3.3"
 	},
 	"devDependencies": {
-		"@types/canvas-confetti": "^1.9.0",
-		"wrangler": "^4.129.1"
+		"@types/canvas-confetti": "^1.9.0"
 	},
-	"private": true
+	"private": true,
+	"description": "Lokale Demo. Wird nicht deployt."
 }
