@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://layoutgrid.iaslfw.workers.dev/sitemap-index.xml

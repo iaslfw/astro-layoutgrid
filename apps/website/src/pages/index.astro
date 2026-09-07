@@ -1,0 +1,90 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import DemoVideo from '@/components/DemoVideo.astro';
+
+import { ConfigPlayground } from '@/islands/ConfigPlayground';
+import { Nav } from '@/islands/Nav';
+import { InstallCommand } from '@/islands/InstallCommand';
+import { NewsDialog } from '@/islands/NewsDialog';
+
+import { features } from '@/copy/features';
+import { footer, hero } from '@/copy/hero';
+import { install } from '@/copy/install';
+import { meta } from '@/copy/meta';
+---
+
+<Layout>
+	<main class="mx-auto w-full max-w-5xl px-5 pb-24 sm:px-6 sm:pb-32">
+		<Nav client:idle />
+
+		<section class="flex flex-col items-center pt-12 pb-20 text-center sm:pt-20 sm:pb-28">
+			<NewsDialog client:load />
+
+			<h1
+				class="font-display mt-8 max-w-3xl text-[2.5rem] leading-[1.06] font-extrabold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+				{hero.headline}
+			</h1>
+
+			<p
+				class="text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed text-pretty sm:mt-8 sm:text-xl">
+				{hero.subline}
+			</p>
+
+			<div class="mt-10 w-full sm:mt-12">
+				<ConfigPlayground client:load />
+			</div>
+
+			<div class="mt-12 w-full sm:mt-16">
+				<DemoVideo />
+			</div>
+
+			<p class="text-muted-foreground mt-6 max-w-md text-sm">{hero.note}</p>
+		</section>
+
+		<section class="grid gap-4 sm:grid-cols-2 sm:gap-5" aria-label="Features">
+			{
+				features.map((feature) => (
+					<article
+						class:list={[
+							'surface flex flex-col items-center p-7 text-center sm:p-10',
+							feature.wide && 'sm:col-span-2',
+						]}>
+						<h2 class="font-display mb-3 text-xl font-bold tracking-tight sm:text-2xl">
+							{feature.title}
+						</h2>
+						<p class="text-muted-foreground max-w-lg leading-relaxed">{feature.body}</p>
+					</article>
+				))
+			}
+		</section>
+
+		<section class="surface-brand mt-24 flex flex-col items-center p-8 text-center sm:mt-32 sm:p-14">
+			<h2
+				class="font-display max-w-xl text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
+				{install.headline}
+			</h2>
+			<p class="text-muted-foreground mt-4 max-w-lg">
+				{install.body}
+				<kbd class="surface rounded-md px-2 py-1 font-mono text-xs whitespace-nowrap">
+					{install.shortcut}
+				</kbd>.
+			</p>
+
+			<div class="mt-8 w-full">
+				<InstallCommand client:visible />
+			</div>
+		</section>
+
+		<footer class="text-muted-foreground mt-16 text-center text-sm">
+			<p>
+				{footer.licence}
+				<a
+					href={meta.profile}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-brand-ink underline underline-offset-4">{meta.author}</a
+				>.
+			</p>
+		</footer>
+	</main>
+</Layout>

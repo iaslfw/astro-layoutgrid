@@ -27,6 +27,7 @@
 	],
 	"exports": {
 		".": "./dist/index.js",
+		"./overlay": "./dist/overlay.js",
 		"./package.json": "./package.json"
 	},
 	"types": "./dist/index.d.ts",

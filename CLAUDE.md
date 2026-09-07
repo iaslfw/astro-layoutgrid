@@ -77,6 +77,10 @@ there is no ESLint in this repository. Do not reintroduce per-workspace configs;
 
 To target one workspace: `npm run <script> --workspace astro-layoutgrid`.
 
+When you need a dev server, start it detached — `astro dev --background` — and manage it with
+`astro dev stop`, `astro dev status` and `astro dev logs`. A foreground server blocks the shell
+and tends to be left running.
+
 ## Before you change anything
 
 Three things will look like your fault and are not:

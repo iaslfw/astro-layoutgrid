@@ -80,4 +80,10 @@ export default function layoutgrid(options: LayoutgridOptions = {}): AstroIntegr
 }
 
 export type { Breakpoint, LayoutgridConfig, LayoutgridOptions, PerBreakpoint } from './schema.js';
-export { DEFAULTS } from './schema.js';
+
+/**
+ * Also exported for embedding the overlay by hand — see the `./overlay` subpath.
+ * `resolve` is the validation boundary: anything built from user input should go
+ * through it before it reaches the overlay.
+ */
+export { DEFAULTS, resolve } from './schema.js';

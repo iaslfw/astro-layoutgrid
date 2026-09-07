@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-label="A page with a column grid laid over it">
+	<defs>
+		<linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#FFF4EA"/>
+			<stop offset="1" stop-color="#FFE2C6"/>
+		</linearGradient>
+		<clipPath id="frame"><rect x="40" y="30" width="560" height="240" rx="24"/></clipPath>
+	</defs>
+
+	<rect width="640" height="300" fill="url(#sky)"/>
+
+	<!-- die Seite -->
+	<rect x="40" y="30" width="560" height="240" rx="24" fill="#fff"/>
+	<g clip-path="url(#frame)" fill="#1C1917" opacity=".14">
+		<rect x="76" y="74" width="230" height="20" rx="10"/>
+		<rect x="76" y="106" width="330" height="12" rx="6"/>
+		<rect x="76" y="128" width="286" height="12" rx="6"/>
+		<rect x="76" y="176" width="150" height="64" rx="14"/>
+		<rect x="242" y="176" width="150" height="64" rx="14"/>
+		<rect x="408" y="176" width="150" height="64" rx="14"/>
+	</g>
+
+	<!-- das Overlay darueber -->
+	<g clip-path="url(#frame)">
+		<g fill="#F6821F" opacity=".14">
+			<rect x="76" y="30" width="72" height="240"/>
+			<rect x="160" y="30" width="72" height="240"/>
+			<rect x="244" y="30" width="72" height="240"/>
+			<rect x="328" y="30" width="72" height="240"/>
+			<rect x="412" y="30" width="72" height="240"/>
+			<rect x="496" y="30" width="72" height="240"/>
+		</g>
+		<g stroke="#F6821F" stroke-width="1.5" opacity=".55">
+			<path d="M76 30v240M148 30v240M160 30v240M232 30v240M244 30v240M316 30v240M328 30v240M400 30v240M412 30v240M484 30v240M496 30v240M568 30v240"/>
+		</g>
+	</g>
+
+	<rect x="40" y="30" width="560" height="240" rx="24" fill="none" stroke="#1C1917" stroke-opacity=".08"/>
+</svg>
