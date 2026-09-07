@@ -5,7 +5,6 @@ A lightweight, zero-dependency responsive grid overlay component for Astro that 
 [![NPM Version](https://img.shields.io/npm/v/astro-layoutgrid)](https://www.npmjs.com/package/astro-layoutgrid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/934dc2b3-32c2-45a1-b902-3bfb0fef6c26/deploy-status)](https://app.netlify.com/projects/astro-layoutgrid-demo/deploys)
 
 ## Demo
 
@@ -40,19 +39,19 @@ import LayoutGrid from 'astro-layoutgrid';
 ---
 
 <html>
-	<head>
-		<title>My Astro Site</title>
-	</head>
-	<body>
-		<!-- Your content here -->
-		<main>
-			<h1>Welcome to my site</h1>
-			<p>Content that will be aligned with the grid</p>
-		</main>
+  <head>
+    <title>My Astro Site</title>
+  </head>
+  <body>
+    <!-- Your content here -->
+    <main>
+      <h1>Welcome to my site</h1>
+      <p>Content that will be aligned with the grid</p>
+    </main>
 
-		<!-- Add the grid overlay -->
-		<LayoutGrid />
-	</body>
+    <!-- Add the grid overlay -->
+    <LayoutGrid />
+  </body>
 </html>
 ```
 
@@ -66,18 +65,18 @@ import LayoutGrid from 'astro-layoutgrid';
 ---
 
 <LayoutGrid
-	desktopColumns={16}
-	tabletColumns={12}
-	mobileColumns={6}
-	gutter={[1, 1.5, 2]}
-	margin={[1, 1.5, 2]}
-	gridColor="#0066cc"
-	gridOpacity={0.15}
-	showBackground={true}
-	maxWidth="1400px"
-	tabletBreakpoint={768}
-	desktopBreakpoint={1200}
-	zIndex={123}
+  desktopColumns={16}
+  tabletColumns={12}
+  mobileColumns={6}
+  gutter={[1, 1.5, 2]}
+  margin={[1, 1.5, 2]}
+  gridColor="#0066cc"
+  gridOpacity={0.15}
+  showBackground={true}
+  maxWidth="1400px"
+  tabletBreakpoint={768}
+  desktopBreakpoint={1200}
+  zIndex={123}
 />
 ```
 
@@ -85,20 +84,20 @@ import LayoutGrid from 'astro-layoutgrid';
 
 ### Props
 
-| Prop                | Type                                 | Default        | Description                                        |
-| ------------------- | ------------------------------------ | -------------- | -------------------------------------------------- |
-| `desktopColumns`    | `number`                             | `12`           | Number of columns on desktop (≥1024px)             |
-| `tabletColumns`     | `number`                             | `8`            | Number of columns on tablet (768px-1023px)         |
-| `mobileColumns`     | `number`                             | `4`            | Number of columns on mobile (<768px)               |
-| `gutter`            | `number \| [number, number, number]` | `1` | Column spacing in rem [mobile, tablet, desktop]    |
-| `margin`            | `number \| [number, number, number]` | `1` | Container margins in rem [mobile, tablet, desktop] |
-| `gridColor`         | `string`                             | `"#ff0000"`    | CSS color for grid lines and backgrounds           |
-| `gridOpacity`       | `number`                             | `0.1`          | Opacity for column backgrounds (0-1)               |
-| `maxWidth`          | `string`                             | `"100vw"`      | Maximum width constraint (CSS value)               |
-| `showBackground`    | `boolean`                            | `false`        | Show colored column backgrounds                    |
-| `tabletBreakpoint`  | `number`                             | `768`          | Tablet breakpoint in pixels                        |
-| `desktopBreakpoint` | `number`                             | `1024`         | Desktop breakpoint in pixels                       |
-| `zIndex` | `number`                             | `1000`         | z-index of the grid overlay element                       |
+| Prop                | Type                                 | Default     | Description                                        |
+| ------------------- | ------------------------------------ | ----------- | -------------------------------------------------- |
+| `desktopColumns`    | `number`                             | `12`        | Number of columns on desktop (≥1024px)             |
+| `tabletColumns`     | `number`                             | `8`         | Number of columns on tablet (768px-1023px)         |
+| `mobileColumns`     | `number`                             | `4`         | Number of columns on mobile (<768px)               |
+| `gutter`            | `number \| [number, number, number]` | `1`         | Column spacing in rem [mobile, tablet, desktop]    |
+| `margin`            | `number \| [number, number, number]` | `1`         | Container margins in rem [mobile, tablet, desktop] |
+| `gridColor`         | `string`                             | `"#ff0000"` | CSS color for grid lines and backgrounds           |
+| `gridOpacity`       | `number`                             | `0.1`       | Opacity for column backgrounds (0-1)               |
+| `maxWidth`          | `string`                             | `"100vw"`   | Maximum width constraint (CSS value)               |
+| `showBackground`    | `boolean`                            | `false`     | Show colored column backgrounds                    |
+| `tabletBreakpoint`  | `number`                             | `768`       | Tablet breakpoint in pixels                        |
+| `desktopBreakpoint` | `number`                             | `1024`      | Desktop breakpoint in pixels                       |
+| `zIndex`            | `number`                             | `1000`      | z-index of the grid overlay element                |
 
 ### Responsive Configuration
 
@@ -114,9 +113,9 @@ You can configure spacing in two ways:
 
 ```astro
 <LayoutGrid gutter={[0.75, 1.25, 1.5]} <!-- [mobile, tablet, desktop] -->
-	margin={[1, 1.5, 2]}
-	<!-- [mobile, tablet, desktop] -->
-	/></LayoutGrid
+  margin={[1, 1.5, 2]}
+  <!-- [mobile, tablet, desktop] -->
+  /></LayoutGrid
 >
 ```
 
@@ -133,13 +132,13 @@ You can configure spacing in two ways:
 
 ```astro
 <LayoutGrid
-	desktopColumns={16}
-	tabletColumns={12}
-	mobileColumns={6}
-	gutter={[1, 1.5, 2]}
-	gridColor="#6366f1"
-	showBackground={true}
-	gridOpacity={0.1}
+  desktopColumns={16}
+  tabletColumns={12}
+  mobileColumns={6}
+  gutter={[1, 1.5, 2]}
+  gridColor="#6366f1"
+  showBackground={true}
+  gridOpacity={0.1}
 />
 ```
 
@@ -169,22 +168,22 @@ import LayoutGrid from 'astro-layoutgrid';
 ---
 
 <html>
-	<body>
-		<slot />
+  <body>
+    <slot />
 
-		<!-- Development grid overlay -->
-		{
-			import.meta.env.DEV && (
-				<LayoutGrid
-					desktopColumns={12}
-					gutter={[16, 24, 32]}
-					margin={[16, 24, 80]}
-					gridColor="#e2e8f0"
-					showBackground={true}
-				/>
-			)
-		}
-	</body>
+    <!-- Development grid overlay -->
+    {
+      import.meta.env.DEV && (
+        <LayoutGrid
+          desktopColumns={12}
+          gutter={[16, 24, 32]}
+          margin={[16, 24, 80]}
+          gridColor="#e2e8f0"
+          showBackground={true}
+        />
+      )
+    }
+  </body>
 </html>
 ```
 
@@ -194,11 +193,11 @@ Validate responsive layouts across breakpoints:
 
 ```astro
 <LayoutGrid
-	mobileColumns={4}
-	tabletColumns={8}
-	desktopColumns={12}
-	tabletBreakpoint={768}
-	desktopBreakpoint={1024}
+  mobileColumns={4}
+  tabletColumns={8}
+  desktopColumns={12}
+  tabletBreakpoint={768}
+  desktopBreakpoint={1024}
 />
 ```
 
@@ -212,15 +211,15 @@ import LayoutGrid from 'astro-layoutgrid';
 ---
 
 <div class="container">
-	<div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4">
-		<!-- Your grid content -->
-	</div>
+  <div class="grid grid-cols-4 gap-4 md:grid-cols-8 lg:grid-cols-12">
+    <!-- Your grid content -->
+  </div>
 </div>
 
 <!-- Overlay to verify alignment -->
 <LayoutGrid gutter={1} <!-- 1rem="gap-4" in Tailwind -->
-	gridColor="#ef4444" gridOpacity={0.2}
-	/></LayoutGrid
+  gridColor="#ef4444" gridOpacity={0.2}
+  /></LayoutGrid
 >
 ```
 
@@ -234,12 +233,12 @@ import LayoutGrid from 'astro-layoutgrid';
 
 const isDev = import.meta.env.DEV;
 const gridConfig = isDev
-	? {
-			showBackground: true,
-			gridOpacity: 0.15,
-			gridColor: '#10b981',
-		}
-	: {};
+  ? {
+      showBackground: true,
+      gridOpacity: 0.15,
+      gridColor: '#10b981',
+    }
+  : {};
 ---
 
 {isDev && <LayoutGrid {...gridConfig} />}
@@ -257,12 +256,7 @@ import LayoutGrid from 'astro-layoutgrid';
 <LayoutGrid gridColor="#ef4444" />
 
 <!-- 16-column design system grid -->
-<LayoutGrid
-	desktopColumns={16}
-	gridColor="#3b82f6"
-	showBackground={true}
-	gridOpacity={0.05}
-/>
+<LayoutGrid desktopColumns={16} gridColor="#3b82f6" showBackground={true} gridOpacity={0.05} />
 ```
 
 ## Browser Support
@@ -310,7 +304,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - Thanks to all contributors and users providing feedback
 - Built with love, tears and a lot of caramell-cappucino
 
-
 <a href="https://www.star-history.com/#iaslfw/astro-layoutgrid&Date">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date&theme=dark" />
@@ -318,4 +311,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
  </picture>
 </a>
-

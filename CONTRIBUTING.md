@@ -214,7 +214,8 @@ For feature requests, please include:
 ### General Guidelines
 
 - Use **TypeScript** for all code
-- Follow **ESLint** and **Prettier** configurations
+- Follow the repository-wide **oxlint** and **Prettier** configurations (`.oxlintrc.json`,
+  `.prettierrc` im Root — `npm run lint`, `npm run format`)
 - Use **meaningful variable names**
 - Write **self-documenting code**
 - Add **JSDoc comments** for public APIs
@@ -250,7 +251,7 @@ src/
 Currently, the project uses:
 
 - **TypeScript compilation** for type checking
-- **ESLint** for code quality
+- **oxlint** for code quality (`npm run lint`)
 - **npm pack** for package testing
 
 ### Future Testing Goals

@@ -10,11 +10,11 @@ This repository is a monorepo holding the package together with the two projects
 
 `packages/` holds what you import; `apps/` holds what you run.
 
-| Path                      | Workspace                     | What it is                                                                                                                                        |
-| ------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `packages/astro-layoutgrid` | `astro-layoutgrid`          | The published package. Its own README is the user-facing documentation.                                                                           |
-| `apps/demos/astro`        | `astro-layoutgrid-demo`       | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers.  |
-| `apps/playgrounds/astro`  | `astro-layoutgrid-playground` | A bare Astro app for trying things out and for reproduction cases. Never deployed.                                                                |
+| Path                        | Workspace                     | What it is                                                                                                                                       |
+| --------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`            | The published package. Its own README is the user-facing documentation.                                                                          |
+| `apps/demos/astro`          | `astro-layoutgrid-demo`       | The public demo at [astro-layoutgrid-demo.iaslfw.workers.dev](https://astro-layoutgrid-demo.iaslfw.workers.dev), deployed to Cloudflare Workers. |
+| `apps/playgrounds/astro`    | `astro-layoutgrid-playground` | A bare Astro app for trying things out and for reproduction cases. Never deployed.                                                               |
 
 The extra level under `apps/` is deliberate: a demo or playground for another framework becomes
 `apps/demos/<framework>` without renaming anything. The workspace glob is `apps/*/*`. See
@@ -39,10 +39,17 @@ npm run dev              # the demo
 npm run dev:playground   # the bare playground
 npm run build            # every workspace
 npm run typecheck        # every workspace
-npm run lint             # every workspace that has a lint script
+npm run lint             # oxlint across the whole repository
+npm run lint:fix         # oxlint --fix
 npm run format           # Prettier across the repository
+npm run format:check     # Prettier in check mode, for CI
 npm run ship:demo        # builds the demo and deploys it with Wrangler
 ```
+
+Linting and formatting are configured **once, at the root** — `.oxlintrc.json`, `.prettierrc` and
+`.prettierignore`. No workspace has its own tooling config or its own `lint`/`format` script, and
+there is no ESLint in this repository. Do not reintroduce per-workspace configs; see
+`docs/adr/0004-tooling.md`.
 
 To target one workspace: `npm run <script> --workspace astro-layoutgrid`.
 
@@ -54,8 +61,10 @@ Two things will look like your fault and are not:
 './src/Layoutgrid.astro'`. This is a pre-existing bug, reproducible at commit `ea0b204` from before
   the monorepo existed. It blocks the next release, because CI runs `typecheck` on release. See
   BL-01 in the backlog. Do not paper over it with `skipLibCheck` or a `@ts-ignore`.
-- **`npm run lint` does not cover the demo or the playground.** Neither has a `lint` script, and the
-  demo's `eslint.config.js` would crash if it were ever run. See BL-17.
+- **`npm run lint` reports three `no-console` warnings** in the demo's `Popup.astro` and
+  `Label.astro`, and still exits 0. That is deliberate: those three are BL-22 and should stay visible
+  without failing the lint gate. Do not silence them with an inline disable comment — fix them as
+  part of BL-22 or leave them alone.
 
 Also worth knowing before you trust a green build: because demo and playground read the package
 through a workspace symlink, they never exercise `files` or `exports` from `package.json`. A build

@@ -40,14 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Project Structure**: Moved demo folder to separate project for cleaner package organization
 - **Package Organization**: Restructured project with standard npm package layout
   - Moved all package files from `/package/` subdirectory to root level
-  - Updated [`package.json`](package.json ) entry points to reflect new structure
+  - Updated [`package.json`](package.json) entry points to reflect new structure
   - Cleaned up unnecessary build files and directories
 - **Simplified Dependencies**: Removed workspace configuration for independent package management
 
 ### Fixed
 
 - **README Demo Section**: Improved demo image alt text for better accessibility
-- **Package Entry Points**: Corrected file paths in [`package.json`](package.json ) after restructuring
+- **Package Entry Points**: Corrected file paths in [`package.json`](package.json) after restructuring
 
 ### Removed
 

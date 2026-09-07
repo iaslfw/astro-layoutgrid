@@ -63,7 +63,7 @@ export function prepareGridData(props: LayoutgridProps): GridData {
 		gridOpacity,
 		maxWidth,
 		showBackground,
-		zIndex
+		zIndex,
 	};
 }
 

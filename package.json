@@ -16,11 +16,16 @@
 		"dev:playground": "npm run dev --workspace astro-layoutgrid-playground",
 		"build": "npm run build --workspaces --if-present",
 		"typecheck": "npm run typecheck --workspaces --if-present",
-		"lint": "npm run lint --workspaces --if-present",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
 		"format": "prettier . --write",
+		"format:check": "prettier . --check",
 		"ship:demo": "npm run ship --workspace astro-layoutgrid-demo"
 	},
 	"devDependencies": {
-		"prettier": "^3.8.0"
+		"oxlint": "1.82.0",
+		"prettier": "^3.8.0",
+		"prettier-plugin-astro": "0.14.1",
+		"prettier-plugin-tailwindcss": "^0.7.2"
 	}
 }

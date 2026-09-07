@@ -1,0 +1,12 @@
+# Alles, was generiert oder installiert ist
+node_modules/
+dist/
+build/
+.astro/
+.wrangler/
+package-lock.json
+
+# Binaerdateien und Logs
+*.log
+*.png
+*.woff2

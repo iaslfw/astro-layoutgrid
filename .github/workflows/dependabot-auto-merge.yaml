@@ -16,19 +16,19 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
-      
+
       - name: Send Pushover notification on success
         if: success()
         uses: clivern/pushover-actions@master
         with:
           app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
           user-key: ${{ secrets.PUSHOVER_USER_KEY }}
-          title: "Dependabot Update"
+          title: 'Dependabot Update'
           message: |
             ${{ github.event.pull_request.title }}
             All quality-checks passed! See PR below:
             🔗 ${{ github.event.pull_request.html_url }}
-      
+
       - name: Auto-merge minor and patch updates
         if: |
           contains(github.event.pull_request.title, 'Bump') && 
@@ -38,7 +38,7 @@ jobs:
           gh pr merge --auto --squash "${{ github.event.pull_request.number }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Send auto-merge notification
         if: |
           contains(github.event.pull_request.title, 'Bump') && 
@@ -48,13 +48,13 @@ jobs:
         with:
           app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
           user-key: ${{ secrets.PUSHOVER_USER_KEY }}
-          title: "Update - Automatically Merged"
+          title: 'Update - Automatically Merged'
           message: |
             ${{ github.event.pull_request.title }}
             Automatically merged the following pull request:
             🔗 ${{ github.event.pull_request.html_url }}
           priority: 0
-          
+
       - name: Comment on major or Astro updates
         if: |
           contains(github.event.pull_request.title, 'major') ||
@@ -68,7 +68,7 @@ jobs:
               repo: context.repo.repo,
               body: '🚨 **Major update detected!** Please review this manually before merging.\n\nThis could contain breaking changes that require attention.'
             })
-            
+
       - name: Send manual review notification
         if: |
           contains(github.event.pull_request.title, 'major') ||
@@ -77,7 +77,7 @@ jobs:
         with:
           app-token: ${{ secrets.PUSHOVER_APP_TOKEN }}
           user-key: ${{ secrets.PUSHOVER_USER_KEY }}
-          title: "Manual Review Required"
+          title: 'Manual Review Required'
           message: |
             ${{ github.event.pull_request.title }}
             New major update of dependencies released - requires manual review. See details below:

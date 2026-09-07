@@ -1,235 +1,176 @@
 ---
-import Cross from "@components/svgs/Cross.astro";
+import Cross from '@components/svgs/Cross.astro';
 ---
 
 <script>
-  import { animate } from "animejs";
+	import { animate } from 'animejs';
 
-  const popup = document.getElementById("settings-popup") as HTMLElement;
-  const form = document.getElementById("settings-form") as HTMLFormElement;
-  const subButton = document.getElementById(
-    "submit-button"
-  ) as HTMLButtonElement;
-  const closeButton = document.getElementById(
-    "close-button"
-  ) as HTMLButtonElement;
+	const popup = document.getElementById('settings-popup') as HTMLElement;
+	const form = document.getElementById('settings-form') as HTMLFormElement;
+	const subButton = document.getElementById('submit-button') as HTMLButtonElement;
+	const closeButton = document.getElementById('close-button') as HTMLButtonElement;
 
-  const closePopup = () => {
-    animate(popup, {
-      opacity: [1, 0],
-      y: [0, 20],
-      duration: 150,
-      onComplete: () => {
-        popup.classList.add("pointer-events-none");
-        popup.setAttribute("data-visible", "false");
-      },
-    });
-  };
+	const closePopup = () => {
+		animate(popup, {
+			opacity: [1, 0],
+			y: [0, 20],
+			duration: 150,
+			onComplete: () => {
+				popup.classList.add('pointer-events-none');
+				popup.setAttribute('data-visible', 'false');
+			},
+		});
+	};
 
-  window.addEventListener("DOMContentLoaded", () => {
-    subButton?.addEventListener("click", (e) => {
-      e.preventDefault();
-      const grid = document.getElementById("astro-layout-grid") as HTMLElement;
-      const gridParent = grid!.parentNode as HTMLElement;
-      const formData = new FormData(form);
+	window.addEventListener('DOMContentLoaded', () => {
+		subButton?.addEventListener('click', (e) => {
+			e.preventDefault();
+			const grid = document.getElementById('astro-layout-grid') as HTMLElement;
+			const gridParent = grid!.parentNode as HTMLElement;
+			const formData = new FormData(form);
 
-      const settings = Object.fromEntries(formData);
-      console.log("Settings: ", settings);
+			const settings = Object.fromEntries(formData);
+			console.log('Settings: ', settings);
 
-      document.body.removeChild(gridParent);
+			document.body.removeChild(gridParent);
 
-      gridParent.setAttribute(
-        "data-desktop-columns",
-        settings.columnsDesk.toString()
-      );
-      gridParent.setAttribute(
-        "data-tablet-columns",
-        settings.columnsTab.toString()
-      );
-      gridParent.setAttribute(
-        "data-mobile-columns",
-        settings.columnsMob.toString()
-      );
-      gridParent.setAttribute("data-gutter", `[${settings.gutter}]`);
-      gridParent.setAttribute("data-margin", `[${settings.margin}]`);
-      gridParent.setAttribute("data-grid-color", settings.color.toString());
-      gridParent.setAttribute("data-grid-opacity", settings.opacity.toString());
-      gridParent.setAttribute("data-max-width", settings.maxWidth.toString());
-      gridParent.setAttribute(
-        "data-show-background",
-        settings.toggleBg ? "true" : "false"
-      );
+			gridParent.setAttribute('data-desktop-columns', settings.columnsDesk.toString());
+			gridParent.setAttribute('data-tablet-columns', settings.columnsTab.toString());
+			gridParent.setAttribute('data-mobile-columns', settings.columnsMob.toString());
+			gridParent.setAttribute('data-gutter', `[${settings.gutter}]`);
+			gridParent.setAttribute('data-margin', `[${settings.margin}]`);
+			gridParent.setAttribute('data-grid-color', settings.color.toString());
+			gridParent.setAttribute('data-grid-opacity', settings.opacity.toString());
+			gridParent.setAttribute('data-max-width', settings.maxWidth.toString());
+			gridParent.setAttribute('data-show-background', settings.toggleBg ? 'true' : 'false');
 
-      document.body.appendChild(gridParent);
-      console.log("Grid Parent: ", gridParent);
+			document.body.appendChild(gridParent);
+			console.log('Grid Parent: ', gridParent);
 
-      grid.style.display = "block";
-    });
+			grid.style.display = 'block';
+		});
 
-    document.addEventListener("keydown", (e) => {
-      const popupIsVisible = popup.getAttribute("data-visible") === "true";
+		document.addEventListener('keydown', (e) => {
+			const popupIsVisible = popup.getAttribute('data-visible') === 'true';
 
-      if (e.key != "Escape" || !popupIsVisible) return;
-      closePopup();
-    });
+			if (e.key !== 'Escape' || !popupIsVisible) return;
+			closePopup();
+		});
 
-    closeButton?.addEventListener("click", () => {
-      closePopup();
-    });
-  });
+		closeButton?.addEventListener('click', () => {
+			closePopup();
+		});
+	});
 </script>
 
 <aside
-  id="settings-popup"
-  data-visible="false"
-  class="pointer-events-none fixed top-0 left-0 z-50 flex h-dvh w-screen items-center justify-center bg-black/20 px-3 opacity-0"
->
-  <div
-    id="popup-overlay"
-    class="cui-border relative flex h-max max-h-[75vh] w-full max-w-lg flex-col bg-white md:max-h-none lg:w-[32vw] lg:max-w-none"
-  >
-    <button
-      id="close-button"
-      class="absolute top-4 right-4 z-10 md:top-6 md:right-6"
-    >
-      <Cross />
-    </button>
+	id="settings-popup"
+	data-visible="false"
+	class="pointer-events-none fixed top-0 left-0 z-50 flex h-dvh w-screen items-center justify-center bg-black/20 px-3 opacity-0">
+	<div
+		id="popup-overlay"
+		class="cui-border relative flex h-max max-h-[75vh] w-full max-w-lg flex-col bg-white md:max-h-none lg:w-[32vw] lg:max-w-none">
+		<button id="close-button" class="absolute top-4 right-4 z-10 md:top-6 md:right-6">
+			<Cross />
+		</button>
 
-    <div class="flex flex-shrink-0 flex-col gap-1 p-4 lg:p-6">
-      <h1 class="text-subheadline">Grid-Settings</h1>
-      <p class="text-body_secondary">Modify the grid based on your needs.</p>
-    </div>
+		<div class="flex flex-shrink-0 flex-col gap-1 p-4 lg:p-6">
+			<h1 class="text-subheadline">Grid-Settings</h1>
+			<p class="text-body_secondary">Modify the grid based on your needs.</p>
+		</div>
 
-    <form
-      class="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 md:overflow-visible lg:px-6"
-      id="settings-form"
-    >
-      <div class="flex flex-col gap-10 pb-4">
-        <div class="flex w-full flex-col gap-4">
-          <!-- Adjust column-number -->
-          <div class="flex w-full flex-col items-center gap-2 md:flex-row">
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="columnsMob">
-                Columns (sm)
-              </label>
-              <input
-                class="cui-border cui-input"
-                type="number"
-                id="columnsMob"
-                name="columnsMob"
-                min="2"
-                max="16"
-                placeholder="4"
-              />
-            </div>
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="columnsTab">
-                Columns (md)
-              </label>
-              <input
-                class="cui-border cui-input"
-                type="number"
-                id="columnsTab"
-                name="columnsTab"
-                min="2"
-                max="16"
-                placeholder="8"
-              />
-            </div>
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="columnsDesk">
-                Columns (lg)
-              </label>
-              <input
-                class="cui-border cui-input"
-                type="number"
-                id="columnsDesk"
-                name="columnsDesk"
-                min="2"
-                max="16"
-                placeholder="12"
-              />
-            </div>
-          </div>
+		<form
+			class="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 md:overflow-visible lg:px-6"
+			id="settings-form">
+			<div class="flex flex-col gap-10 pb-4">
+				<div class="flex w-full flex-col gap-4">
+					<!-- Adjust column-number -->
+					<div class="flex w-full flex-col items-center gap-2 md:flex-row">
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="columnsMob"> Columns (sm) </label>
+							<input
+								class="cui-border cui-input"
+								type="number"
+								id="columnsMob"
+								name="columnsMob"
+								min="2"
+								max="16"
+								placeholder="4"
+							/>
+						</div>
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="columnsTab"> Columns (md) </label>
+							<input
+								class="cui-border cui-input"
+								type="number"
+								id="columnsTab"
+								name="columnsTab"
+								min="2"
+								max="16"
+								placeholder="8"
+							/>
+						</div>
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="columnsDesk"> Columns (lg) </label>
+							<input
+								class="cui-border cui-input"
+								type="number"
+								id="columnsDesk"
+								name="columnsDesk"
+								min="2"
+								max="16"
+								placeholder="12"
+							/>
+						</div>
+					</div>
 
-          <!-- Adjust margin & gutter -->
-          <div class="flex w-full flex-col items-center gap-2 md:flex-row">
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="gutter"> Gutter (rem) </label>
-              <input
-                class="cui-border cui-input"
-                id="gutter"
-                name="gutter"
-                placeholder="1 | 1, 1.5, 2"
-              />
-            </div>
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="margin">Margin (rem) </label>
-              <input
-                class="cui-border cui-input"
-                id="margin"
-                name="margin"
-                placeholder="1 | 0.75, 1, 1"
-              />
-            </div>
-          </div>
+					<!-- Adjust margin & gutter -->
+					<div class="flex w-full flex-col items-center gap-2 md:flex-row">
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="gutter"> Gutter (rem) </label>
+							<input class="cui-border cui-input" id="gutter" name="gutter" placeholder="1 | 1, 1.5, 2" />
+						</div>
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="margin">Margin (rem) </label>
+							<input class="cui-border cui-input" id="margin" name="margin" placeholder="1 | 0.75, 1, 1" />
+						</div>
+					</div>
 
-          <!-- Adjust Grid-style settings -->
-          <div class="flex w-full flex-col items-center gap-2 md:flex-row">
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="color"> Color </label>
-              <input
-                class="cui-border cui-input"
-                type="color"
-                id="color"
-                name="color"
-                value="#ff0000"
-              />
-            </div>
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="opacity"> Opacity </label>
-              <input
-                class="cui-border cui-input"
-                type="number"
-                id="opacity"
-                name="opacity"
-                min="0"
-                max="1"
-                step="0.01"
-                placeholder="0.15"
-              />
-            </div>
-            <div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
-              <label class="text-body_small" for="maxWidth">
-                Max-width in px
-              </label>
-              <input
-                class="cui-border cui-input"
-                id="maxWidth"
-                name="maxWidth"
-                placeholder="1280px"
-              />
-            </div>
-          </div>
+					<!-- Adjust Grid-style settings -->
+					<div class="flex w-full flex-col items-center gap-2 md:flex-row">
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="color"> Color </label>
+							<input class="cui-border cui-input" type="color" id="color" name="color" value="#ff0000" />
+						</div>
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="opacity"> Opacity </label>
+							<input
+								class="cui-border cui-input"
+								type="number"
+								id="opacity"
+								name="opacity"
+								min="0"
+								max="1"
+								step="0.01"
+								placeholder="0.15"
+							/>
+						</div>
+						<div class="flex min-w-full flex-1 flex-col gap-0.5 md:min-w-0">
+							<label class="text-body_small" for="maxWidth"> Max-width in px </label>
+							<input class="cui-border cui-input" id="maxWidth" name="maxWidth" placeholder="1280px" />
+						</div>
+					</div>
 
-          <div>
-            <input
-              type="checkbox"
-              id="toggle-bg"
-              name="toggleBg"
-              class="border-2 active:bg-black"
-            />
-            <label for="toggle-bg">Show background color</label>
-          </div>
-        </div>
+					<div>
+						<input type="checkbox" id="toggle-bg" name="toggleBg" class="border-2 active:bg-black" />
+						<label for="toggle-bg">Show background color</label>
+					</div>
+				</div>
 
-        <button
-          class="cui-shadow cui-border pri-button mt-6 flex-shrink-0"
-          id="submit-button"
-        >
-          Apply Changes
-        </button>
-      </div>
-    </form>
-  </div>
+				<button class="cui-shadow cui-border pri-button mt-6 flex-shrink-0" id="submit-button">
+					Apply Changes
+				</button>
+			</div>
+		</form>
+	</div>
 </aside>

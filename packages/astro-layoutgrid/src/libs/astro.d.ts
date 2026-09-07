@@ -14,7 +14,7 @@ declare module './Layoutgrid.astro' {
 	interface LayoutgridComponent extends AstroComponentFactory {
 		(props: LayoutgridProps): ReturnType<AstroComponentFactory>;
 	}
-	
+
 	const Layoutgrid: LayoutgridComponent;
 	export default Layoutgrid;
 }

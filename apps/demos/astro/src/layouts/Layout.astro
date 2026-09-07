@@ -1,34 +1,34 @@
 ---
-import "@styles/global.css";
+import '@styles/global.css';
 
-import Layoutgrid from "astro-layoutgrid";
-import GridBackground from "@components/GridBackground.astro";
-import Navigation from "@components/Navigation.astro";
-import Popup from "@components/Popup.astro";
+import Layoutgrid from 'astro-layoutgrid';
+import GridBackground from '@components/GridBackground.astro';
+import Navigation from '@components/Navigation.astro';
+import Popup from '@components/Popup.astro';
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro - Layoutgrid Component</title>
-    <meta
-      name="description"
-      content="A zero-dependency layout-grid component for the AstroJS framework."
-    />
-  </head>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro - Layoutgrid Component</title>
+		<meta
+			name="description"
+			content="A zero-dependency layout-grid component for the AstroJS framework."
+		/>
+	</head>
 
-  <body class="relative h-screen w-screen overflow-x-hidden font-sans">
-    <Layoutgrid />
+	<body class="relative h-screen w-screen overflow-x-hidden font-sans">
+		<Layoutgrid />
 
-    <Navigation transition:persist />
+		<Navigation transition:persist />
 
-    <Popup />
-    <main class="relative z-10 h-full w-full">
-      <GridBackground />
-      <slot />
-    </main>
-  </body>
+		<Popup />
+		<main class="relative z-10 h-full w-full">
+			<GridBackground />
+			<slot />
+		</main>
+	</body>
 </html>

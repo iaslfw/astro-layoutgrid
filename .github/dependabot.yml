@@ -1,26 +1,26 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
-      time: "08:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '08:00'
+      timezone: 'Europe/Berlin'
     open-pull-requests-limit: 5
     assignees:
-      - "iaslfw" 
+      - 'iaslfw'
     commit-message:
-      prefix: "deps"
-      include: "scope"
+      prefix: 'deps'
+      include: 'scope'
     groups:
       dev-dependencies:
-        dependency-type: "development"
+        dependency-type: 'development'
         patterns:
-          - "@typescript-eslint/*"
-          - "eslint*"
-          - "prettier*"
-          - "typescript"
+          - '@typescript-eslint/*'
+          - 'eslint*'
+          - 'prettier*'
+          - 'typescript'
       astro-ecosystem:
         patterns:
-          - "astro*"
-          - "@astrojs/*"
+          - 'astro*'
+          - '@astrojs/*'

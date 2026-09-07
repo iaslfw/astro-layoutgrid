@@ -35,25 +35,17 @@
 		"src",
 		"index.ts",
 		"README.md",
-		"LICENSE"
+		"LICENCE"
 	],
 	"scripts": {
 		"testLocal": "npm pack",
-		"typecheck": "tsc --noEmit",
-		"format": "npx prettier . --write",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"typecheck": "tsc --noEmit"
 	},
 	"peerDependencies": {
 		"astro": "^5.0.0"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.39.2",
-		"@typescript-eslint/eslint-plugin": "^8.53.0",
-		"@typescript-eslint/parser": "^8.53.0",
 		"astro": "^5.16.9",
-		"eslint": "^9.39.2",
-		"eslint-plugin-astro": "^1.5.0",
 		"typescript": "^5.9.3"
 	}
 }

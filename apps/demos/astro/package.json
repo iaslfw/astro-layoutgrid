@@ -1,31 +1,25 @@
 {
-  "name": "astro-layoutgrid-demo",
-  "type": "module",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "astro dev --host",
-    "build": "astro build",
-    "ship": "astro build && npx wrangler deploy",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
-    "@tailwindcss/vite": "^4.1.18",
-    "animejs": "^4.2.2",
-    "astro": "^5.16.9",
-    "astro-layoutgrid": "*",
-    "canvas-confetti": "^1.9.4",
-    "tailwindcss": "^4.1.18"
-  },
-  "devDependencies": {
-    "@types/canvas-confetti": "^1.9.0",
-    "@typescript-eslint/parser": "^8.53.0",
-    "eslint": "^9.39.2",
-    "eslint-plugin-astro": "^1.5.0",
-    "prettier": "^3.8.0",
-    "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "wrangler": "^4.59.2"
-  },
-  "private": true
+	"name": "astro-layoutgrid-demo",
+	"type": "module",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "astro dev --host",
+		"build": "astro build",
+		"ship": "astro build && npx wrangler deploy",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/cloudflare": "^12.6.12",
+		"@tailwindcss/vite": "^4.1.18",
+		"animejs": "^4.2.2",
+		"astro": "^5.16.9",
+		"astro-layoutgrid": "*",
+		"canvas-confetti": "^1.9.4",
+		"tailwindcss": "^4.1.18"
+	},
+	"devDependencies": {
+		"@types/canvas-confetti": "^1.9.0",
+		"wrangler": "^4.59.2"
+	},
+	"private": true
 }
