@@ -1,4 +1,4 @@
-import type { Breakpoint, LayoutgridConfig } from './schema';
+import type { Breakpoint, LayoutgridConfig } from './schema.js';
 
 /**
  * The column grid overlay.
