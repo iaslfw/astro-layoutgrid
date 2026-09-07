@@ -1,10 +1,10 @@
 /**
  * Configuration schema for the layout grid.
  *
- * This module is the single source of truth for what a grid configuration is,
- * what it defaults to, and how it survives a round trip through `localStorage`.
- * Every default in the package lives in {@link DEFAULTS}, and every value that
- * reaches the overlay has passed through {@link resolve}.
+ * This module is the single source of truth for what a grid configuration is
+ * and what it defaults to. Every default in the package lives in
+ * {@link DEFAULTS}, and every value that reaches the overlay has passed through
+ * {@link resolve}.
  *
  * @packageDocumentation
  */
@@ -153,7 +153,7 @@ function asSpacing(value: number): number {
  * falls back entirely. That last case needs no branch of its own, because a
  * non-object collapses to an empty record and every lookup then misses.
  *
- * @param input - The value as the user or storage supplied it
+ * @param input - The value as the user supplied it
  * @param fallback - The per-breakpoint defaults that fill the gaps
  * @param sanitize - Applied to every resulting value, for clamping and rounding
  */
@@ -180,8 +180,8 @@ function expand(
  * Resolves user options into a complete, valid configuration.
  *
  * This function is the validation boundary of the package. Its parameter is
- * typed as {@link LayoutgridOptions}, but at runtime it also receives whatever
- * {@link deserialize} parsed out of storage, which no type can vouch for. It
+ * typed as {@link LayoutgridOptions}, but the options come from a user's
+ * `astro.config`, which is plain JavaScript that no type checks at runtime. It
  * must therefore check types as well as ranges, and trust nothing it is given.
  *
  * Values are to be corrected rather than rejected. A development tool that
@@ -234,54 +234,4 @@ export function resolve(options?: LayoutgridOptions): LayoutgridConfig {
 			typeof input.showBackground === 'boolean' ? input.showBackground : DEFAULTS.showBackground,
 		zIndex: Math.round(num(input.zIndex, DEFAULTS.zIndex)),
 	};
-}
-
-/**
- * Serialises a configuration for storage.
- *
- * Used to persist the toolbar's settings across a page reload. The result must
- * be accepted by {@link deserialize} unchanged.
- *
- * @param config - A resolved configuration
- *
- * @returns The configuration as a string
- */
-export function serialize(config: LayoutgridConfig): string {
-	return JSON.stringify(config);
-}
-
-/**
- * Reads a configuration back out of storage.
- *
- * Must never throw. `localStorage` is no more trustworthy than a DOM attribute:
- * it may hold a truncated string, a shape written by an older version of this
- * package, or something a user typed by hand. Anything unusable falls back to
- * {@link DEFAULTS} rather than propagating an exception — a parse error here
- * would kill the toolbar app at startup, and the resulting symptom (no button
- * in the toolbar) points nowhere near the cause.
- *
- * Whatever does parse should be passed through {@link resolve}, so that
- * validation and default-filling are inherited rather than written a second
- * time. That is what keeps {@link resolve} the only place holding defaults.
- *
- * @param raw - A string from {@link serialize}, or nothing
- *
- * @returns A complete configuration, in every case
- *
- * @example
- * ```ts
- * deserialize(serialize(config));   // → an equal configuration
- * deserialize('{truncated');        // → DEFAULTS
- * deserialize(null);                // → DEFAULTS
- * ```
- */
-export function deserialize(raw: string | null | undefined): LayoutgridConfig {
-	if (typeof raw !== 'string') return resolve();
-
-	try {
-		const data = JSON.parse(raw);
-		return resolve(data);
-	} catch {
-		return resolve();
-	}
 }

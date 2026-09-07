@@ -5,11 +5,15 @@ import Layout from '../layouts/Layout.astro';
 <Layout>
 	<h1>astro-layoutgrid — Playground</h1>
 	<p>
-		Nackte Astro-Instanz ohne CSS-Framework und ohne Adapter. Das Overlay kommt aus dem Workspace (<code
-			>packages/astro-layoutgrid</code
-		>) und wird mit <kbd>Cmd/Ctrl + Shift + G</kbd> umgeschaltet.
+		Nackte Astro-Instanz ohne CSS-Framework und ohne Adapter. Das Overlay kommt aus der Integration (<code
+			>packages/astro-layoutgrid-integration</code
+		>) und wird ueber die Schaltflaeche in der Dev-Toolbar am unteren Rand ein- und ausgeschaltet —
+		kein Import, kein Markup, kein Tastenkuerzel.
 	</p>
-	<p>Das blaue Quadrat ist mittig positioniert und dient als Bezugspunkt fuer die Ausrichtung.</p>
+	<p>
+		Das blaue Quadrat ist mittig positioniert und dient als Bezugspunkt fuer die Ausrichtung. Der
+		Zustand der Schaltflaeche ueberlebt einen Reload.
+	</p>
 
 	<div class="reference"></div>
 </Layout>

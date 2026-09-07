@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { DEFAULTS, deserialize, resolve, serialize } from '../dist/schema.js';
+import { DEFAULTS, resolve } from '../dist/schema.js';
 
 // Deliberately imported from `dist`, not `src`: these tests exercise the emitted
 // output, which is what a consumer actually receives. A package that typechecks
@@ -68,24 +68,5 @@ describe('resolve', () => {
 
 	it('drops properties that are not part of the schema', () => {
 		assert.ok(!('foo' in resolve({ foo: 1 })));
-	});
-});
-
-describe('serialize and deserialize', () => {
-	it('round-trips without loss', () => {
-		const config = resolve({ columns: 16, gutter: { mobile: 0.5 } });
-		assert.deepEqual(deserialize(serialize(config)), config);
-	});
-
-	it('falls back to the defaults instead of throwing', () => {
-		// localStorage is no more trustworthy than a DOM attribute. A parse error
-		// escaping here would kill the toolbar app at startup, and the symptom —
-		// no button in the toolbar — points nowhere near the cause.
-		assert.deepEqual(deserialize('{truncated'), DEFAULTS);
-		assert.deepEqual(deserialize(null), DEFAULTS);
-		assert.deepEqual(deserialize(undefined), DEFAULTS);
-		assert.deepEqual(deserialize(''), DEFAULTS);
-		assert.deepEqual(deserialize('null'), DEFAULTS);
-		assert.deepEqual(deserialize('[1,2,3]'), DEFAULTS);
 	});
 });

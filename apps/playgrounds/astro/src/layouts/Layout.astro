@@ -1,5 +1,7 @@
 ---
-import Layoutgrid from 'astro-layoutgrid';
+// Kein Import und kein Markup: Das Overlay kommt aus der Integration, die in
+// astro.config.mjs registriert ist, und erscheint als Schaltflaeche in der
+// Dev-Toolbar. Genau das ist der Unterschied zur alten Komponente.
 ---
 
 <!doctype html>
@@ -12,8 +14,6 @@ import Layoutgrid from 'astro-layoutgrid';
 		<title>astro-layoutgrid — Playground</title>
 	</head>
 	<body>
-		<!-- Die einzige Layoutgrid-Instanz im Playground. Props hier anpassen. -->
-		<Layoutgrid maxWidth="1200px" showBackground={true} />
 		<slot />
 	</body>
 </html>
