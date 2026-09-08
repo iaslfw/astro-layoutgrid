@@ -1,10 +1,25 @@
 # astro-layoutgrid
 
-A responsive column grid you can lay over any page while you build it, to check that things line up.
+A column grid you can lay over any page while you build it, to check that things line up.
 
-Version 2 is **a real Astro integration**. Version 1 was a component: you imported it, pasted it into
+[![npm](https://img.shields.io/npm/v/astro-layoutgrid?logo=npm&label=npm)](https://www.npmjs.com/package/astro-layoutgrid)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-yellow)](./LICENCE)
+[![Built for Astro](https://img.shields.io/badge/built%20for-Astro-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+
+Version 2 is **an Astro integration**. Version 1 was a component: you imported it, pasted it into
 every layout, remembered a keyboard shortcut nobody had told you about, and shipped its code to your
 users. This one goes in `astro.config` and nowhere else.
+
+## Install
+
+```bash
+npm install -D astro-layoutgrid
+```
+
+`-D` is deliberate. This is a development tool and never reaches your shipped product — see
+[Dev-only, by construction](#dev-only-by-construction).
+
+## Set it up
 
 ```js
 import { defineConfig } from 'astro/config';
@@ -15,31 +30,21 @@ export default defineConfig({
 });
 ```
 
-That is the whole installation. No import in your layouts, no markup, nothing to remember: the grid
-appears as a button in the Astro dev toolbar.
-
-## Install
-
-```bash
-npm install -D astro-layoutgrid
-```
-
-`-D` is deliberate. This is a development tool and never reaches your users — see
-[Dev-only, by construction](#dev-only-by-construction).
+That is the whole installation. No import in your layouts, no markup, nothing to remember.
 
 ## Use it
 
-Click the layout grid button in the dev toolbar, or press <kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> +
-<kbd>G</kbd>. The shortcut presses the same button, so the toolbar and the grid can never disagree
-about whether it is on.
+Click the layout grid button in the Astro dev toolbar, or press <kbd>Cmd/Ctrl</kbd> +
+<kbd>Shift</kbd> + <kbd>G</kbd>. The shortcut presses the same button, so the toolbar and the grid
+can never disagree about whether it is on.
 
 Whether the grid was on survives a reload, so it stays put across the dozens of reloads a working
 session actually involves.
 
-## Configure it
+## Options
 
-Everything is configured in `astro.config`, and nothing anywhere else. One place to look, one place
-to change, and the file is the truth.
+Everything is configured in `astro.config`, and nowhere else. One place to look, one place to
+change, and the file is the truth.
 
 ```js
 layoutgrid({
@@ -59,31 +64,80 @@ layoutgrid({
 | `breakpoints`    | `{ tablet, desktop }`      | `{ tablet: 768, desktop: 1024 }`        | Viewport width in px at which each one starts          |
 | `color`          | `string`                   | `'#ff0000'`                             | Any CSS colour, for the lines and fills                |
 | `opacity`        | `number`                   | `0.1`                                   | Fill opacity, 0 to 1; used when `showBackground` is on |
-| `maxWidth`       | `string`                   | `'100vw'`                               | CSS max-width of the grid container                    |
+| `maxWidth`       | `string`                   | `'100vw'`                               | CSS `max-width` of the grid container                  |
 | `showBackground` | `boolean`                  | `false`                                 | Fill the columns instead of only outlining them        |
 | `zIndex`         | `number`                   | `1000`                                  | Stacking order of the overlay                          |
 
-Anything per-breakpoint takes a shorthand: `gutter: 1` means all three, `gutter: { mobile: 0.5 }`
-means mobile only and leaves the rest at their defaults.
+### Per-breakpoint values
 
-Values are corrected rather than rejected. A column count below one becomes one, an opacity of `7`
-becomes `1`, and a desktop breakpoint below the tablet one is lifted to match — because a tablet
-range with no width in it is a setting with no correct behaviour. A development tool that refuses to
-start over a typo would be the worse trade.
+`columns`, `gutter` and `margin` take a shorthand. A bare number applies to all three breakpoints; an
+object sets the ones you name and leaves the rest at their defaults.
 
-Filled columns are mixed rather than faded, so the lines stay sharp at any opacity.
+```js
+gutter: 1; // all three
+gutter: {
+  mobile: 0.5;
+} // mobile only; tablet and desktop stay at 1
+```
+
+There is no `breakpoints.mobile`, because mobile is everything below the tablet threshold. A field
+with only one valid value is a trap, not a setting.
+
+### Values are corrected, not rejected
+
+A column count below one becomes one. An opacity of `7` becomes `1`. A desktop breakpoint below the
+tablet one is lifted to match, because a tablet range with no width in it is a configuration with no
+correct behaviour. `NaN` and `Infinity` count as missing.
+
+A development tool that refuses to start over a typo would be the worse trade.
+
+### Filled columns
+
+`showBackground` fills the columns instead of only outlining them. The fill is mixed rather than
+faded, so the lines stay sharp at any opacity — unlike version 1, where turning the fill down also
+dimmed the borders you were trying to read.
 
 ## Dev-only, by construction
 
 Nothing here reaches a production build. Not because an option is set correctly, but because Astro's
 dev toolbar apps do not exist in one — there is no mechanism by which the overlay could get there.
 
-You can check it rather than take our word for it: run `astro build` and search the output for
-`layoutgrid-overlay`. There are no matches.
+You can check it rather than take our word for it:
+
+```bash
+astro build
+grep -r "layoutgrid-overlay" dist/
+```
+
+No matches.
+
+## Using the overlay directly
+
+The grid itself is a plain class with no framework code in it. If you need one outside the toolbar —
+on a deployed staging site, or in a documentation page that demonstrates it — import it from the
+`./overlay` subpath and drive it yourself.
+
+```js
+import { resolve } from 'astro-layoutgrid';
+import { Overlay } from 'astro-layoutgrid/overlay';
+
+const overlay = new Overlay(resolve({ columns: 16 }), document);
+overlay.mount();
+overlay.show();
+
+overlay.update(resolve({ color: '#0af' })); // change it at runtime
+overlay.toggle(false); // or pass no argument to invert
+overlay.destroy(); // final; build a new one to start again
+```
+
+This is deliberately the long way round. The integration is the supported path, and anything you
+import here **will** be in your production bundle. `resolve` is exported alongside it because it is
+the package's validation boundary: it fills defaults, constrains values and never throws, so
+anything built from user input should pass through it first.
 
 ## Coming from version 1
 
-Version 1 was a component. If you have it, the move is:
+Version 1 was a component. If you have it:
 
 1. Delete `<Layoutgrid />` from your layouts, and its import.
 2. Add `layoutgrid()` to `integrations` in `astro.config`, with the props you were passing.
@@ -92,7 +146,16 @@ Version 1 was a component. If you have it, the move is:
    `gutter: { mobile: 0.5, tablet: 1, desktop: 1 }` — the array's positions meant mobile, tablet,
    desktop, which nothing said out loud.
 
-The shortcut is unchanged.
+The keyboard shortcut is unchanged.
+
+## TypeScript
+
+Types ship with the package; there is nothing to install. `LayoutgridOptions` is what you write,
+`LayoutgridConfig` is what comes out of `resolve` — complete, with no optional properties.
+
+```ts
+import type { Breakpoint, LayoutgridConfig, LayoutgridOptions } from 'astro-layoutgrid';
+```
 
 ## Requirements
 

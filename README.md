@@ -1,61 +1,99 @@
-# astro-layoutgrid — Monorepo
+# astro-layoutgrid
 
-Dieses Repository enthält das npm-Package `astro-layoutgrid` sowie die Projekte, mit denen es entwickelt und vorgeführt wird.
+A column grid you can lay over any page while you build it, to check that things line up.
 
-[![NPM Version](https://img.shields.io/npm/v/astro-layoutgrid)](https://www.npmjs.com/package/astro-layoutgrid)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
+[![npm](https://img.shields.io/npm/v/astro-layoutgrid?logo=npm&label=npm)](https://www.npmjs.com/package/astro-layoutgrid)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-yellow)](./packages/astro-layoutgrid/LICENCE)
+[![Built for Astro](https://img.shields.io/badge/built%20for-Astro-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+[![Deployed on Cloudflare Workers](https://img.shields.io/badge/deployed%20on-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white)](https://layoutgrid.iaslfw.workers.dev)
 
-## Struktur
+Version 2 is **an Astro integration**, not a component. It goes in `astro.config` and nowhere else:
+no import in your layouts, no markup, and nothing in your production build.
 
-| Ordner                      | Workspace               | Zweck                                                                                                                                                                      |
-| --------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `packages/astro-layoutgrid` | `astro-layoutgrid`      | Das Package: eine Astro-Integration mit Dev-Toolbar-App, Version 2. **Die Dokumentation liegt in [dessen README](./packages/astro-layoutgrid/README.md).** Noch `private`. |
-| `apps/demos/astro`          | `astro-layoutgrid-demo` | Eine lokale Demo. Wird nie deployt und darf unaufgeräumt sein. `react/`, `svelte/` und `vue/` sind leere Platzhalter.                                                      |
+```js
+import { defineConfig } from 'astro/config';
+import layoutgrid from 'astro-layoutgrid';
 
-Demo und Playground binden das Package über den npm-Workspace ein. Eine Änderung unter
-`packages/astro-layoutgrid` ist dort also sofort sichtbar — ohne `npm pack` und ohne Veröffentlichung.
-
-Unter `apps/` liegt, was man startet; unter `packages/`, was man importiert. Es gibt **eine** Website
-und **viele** Demos — eine Demo für ein weiteres Framework wird zu `apps/demos/<framework>`.
-`apps/website` wird gerade neu aufgesetzt und fehlt daher noch; bis dahin wird nichts deployt. Siehe
-[`docs/adr/0006-website-und-lokale-demos.md`](./docs/adr/0006-website-und-lokale-demos.md).
-
-## Einstieg
-
-```bash
-npm install          # einmalig, im Repo-Root - verlinkt alle Workspaces
-npm run dev          # startet die Demo
+export default defineConfig({
+  integrations: [layoutgrid()],
+});
 ```
 
-## Nützliche Befehle
+The grid then appears as a button in the Astro dev toolbar, or on
+<kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd>.
 
-Alle im Repo-Root auszuführen:
+**→ [Full documentation](./packages/astro-layoutgrid/README.md)** — options, defaults, and migrating
+from 1.x.
 
-| Befehl                 | Wirkung                                            |
-| ---------------------- | -------------------------------------------------- |
-| `npm run build`        | Baut alle Workspaces, die ein `build`-Script haben |
-| `npm run typecheck`    | Typprüfung über alle Workspaces                    |
-| `npm test`             | Baut und führt die Tests aus (`node:test`)         |
-| `npm run lint`         | oxlint über das gesamte Repository                 |
-| `npm run lint:fix`     | oxlint mit `--fix`                                 |
-| `npm run format`       | Prettier über das gesamte Repository               |
-| `npm run format:check` | Prettier im Prüfmodus, für CI                      |
-| `npm run ship:demo`    | Baut die Demo und deployt sie via Wrangler         |
+> **Status** Version 2 is finished but not yet published; npm still serves 1.2.0. The badge above
+> shows what is on the registry, not what is in this repository.
 
-Linting und Formatierung sind **einmal im Root** konfiguriert — `.oxlintrc.json`, `.prettierrc` und
-`.prettierignore`. Kein Workspace hat eigene Tooling-Configs, und ESLint gibt es hier nicht mehr.
+## Why it is different
 
-Einen einzelnen Workspace ansprechen:
+- **Zero dependencies.** No `dependencies` field, nothing added to your lockfile, no supply chain to
+  inherit.
+- **It never reaches your users.** Not because a setting is right, but because dev toolbar apps do
+  not exist in a production build. Build your site and search the output — there are no matches.
+- **Nothing can shift it.** The grid lives in a shadow root and carries its load-bearing styles
+  inline, so no stylesheet on your page can move it.
+
+## This repository
+
+`packages/` holds what you import; `apps/` holds what you run.
+
+| Path                        | Workspace                  | What it is                                                                                                                      |
+| --------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`         | The package, and its documentation.                                                                                             |
+| `apps/website`              | `astro-layoutgrid-website` | The public site at [layoutgrid.iaslfw.workers.dev](https://layoutgrid.iaslfw.workers.dev). The only workspace that is deployed. |
+| `apps/demos/astro`          | `astro-layoutgrid-demo`    | A local demo. Never deployed, allowed to be messy.                                                                              |
+
+There is one website and many demos, so a demo for another framework becomes
+`apps/demos/<framework>` and needs no change to the workspace list. Everything under `apps/` reads
+the package through a workspace link, so a change to it is visible immediately — no `npm pack`, no
+publish.
+
+## Getting started
 
 ```bash
-npm run <script> --workspace astro-layoutgrid
+npm install      # once, at the root — links every workspace
+npm run dev      # the website
+npm run dev:demo # the Astro demo, which uses the integration
 ```
 
-## Veröffentlichen
+## Commands
 
-Das Package wird von GitHub Actions veröffentlicht, sobald ein Release erstellt wird — siehe [`.github/workflows/publish-npm.yaml`](./.github/workflows/publish-npm.yaml). Die Versionsnummer wird in `packages/astro-layoutgrid/package.json` gepflegt, die Änderungen in [`CHANGELOG.md`](./packages/astro-layoutgrid/CHANGELOG.md).
+All from the repository root.
 
-## Mitmachen
+| Command                | What it does                                     |
+| ---------------------- | ------------------------------------------------ |
+| `npm run build`        | Builds every workspace that has a `build` script |
+| `npm run typecheck`    | Type-checks every workspace                      |
+| `npm test`             | Builds, then runs the tests (`node:test`)        |
+| `npm run lint`         | oxlint across the whole repository               |
+| `npm run format`       | Prettier across the whole repository             |
+| `npm run format:check` | Prettier in check mode, for CI                   |
+| `npm run ship:website` | Builds the website and deploys it with Wrangler  |
 
-Siehe [CONTRIBUTING.md](./CONTRIBUTING.md).
+Linting and formatting are configured **once, at the root** — `.oxlintrc.json`, `.prettierrc` and
+`.prettierignore`. No workspace has its own tooling config, and there is no ESLint here.
+
+To target one workspace: `npm run <script> --workspace astro-layoutgrid`.
+
+## Releasing
+
+A GitHub release triggers [`publish-npm.yaml`](./.github/workflows/publish-npm.yaml), which builds
+and publishes the package. The version lives in `packages/astro-layoutgrid/package.json`.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Elsewhere
+
+I write about the decisions behind this and other projects on
+[Substack](https://substack.com/@iaslf) — longer pieces, less often. The rewrite from component to
+integration is covered there.
+
+## Licence
+
+MIT © [Sebastian Wolf](https://github.com/iaslfw)
