@@ -25,9 +25,6 @@ The grid then appears as a button in the Astro dev toolbar, or on
 **→ [Full documentation](./packages/astro-layoutgrid/README.md)** — options, defaults, and migrating
 from 1.x.
 
-> **Status** Version 2 is finished but not yet published; npm still serves 1.2.0. The badge above
-> shows what is on the registry, not what is in this repository.
-
 ## Why it is different
 
 - **Zero dependencies.** No `dependencies` field, nothing added to your lockfile, no supply chain to

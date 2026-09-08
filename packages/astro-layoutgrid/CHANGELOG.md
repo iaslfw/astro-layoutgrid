@@ -4,7 +4,7 @@ All notable changes to this package are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
 [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] — unreleased
+## [2.0.0] — 2026-09-08
 
 A rewrite. Version 1 was a component you pasted into every layout; version 2 is an Astro integration
 that registers a dev toolbar app. No code is shared between them, and every entry below is a
