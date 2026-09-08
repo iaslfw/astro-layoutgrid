@@ -39,15 +39,13 @@ export function Nav() {
 	const links = [nav.docs, nav.blog].filter((link) => link.href !== '');
 
 	return (
-		<header className="flex items-center justify-between gap-4 py-6 sm:py-8">
+		<header className="page-col flex items-center justify-between gap-4 py-6 sm:py-8">
 			<a
 				href="/"
 				className="flex shrink-0 items-center gap-2.5"
 				aria-label={`${meta.siteName}, ${nav.homeLabel}`}>
 				<img src="/favicon.svg" alt="" width={22} height={22} className="size-5 sm:size-[22px]" />
-				<span className="font-display text-base font-bold tracking-tight sm:text-lg">
-					{meta.siteName}
-				</span>
+				<span className="font-display text-title-md sm:text-title-lg font-bold">{meta.siteName}</span>
 			</a>
 
 			<div ref={menu} className="hidden sm:block">

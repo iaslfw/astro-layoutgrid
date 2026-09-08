@@ -21,7 +21,7 @@ import { playground } from '@/copy/playground';
 export function ConfigPlayground() {
 	const [source, setSource] = useState(() => format(toOptions(DEFAULTS, true)));
 	const [valid, setValid] = useState(true);
-	const [visible, setVisible] = useState(true);
+	const [visible, setVisible] = useState(false);
 	const [copied, setCopied] = useState(false);
 	const [lastValid, setLastValid] = useState(source);
 
@@ -109,7 +109,7 @@ export function ConfigPlayground() {
 				onClick={toggle}
 				className="surface rounded-full px-7 py-5 text-base">
 				{visible ? <Grid2x2X className="size-5" /> : <Grid2x2 className="size-5" />}
-				{visible ? playground.hide : playground.show}
+				{playground.toggle}
 			</Button>
 		</div>
 	);

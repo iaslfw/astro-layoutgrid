@@ -2,25 +2,6 @@
 import { video } from '@/copy/video';
 ---
 
-<figure class="surface mx-auto w-full max-w-4xl overflow-hidden p-2 sm:p-3">
-	<video
-		class="block w-full rounded-[calc(var(--radius)-0.5rem)]"
-		style={`aspect-ratio: ${video.width} / ${video.height}`}
-		width={video.width}
-		height={video.height}
-		poster={video.poster}
-		aria-label={video.label}
-		autoplay
-		muted
-		loop
-		playsinline
-		preload="metadata"
-		data-demo-video>
-		{video.sources.map((source) => <source src={source.src} type={source.type} />)}
-	</video>
-	<figcaption class="sr-only">{video.label}</figcaption>
-</figure>
-
 <script>
 	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -41,3 +22,22 @@ import { video } from '@/copy/video';
 	apply();
 	reduced.addEventListener('change', apply);
 </script>
+
+<figure class="surface mx-auto w-full max-w-4xl overflow-hidden">
+	<video
+		class="block w-full object-cover"
+		style={`aspect-ratio: ${video.width} / ${video.height}`}
+		width={video.width}
+		height={video.height}
+		poster={video.poster}
+		aria-label={video.label}
+		autoplay
+		muted
+		loop
+		playsinline
+		preload="metadata"
+		data-demo-video>
+		{video.sources.map((source) => <source src={source.src} type={source.type} />)}
+	</video>
+	<figcaption class="sr-only">{video.label}</figcaption>
+</figure>

@@ -7,7 +7,6 @@ function instance(): Overlay {
 	if (overlay === null) {
 		overlay = new Overlay(DEFAULTS, document);
 		overlay.mount();
-		overlay.show();
 	}
 	return overlay;
 }

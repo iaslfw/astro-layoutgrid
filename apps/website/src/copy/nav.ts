@@ -10,16 +10,20 @@ export interface SocialLink extends NavLink {
 	description: string;
 }
 
+const docs: NavLink = {
+	label: 'Docs',
+	href: 'https://github.com/iaslfw/astro-layoutgrid#readme',
+};
+
+const blog: NavLink = {
+	label: 'Blog',
+	href: 'https://substack.com/@iaslf',
+};
+
 export const nav = {
 	homeLabel: 'home',
-	docs: {
-		label: 'Docs',
-		href: 'https://github.com/iaslfw/astro-layoutgrid#readme',
-	},
-	blog: {
-		label: 'Blog',
-		href: 'https://substack.com/@iaslf',
-	},
+	docs,
+	blog,
 	repository: {
 		label: 'GitHub',
 		href: 'https://github.com/iaslfw/astro-layoutgrid',

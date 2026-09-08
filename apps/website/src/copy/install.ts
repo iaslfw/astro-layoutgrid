@@ -8,7 +8,6 @@ export const installCommands = {
 export type PackageManager = keyof typeof installCommands;
 
 export const install = {
-	headline: 'Set up in thirty seconds.',
 	body: 'Install it, add layoutgrid() to your integrations, and press',
 	shortcut: 'Cmd/Ctrl + Shift + G',
 } as const;

@@ -11,6 +11,5 @@ export const playground = {
 	copy: 'Copy config',
 	copied: 'Copied',
 	confirm: 'Okay',
-	hide: 'Hide the grid',
-	show: 'Show the grid',
+	toggle: 'Toggle the grid',
 } as const;

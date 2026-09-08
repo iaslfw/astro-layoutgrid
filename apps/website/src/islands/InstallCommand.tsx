@@ -16,9 +16,9 @@ export function InstallCommand() {
 
 	return (
 		<Tabs defaultValue="npm" className="mx-auto w-full max-w-xl">
-			<TabsList className="mx-auto rounded-full">
+			<TabsList className="no-scrollbar mx-auto max-w-full overflow-x-auto rounded-full">
 				{(Object.keys(installCommands) as PackageManager[]).map((manager) => (
-					<TabsTrigger key={manager} value={manager} className="rounded-full px-4">
+					<TabsTrigger key={manager} value={manager} className="shrink-0 rounded-full px-4">
 						{manager}
 					</TabsTrigger>
 				))}
