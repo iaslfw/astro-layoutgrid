@@ -1,5 +1,6 @@
 ---
 import { meta } from '@/copy/meta';
+import { pageGridCss } from '@/lib/page-grid';
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? meta.fallbackOrigin);
 const ogImage = new URL('/og-image.png', canonical);
@@ -47,6 +48,8 @@ const jsonLd = {
 	<meta name="twitter:title" content={meta.title} />
 	<meta name="twitter:description" content={meta.description} />
 	<meta name="twitter:image" content={ogImage.href} />
+
+	<style is:inline set:html={pageGridCss}></style>
 
 	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 </head>

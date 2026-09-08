@@ -1,13 +1,13 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
-@import '@fontsource-variable/figtree';
+@import '@fontsource-variable/dm-sans';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
 	--font-heading: var(--font-sans);
-	--font-sans: 'Figtree Variable', system-ui, sans-serif;
+	--font-sans: 'DM Sans Variable', system-ui, sans-serif;
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,13 +39,13 @@
 	--color-card: var(--card);
 	--color-foreground: var(--foreground);
 	--color-background: var(--background);
-	--radius-sm: calc(var(--radius) * 0.6);
-	--radius-md: calc(var(--radius) * 0.8);
-	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) * 1.4);
-	--radius-2xl: calc(var(--radius) * 1.8);
-	--radius-3xl: calc(var(--radius) * 2.2);
-	--radius-4xl: calc(var(--radius) * 2.6);
+	--radius-sm: 0.5rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 1rem;
+	--radius-xl: var(--radius);
+	--radius-2xl: var(--radius);
+	--radius-3xl: var(--radius);
+	--radius-4xl: var(--radius);
 }
 
 :root {
@@ -72,7 +72,6 @@
 	--chart-3: oklch(0.439 0 0);
 	--chart-4: oklch(0.371 0 0);
 	--chart-5: oklch(0.269 0 0);
-	--radius: 0.625rem;
 	--sidebar: oklch(0.985 0 0);
 	--sidebar-foreground: oklch(0.145 0 0);
 	--sidebar-primary: oklch(0.205 0 0);
@@ -129,78 +128,202 @@
 	}
 }
 
-.dark {
-	--brand: oklch(0.76 0.16 55);
-	--brand-soft: oklch(0.32 0.06 55);
-	--brand-ink: oklch(0.82 0.13 60);
+/* Material 3 — tonale Palette aus Cloudflare-Orange als Quellfarbe. */
+:root {
+	--md-primary: oklch(0.53 0.155 48);
+	--md-on-primary: oklch(1 0 0);
+	--md-primary-container: oklch(0.92 0.062 62);
+	--md-on-primary-container: oklch(0.32 0.104 45);
+
+	--md-surface: oklch(0.99 0.004 60);
+	--md-surface-container-lowest: oklch(1 0 0);
+	--md-surface-container-low: oklch(0.975 0.005 60);
+	--md-surface-container: oklch(0.96 0.006 60);
+	--md-surface-container-high: oklch(0.94 0.007 60);
+	--md-surface-container-highest: oklch(0.92 0.008 60);
+	--md-on-surface: oklch(0.19 0.011 55);
+	--md-on-surface-variant: oklch(0.44 0.017 55);
+	--md-outline: oklch(0.6 0.016 55);
+	--md-outline-variant: oklch(0.87 0.01 58);
+	--md-error: oklch(0.51 0.19 27);
+
+	--brand: oklch(0.72 0.17 55);
+	--brand-soft: var(--md-primary-container);
+	--brand-ink: var(--md-primary);
+
+	/* Formskala aus Material 3: 4 / 8 / 12 / 16 / 28 px, 28 als Maximum. */
+	--radius: 1.75rem;
+
+	/* Zustandsebenen: Material legt eine Deckschicht der Vordergrundfarbe auf. */
+	--md-state-hover: 0.08;
+	--md-state-focus: 0.1;
+	--md-state-pressed: 0.1;
 }
 
-/*
- * Markenfarben.
- *
- * `--brand` ist Cloudflares Orange. Es erreicht auf Weiss nur rund 2,3:1 und ist
- * damit fuer Text unbrauchbar - es gehoert auf Flaechen, grosse Ueberschriften
- * und Akzente. Fuer Text auf hellem Grund gibt es `--brand-ink`, eine
- * abgedunkelte Variante mit rund 5:1. Genau so loest android.com sein Gruen.
- */
-:root {
-	--brand: oklch(0.72 0.17 55);
-	--brand-soft: oklch(0.95 0.04 65);
-	--brand-ink: oklch(0.52 0.16 45);
+@media (prefers-color-scheme: dark) {
+	:root:not(.light) {
+		--md-primary: oklch(0.82 0.135 62);
+		--md-on-primary: oklch(0.3 0.1 45);
+		--md-primary-container: oklch(0.42 0.128 48);
+		--md-on-primary-container: oklch(0.93 0.06 65);
 
-	/* Google-Design-Anleihe: sehr grosse Radien, Flaechen wirken als Kacheln. */
-	--radius: 1.75rem;
+		--md-surface: oklch(0.17 0.008 55);
+		--md-surface-container-lowest: oklch(0.13 0.008 55);
+		--md-surface-container-low: oklch(0.2 0.009 55);
+		--md-surface-container: oklch(0.22 0.009 55);
+		--md-surface-container-high: oklch(0.26 0.01 55);
+		--md-surface-container-highest: oklch(0.31 0.011 55);
+		--md-on-surface: oklch(0.92 0.008 60);
+		--md-on-surface-variant: oklch(0.79 0.012 58);
+		--md-outline: oklch(0.6 0.014 58);
+		--md-outline-variant: oklch(0.36 0.012 55);
+		--md-error: oklch(0.75 0.14 25);
+	}
+}
+
+.dark {
+	--md-primary: oklch(0.82 0.135 62);
+	--md-on-primary: oklch(0.3 0.1 45);
+	--md-primary-container: oklch(0.42 0.128 48);
+	--md-on-primary-container: oklch(0.93 0.06 65);
+
+	--md-surface: oklch(0.17 0.008 55);
+	--md-surface-container-lowest: oklch(0.13 0.008 55);
+	--md-surface-container-low: oklch(0.2 0.009 55);
+	--md-surface-container: oklch(0.22 0.009 55);
+	--md-surface-container-high: oklch(0.26 0.01 55);
+	--md-surface-container-highest: oklch(0.31 0.011 55);
+	--md-on-surface: oklch(0.92 0.008 60);
+	--md-on-surface-variant: oklch(0.79 0.012 58);
+	--md-outline: oklch(0.6 0.014 58);
+	--md-outline-variant: oklch(0.36 0.012 55);
+	--md-error: oklch(0.75 0.14 25);
+}
+
+/* Die Rollen von shadcn auf die von Material abbilden. */
+:root,
+.dark {
+	--background: var(--md-surface);
+	--foreground: var(--md-on-surface);
+	--card: var(--md-surface-container-low);
+	--card-foreground: var(--md-on-surface);
+	--popover: var(--md-surface-container-high);
+	--popover-foreground: var(--md-on-surface);
+	--primary: var(--md-primary);
+	--primary-foreground: var(--md-on-primary);
+	--secondary: var(--md-surface-container);
+	--secondary-foreground: var(--md-on-surface);
+	--muted: var(--md-surface-container);
+	--muted-foreground: var(--md-on-surface-variant);
+	--accent: var(--md-surface-container-high);
+	--accent-foreground: var(--md-on-surface);
+	--destructive: var(--md-error);
+	--border: var(--md-outline-variant);
+	--input: var(--md-outline-variant);
+	--ring: var(--md-primary);
 }
 
 @theme inline {
 	--color-brand: var(--brand);
 	--color-brand-soft: var(--brand-soft);
 	--color-brand-ink: var(--brand-ink);
-	--font-display: 'Figtree Variable', system-ui, sans-serif;
+	--color-md-primary: var(--md-primary);
+	--color-md-on-primary: var(--md-on-primary);
+	--color-md-primary-container: var(--md-primary-container);
+	--color-md-on-primary-container: var(--md-on-primary-container);
+	--color-md-surface-container: var(--md-surface-container);
+	--color-md-surface-container-high: var(--md-surface-container-high);
+	--color-md-outline: var(--md-outline);
+	--color-md-outline-variant: var(--md-outline-variant);
+
+	--font-display: 'DM Sans Variable', system-ui, sans-serif;
+
+	/* Typenskala aus Material 3. */
+	--text-display-lg: 3.5625rem;
+	--text-display-lg--line-height: 1.12;
+	--text-display-lg--letter-spacing: -0.015em;
+	--text-display-md: 2.8125rem;
+	--text-display-md--line-height: 1.16;
+	--text-display-md--letter-spacing: -0.01em;
+	--text-display-sm: 2.25rem;
+	--text-display-sm--line-height: 1.22;
+	--text-headline-lg: 2rem;
+	--text-headline-lg--line-height: 1.25;
+	--text-headline-md: 1.75rem;
+	--text-headline-md--line-height: 1.29;
+	--text-headline-sm: 1.5rem;
+	--text-headline-sm--line-height: 1.33;
+	--text-title-lg: 1.375rem;
+	--text-title-lg--line-height: 1.27;
+	--text-title-md: 1rem;
+	--text-title-md--line-height: 1.5;
+	--text-title-md--letter-spacing: 0.009em;
+	--text-body-lg: 1rem;
+	--text-body-lg--line-height: 1.5;
+	--text-body-lg--letter-spacing: 0.031em;
+	--text-body-md: 0.875rem;
+	--text-body-md--line-height: 1.43;
+	--text-body-md--letter-spacing: 0.018em;
+	--text-label-lg: 0.875rem;
+	--text-label-lg--line-height: 1.43;
+	--text-label-lg--letter-spacing: 0.007em;
+	--text-label-md: 0.75rem;
+	--text-label-md--line-height: 1.33;
+	--text-label-md--letter-spacing: 0.042em;
 }
 
 @layer components {
-	/*
-	 * Die Flaeche, aus der die Seite besteht: leicht durchscheinend, mit
-	 * Hintergrundunschaerfe. Der Farbverlauf darunter bleibt sichtbar, was den
-	 * Kacheln Tiefe gibt, ohne dass sie Schatten brauchen.
-	 */
 	.surface {
-		background-color: color-mix(in oklch, var(--background) 72%, transparent);
-		backdrop-filter: blur(20px) saturate(180%);
-		border: 1px solid color-mix(in oklch, var(--foreground) 8%, transparent);
+		background-color: var(--md-surface-container-low);
+		border: 1px solid var(--md-outline-variant);
 		border-radius: var(--radius);
 	}
 
 	.surface-brand {
-		background-color: color-mix(in oklch, var(--brand) 14%, transparent);
-		backdrop-filter: blur(20px) saturate(180%);
-		border: 1px solid color-mix(in oklch, var(--brand) 28%, transparent);
+		background-color: var(--md-primary-container);
+		color: var(--md-on-primary-container);
+		border: 1px solid transparent;
 		border-radius: var(--radius);
 	}
 
-	/* Der farbige Nebel, ueber dem die Flaechen schweben. */
-	.aurora::before {
+	/* Material legt bei Hover eine Deckschicht auf, statt die Farbe zu tauschen. */
+	.no-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.state-layer {
+		position: relative;
+		isolation: isolate;
+	}
+
+	.state-layer::after {
 		content: '';
-		position: fixed;
+		position: absolute;
 		inset: 0;
 		z-index: -1;
-		pointer-events: none;
-		background:
-			radial-gradient(
-				60rem 40rem at 12% -10%,
-				color-mix(in oklch, var(--brand) 30%, transparent),
-				transparent 60%
-			),
-			radial-gradient(
-				50rem 35rem at 88% 8%,
-				color-mix(in oklch, var(--brand) 18%, transparent),
-				transparent 62%
-			),
-			radial-gradient(
-				45rem 30rem at 50% 105%,
-				color-mix(in oklch, var(--brand) 12%, transparent),
-				transparent 60%
-			);
+		border-radius: inherit;
+		background-color: currentColor;
+		opacity: 0;
+		transition: opacity 120ms linear;
+	}
+
+	.state-layer:hover::after {
+		opacity: var(--md-state-hover);
+	}
+
+	.state-layer:focus-visible::after,
+	.state-layer:active::after {
+		opacity: var(--md-state-pressed);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.state-layer::after {
+		transition: none;
 	}
 }
