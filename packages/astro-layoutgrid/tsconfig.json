@@ -5,7 +5,7 @@
 		"moduleResolution": "nodenext",
 		"lib": ["ES2022", "DOM", "DOM.Iterable"],
 		"declaration": true,
-		"declarationMap": true,
+		"declarationMap": false,
 		"outDir": "dist",
 		"rootDir": "src",
 		"strict": true,

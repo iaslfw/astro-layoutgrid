@@ -83,7 +83,7 @@ and tends to be left running.
 
 ## Before you change anything
 
-Three things will look like your fault and are not:
+Four things will look like your fault and are not:
 
 - **`npm run typecheck` fails.** `index.ts(4,24): error TS2307: Cannot find module
 './src/Layoutgrid.astro'`. This is a pre-existing bug, reproducible at commit `ea0b204` from before
@@ -98,6 +98,14 @@ Three things will look like your fault and are not:
   `astro build` exits 0. This was reproduced on a nearly empty page, so the fault is the adapter's,
   not the content's and not the package's. It will resurface the moment the website adds the adapter.
   See BL-29.
+
+- **Your editor shows the package as one big error.** TypeScript 7 is the native port and ships no
+  `tsserver` — `node_modules/typescript/lib/` contains `tsc.js` and nothing else. An editor set to
+  "use workspace version" finds no language server and gives up, so everything goes red while `tsc`
+  itself reports no errors at all. Fix it on the editor side: install the TypeScript (Native Preview)
+  extension, or point the editor at its own bundled TypeScript. **Do not downgrade the package.**
+  Staying on the newest TypeScript is a deliberate decision; the cost is that `@astrojs/check` also
+  refuses to run (it wants `^5 || ^6`), which is accepted.
 
 Also worth knowing before you trust a green build: because the demo reads the package through a
 workspace symlink, it never exercises `files` or `exports` from `package.json`. A build that passes
