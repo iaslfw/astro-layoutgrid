@@ -3,7 +3,7 @@ dist/
 
 # generated types
 .astro/
-.netlify/
+.wrangler/
 
 # dependencies
 node_modules/
@@ -23,6 +23,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# lokales Arbeitsverzeichnis: Backlog, ADRs und Arbeitsplan.
+# Bewusst nicht eingecheckt - siehe CLAUDE.md.
+docs/
 
 # miscellaneous
 .vscode/

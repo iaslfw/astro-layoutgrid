@@ -1,0 +1,55 @@
+---
+import { meta } from '@/copy/meta';
+import { pageGridCss } from '@/lib/page-grid';
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? meta.fallbackOrigin);
+const ogImage = new URL('/og-image.png', canonical);
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'SoftwareApplication',
+	name: meta.siteName,
+	applicationCategory: 'DeveloperApplication',
+	operatingSystem: 'Any',
+	description: meta.description,
+	url: canonical.href,
+	license: 'https://opensource.org/licenses/MIT',
+	offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+	author: { '@type': 'Person', name: meta.author },
+};
+---
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="generator" content={Astro.generator} />
+
+	<title>{meta.title}</title>
+	<meta name="description" content={meta.description} />
+	<link rel="canonical" href={canonical.href} />
+	<meta name="robots" content="index, follow" />
+
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="apple-touch-icon" href="/favicon.svg" />
+	<meta name="theme-color" content="#F6821F" />
+	<meta name="color-scheme" content="light dark" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content={meta.title} />
+	<meta property="og:description" content={meta.description} />
+	<meta property="og:url" content={canonical.href} />
+	<meta property="og:image" content={ogImage.href} />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:site_name" content={meta.siteName} />
+	<meta property="og:locale" content="en" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={meta.title} />
+	<meta name="twitter:description" content={meta.description} />
+	<meta name="twitter:image" content={ogImage.href} />
+
+	<style is:inline set:html={pageGridCss}></style>
+
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+</head>

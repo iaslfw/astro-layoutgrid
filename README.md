@@ -1,321 +1,99 @@
-# Astro LayoutGrid
+# astro-layoutgrid
 
-A lightweight, zero-dependency responsive grid overlay component for Astro that helps developers align content with visual precision. Perfect for design system implementation, responsive development, and ensuring consistent layouts across breakpoints.
+A column grid you can lay over any page while you build it, to check that things line up.
 
-[![NPM Version](https://img.shields.io/npm/v/astro-layoutgrid)](https://www.npmjs.com/package/astro-layoutgrid)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Astro](https://img.shields.io/badge/Built%20for-Astro-orange)](https://astro.build)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/934dc2b3-32c2-45a1-b902-3bfb0fef6c26/deploy-status)](https://app.netlify.com/projects/astro-layoutgrid-demo/deploys)
+[![npm](https://img.shields.io/npm/v/astro-layoutgrid?logo=npm&label=npm)](https://www.npmjs.com/package/astro-layoutgrid)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-yellow)](./packages/astro-layoutgrid/LICENCE)
+[![Built for Astro](https://img.shields.io/badge/built%20for-Astro-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+[![Deployed on Cloudflare Workers](https://img.shields.io/badge/deployed%20on-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white)](https://layoutgrid.iaslfw.workers.dev)
 
-## Demo
+Version 2 is **an Astro integration**, not a component. It goes in `astro.config` and nowhere else:
+no import in your layouts, no markup, and nothing in your production build.
 
-[![Preview of the Astro LayoutGrid demo](https://github.com/iaslfw/astro-layoutgrid/blob/main/thumbnail.png)](https://astro-layoutgrid-demo.iaslfw.workers.dev)
+```js
+import { defineConfig } from 'astro/config';
+import layoutgrid from 'astro-layoutgrid';
 
-Remember, by clicking the thumbnail you can access the component-demo
+export default defineConfig({
+  integrations: [layoutgrid()],
+});
+```
 
-## Features
+The grid then appears as a button in the Astro dev toolbar, or on
+<kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd>.
 
-- **Responsive Grid Overlay** - Visual grid system with mobile, tablet, and desktop breakpoints
-- **Keyboard Toggle** - Quick show/hide with `Cmd/Ctrl + Shift + G`
-- **Highly Customizable** - Configure columns, spacing, colors, and breakpoints
-- **Real-time Responsive** - Uses ResizeObserver for instant breakpoint updates
-- **Visual Flexibility** - Border-only or filled column display options
-- **Zero Dependencies** - Lightweight and fast
-- **TypeScript Support** - Full type safety with comprehensive interfaces
-- **SSR Compatible** - Works with Astro's server-side rendering
+**→ [Full documentation](./packages/astro-layoutgrid/README.md)** — options, defaults, and migrating
+from 1.x.
 
-## Installation
+> **Status** Version 2 is finished but not yet published; npm still serves 1.2.0. The badge above
+> shows what is on the registry, not what is in this repository.
+
+## Why it is different
+
+- **Zero dependencies.** No `dependencies` field, nothing added to your lockfile, no supply chain to
+  inherit.
+- **It never reaches your users.** Not because a setting is right, but because dev toolbar apps do
+  not exist in a production build. Build your site and search the output — there are no matches.
+- **Nothing can shift it.** The grid lives in a shadow root and carries its load-bearing styles
+  inline, so no stylesheet on your page can move it.
+
+## This repository
+
+`packages/` holds what you import; `apps/` holds what you run.
+
+| Path                        | Workspace                  | What it is                                                                                                                      |
+| --------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`         | The package, and its documentation.                                                                                             |
+| `apps/website`              | `astro-layoutgrid-website` | The public site at [layoutgrid.iaslfw.workers.dev](https://layoutgrid.iaslfw.workers.dev). The only workspace that is deployed. |
+| `apps/demos/astro`          | `astro-layoutgrid-demo`    | A local demo. Never deployed, allowed to be messy.                                                                              |
+
+There is one website and many demos, so a demo for another framework becomes
+`apps/demos/<framework>` and needs no change to the workspace list. Everything under `apps/` reads
+the package through a workspace link, so a change to it is visible immediately — no `npm pack`, no
+publish.
+
+## Getting started
 
 ```bash
-npm install astro-layoutgrid
+npm install      # once, at the root — links every workspace
+npm run dev      # the website
+npm run dev:demo # the Astro demo, which uses the integration
 ```
 
-## Quick Start
+## Commands
 
-### Basic Usage
+All from the repository root.
 
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
----
+| Command                | What it does                                     |
+| ---------------------- | ------------------------------------------------ |
+| `npm run build`        | Builds every workspace that has a `build` script |
+| `npm run typecheck`    | Type-checks every workspace                      |
+| `npm test`             | Builds, then runs the tests (`node:test`)        |
+| `npm run lint`         | oxlint across the whole repository               |
+| `npm run format`       | Prettier across the whole repository             |
+| `npm run format:check` | Prettier in check mode, for CI                   |
+| `npm run ship:website` | Builds the website and deploys it with Wrangler  |
 
-<html>
-	<head>
-		<title>My Astro Site</title>
-	</head>
-	<body>
-		<!-- Your content here -->
-		<main>
-			<h1>Welcome to my site</h1>
-			<p>Content that will be aligned with the grid</p>
-		</main>
+Linting and formatting are configured **once, at the root** — `.oxlintrc.json`, `.prettierrc` and
+`.prettierignore`. No workspace has its own tooling config, and there is no ESLint here.
 
-		<!-- Add the grid overlay -->
-		<LayoutGrid />
-	</body>
-</html>
-```
+To target one workspace: `npm run <script> --workspace astro-layoutgrid`.
 
-Press `Cmd + Shift + G` (Mac) or `Ctrl + Shift + G` (Windows/Linux) to toggle the grid visibility.
+## Releasing
 
-### Custom Configuration
-
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<LayoutGrid
-	desktopColumns={16}
-	tabletColumns={12}
-	mobileColumns={6}
-	gutter={[1, 1.5, 2]}
-	margin={[1, 1.5, 2]}
-	gridColor="#0066cc"
-	gridOpacity={0.15}
-	showBackground={true}
-	maxWidth="1400px"
-	tabletBreakpoint={768}
-	desktopBreakpoint={1200}
-	zIndex={123}
-/>
-```
-
-## API Reference
-
-### Props
-
-| Prop                | Type                                 | Default        | Description                                        |
-| ------------------- | ------------------------------------ | -------------- | -------------------------------------------------- |
-| `desktopColumns`    | `number`                             | `12`           | Number of columns on desktop (≥1024px)             |
-| `tabletColumns`     | `number`                             | `8`            | Number of columns on tablet (768px-1023px)         |
-| `mobileColumns`     | `number`                             | `4`            | Number of columns on mobile (<768px)               |
-| `gutter`            | `number \| [number, number, number]` | `1` | Column spacing in rem [mobile, tablet, desktop]    |
-| `margin`            | `number \| [number, number, number]` | `1` | Container margins in rem [mobile, tablet, desktop] |
-| `gridColor`         | `string`                             | `"#ff0000"`    | CSS color for grid lines and backgrounds           |
-| `gridOpacity`       | `number`                             | `0.1`          | Opacity for column backgrounds (0-1)               |
-| `maxWidth`          | `string`                             | `"100vw"`      | Maximum width constraint (CSS value)               |
-| `showBackground`    | `boolean`                            | `false`        | Show colored column backgrounds                    |
-| `tabletBreakpoint`  | `number`                             | `768`          | Tablet breakpoint in pixels                        |
-| `desktopBreakpoint` | `number`                             | `1024`         | Desktop breakpoint in pixels                       |
-| `zIndex` | `number`                             | `1000`         | z-index of the grid overlay element                       |
-
-### Responsive Configuration
-
-You can configure spacing in two ways:
-
-#### Single Value (Applied to All Breakpoints)
-
-```astro
-<LayoutGrid gutter={1.5} margin={2} />
-```
-
-#### Array Values (Per Breakpoint)
-
-```astro
-<LayoutGrid gutter={[0.75, 1.25, 1.5]} <!-- [mobile, tablet, desktop] -->
-	margin={[1, 1.5, 2]}
-	<!-- [mobile, tablet, desktop] -->
-	/></LayoutGrid
->
-```
-
-## Visual Examples
-
-### Standard Grid (Tailwind-like)
-
-```astro
-<LayoutGrid />
-<!-- Uses defaults: 4/8/12 columns, standard breakpoints -->
-```
-
-### Design System Grid
-
-```astro
-<LayoutGrid
-	desktopColumns={16}
-	tabletColumns={12}
-	mobileColumns={6}
-	gutter={[1, 1.5, 2]}
-	gridColor="#6366f1"
-	showBackground={true}
-	gridOpacity={0.1}
-/>
-```
-
-### Custom Breakpoints
-
-```astro
-<LayoutGrid tabletBreakpoint={600} desktopBreakpoint={1200} maxWidth="1400px" />
-```
-
-## Keyboard Shortcuts
-
-| Shortcut                           | Action                 |
-| ---------------------------------- | ---------------------- |
-| `Cmd + Shift + G` (Mac)            | Toggle grid visibility |
-| `Ctrl + Shift + G` (Windows/Linux) | Toggle grid visibility |
-
-## Use Cases
-
-### Design System Implementation
-
-Perfect for implementing and validating design system grids:
-
-```astro
----
-// components/BaseLayout.astro
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<html>
-	<body>
-		<slot />
-
-		<!-- Development grid overlay -->
-		{
-			import.meta.env.DEV && (
-				<LayoutGrid
-					desktopColumns={12}
-					gutter={[16, 24, 32]}
-					margin={[16, 24, 80]}
-					gridColor="#e2e8f0"
-					showBackground={true}
-				/>
-			)
-		}
-	</body>
-</html>
-```
-
-### Responsive Development
-
-Validate responsive layouts across breakpoints:
-
-```astro
-<LayoutGrid
-	mobileColumns={4}
-	tabletColumns={8}
-	desktopColumns={12}
-	tabletBreakpoint={768}
-	desktopBreakpoint={1024}
-/>
-```
-
-### Content Alignment
-
-Ensure content aligns with grid columns:
-
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<div class="container">
-	<div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4">
-		<!-- Your grid content -->
-	</div>
-</div>
-
-<!-- Overlay to verify alignment -->
-<LayoutGrid gutter={1} <!-- 1rem="gap-4" in Tailwind -->
-	gridColor="#ef4444" gridOpacity={0.2}
-	/></LayoutGrid
->
-```
-
-## Advanced Configuration
-
-### Environment-Based Configuration
-
-```astro
----
-import LayoutGrid from 'astro-layoutgrid';
-
-const isDev = import.meta.env.DEV;
-const gridConfig = isDev
-	? {
-			showBackground: true,
-			gridOpacity: 0.15,
-			gridColor: '#10b981',
-		}
-	: {};
----
-
-{isDev && <LayoutGrid {...gridConfig} />}
-```
-
-### Multiple Grid Systems
-
-```astro
----
-// For testing different grid systems
-import LayoutGrid from 'astro-layoutgrid';
----
-
-<!-- Standard 12-column grid -->
-<LayoutGrid gridColor="#ef4444" />
-
-<!-- 16-column design system grid -->
-<LayoutGrid
-	desktopColumns={16}
-	gridColor="#3b82f6"
-	showBackground={true}
-	gridOpacity={0.05}
-/>
-```
-
-## Browser Support
-
-- **Modern Browsers** - Chrome 88+, Firefox 87+, Safari 14+, Edge 88+
-- **ResizeObserver** - Required for responsive behavior
-- **Custom Elements** - Required for component functionality
-- **CSS Grid** - Required for layout
-
-## Troubleshooting
-
-### Grid Not Visible
-
-1. Check if keyboard shortcut is working: `Cmd/Ctrl + Shift + G`
-2. Verify the component is imported and used correctly
-3. Check browser console for any JavaScript errors
-4. Ensure `z-index: 1000` isn't being overridden by other elements
-
-### Columns Not Aligning
-
-1. Verify your CSS grid/flexbox setup matches the LayoutGrid configuration
-2. Check that `gutter` values match your CSS gap values
-3. Ensure `margin` values match your container padding
-4. Use browser dev tools to inspect grid overlay positioning
-
-### TypeScript Errors
-
-1. Ensure you're using TypeScript 4.5+ for proper Astro support
-2. Check that all prop types match the interface definitions
-3. Verify array formats for `gutter` and `margin` props
+A GitHub release triggers [`publish-npm.yaml`](./.github/workflows/publish-npm.yaml), which builds
+and publishes the package. The version lives in `packages/astro-layoutgrid/package.json`.
 
 ## Contributing
 
-Contributions and ideas are welcome! Please visit the [Contributing Guide](CONTRIBUTING.md) for more details.
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-## License
+## Elsewhere
 
-MIT License - see [LICENSE](LICENSE) file for details.
+- **[Substack](https://substack.com/@iaslf)** — longer pieces, less often. The rewrite from component
+  to integration is covered there, along with the reasoning behind it.
+- **[X](https://x.com/iaslfw)** — shorter things, more often.
 
-## Acknowledgments
+## Licence
 
-- Built by purpose, driven by lazieness of copy-pasting within projects
-- Inspired by CSS Grid systems and design tools like Figma
-- Built for the amazing [Astro](https://astro.build) community
-- Thanks to all contributors and users providing feedback
-- Built with love, tears and a lot of caramell-cappucino
-
-
-<a href="https://www.star-history.com/#iaslfw/astro-layoutgrid&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=iaslfw/astro-layoutgrid&type=Date" />
- </picture>
-</a>
-
+MIT © [Sebastian Wolf](https://github.com/iaslfw)

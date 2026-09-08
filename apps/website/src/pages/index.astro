@@ -1,0 +1,99 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import DemoVideo from '@/components/DemoVideo.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FeatureArt from '@/components/FeatureArt.astro';
+
+import { ConfigPlayground } from '@/islands/ConfigPlayground';
+import { Nav } from '@/islands/Nav';
+import { InstallCommand } from '@/islands/InstallCommand';
+import { NewsDialog } from '@/islands/NewsDialog';
+import { Roadmap } from '@/islands/Roadmap';
+
+import { features } from '@/copy/features';
+import { footer, hero } from '@/copy/hero';
+import { install } from '@/copy/install';
+import { sections } from '@/copy/sections';
+import { meta } from '@/copy/meta';
+---
+
+<Layout>
+	<main class="page-grid pb-24 sm:pb-32">
+		<Nav client:idle />
+
+		<section class="page-col flex flex-col items-center pt-12 pb-20 text-center sm:pt-20 sm:pb-28">
+			<NewsDialog client:load />
+
+			<h1
+				class="font-display text-display-sm sm:text-display-md lg:text-display-lg mt-8 max-w-3xl font-extrabold text-balance">
+				{hero.headline}
+			</h1>
+
+			<p class="text-muted-foreground text-body-lg sm:text-title-lg mt-6 max-w-xl text-pretty sm:mt-8">
+				{hero.subline}
+			</p>
+
+			<div class="mt-10 w-full sm:mt-12">
+				<ConfigPlayground client:load />
+			</div>
+
+			<div class="mt-12 w-full sm:mt-16">
+				<DemoVideo />
+			</div>
+		</section>
+
+		<section class="page-col pt-8 sm:pt-12">
+			<SectionHeading {...sections.features} class="mb-10 sm:mb-10" />
+
+			<div class="grid gap-4 sm:grid-cols-2 sm:gap-5">
+				{
+					features.map((feature) => (
+						<article
+							class:list={[
+								'surface flex flex-col items-center p-7 text-center sm:p-10',
+								feature.wide && 'sm:col-span-2',
+							]}>
+							<FeatureArt name={feature.art} class="text-foreground mb-6" />
+							<h2 class="font-display text-title-lg sm:text-headline-sm mb-3 font-bold">
+								{feature.title}
+							</h2>
+							<p class="text-muted-foreground text-body-lg max-w-lg">{feature.body}</p>
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="page-col pt-24 sm:pt-32">
+			<SectionHeading {...sections.roadmap} class="mb-10 sm:mb-10" />
+			<Roadmap client:visible />
+		</section>
+
+		<section
+			class="surface-brand page-col mt-24 flex flex-col items-center p-8 text-center sm:mt-32 sm:p-14">
+			<SectionHeading {...sections.install} />
+			<p class="text-muted-foreground text-body-lg mt-5 max-w-lg">
+				{install.body}
+				<kbd class="surface rounded-md px-2 py-1 font-mono text-xs whitespace-nowrap">
+					{install.shortcut}
+				</kbd>.
+			</p>
+
+			<div class="mt-8 w-full">
+				<InstallCommand client:visible />
+			</div>
+		</section>
+
+		<footer class="text-muted-foreground page-col mt-16 text-center text-sm">
+			<p>
+				{footer.licence}
+				<a
+					href={meta.profile}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-brand-ink underline underline-offset-4">{meta.author}</a
+				>.
+			</p>
+		</footer>
+	</main>
+</Layout>

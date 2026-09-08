@@ -1,0 +1,116 @@
+---
+import type { FeatureArtName } from '@/copy/features';
+
+interface Props {
+	name: FeatureArtName;
+	class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+
+<svg
+	viewBox="0 0 320 150"
+	fill="none"
+	aria-hidden="true"
+	class:list={['w-full max-w-xs', className]}>
+	{
+		name === 'dependencies' && (
+			<g>
+				<rect
+					x="18"
+					y="16"
+					width="284"
+					height="118"
+					rx="16"
+					stroke="currentColor"
+					stroke-opacity=".18"
+					stroke-width="2"
+				/>
+				<line
+					x1="18"
+					y1="46"
+					x2="302"
+					y2="46"
+					stroke="currentColor"
+					stroke-opacity=".14"
+					stroke-width="2"
+				/>
+				<circle cx="36" cy="31" r="4" fill="currentColor" fill-opacity=".2" />
+				<circle cx="50" cy="31" r="4" fill="currentColor" fill-opacity=".2" />
+				<circle cx="64" cy="31" r="4" fill="currentColor" fill-opacity=".2" />
+				<rect x="40" y="80" width="188" height="12" rx="6" fill="var(--brand)" />
+				<rect x="236" y="80" width="44" height="12" rx="6" fill="var(--brand)" fill-opacity=".35" />
+			</g>
+		)
+	}
+
+	{
+		name === 'production' && (
+			<g>
+				<rect
+					x="14"
+					y="30"
+					width="112"
+					height="90"
+					rx="14"
+					stroke="currentColor"
+					stroke-opacity=".18"
+					stroke-width="2"
+				/>
+				<g stroke="var(--brand)" stroke-width="2" stroke-opacity=".85">
+					<path d="M42 30v90M70 30v90M98 30v90" />
+				</g>
+				<path
+					d="M146 75h28m0 0-8-8m8 8-8 8"
+					stroke="currentColor"
+					stroke-opacity=".35"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+				<rect
+					x="194"
+					y="30"
+					width="112"
+					height="90"
+					rx="14"
+					stroke="currentColor"
+					stroke-opacity=".18"
+					stroke-width="2"
+				/>
+				<g fill="currentColor" fill-opacity=".13">
+					<rect x="212" y="50" width="60" height="9" rx="4.5" />
+					<rect x="212" y="68" width="76" height="9" rx="4.5" />
+					<rect x="212" y="86" width="44" height="9" rx="4.5" />
+				</g>
+			</g>
+		)
+	}
+
+	{
+		name === 'isolation' && (
+			<g>
+				<g fill="currentColor" fill-opacity=".13" transform="rotate(-3 160 75)">
+					<rect x="42" y="34" width="150" height="14" rx="7" />
+					<rect x="42" y="60" width="212" height="10" rx="5" />
+					<rect x="42" y="80" width="180" height="10" rx="5" />
+					<rect x="42" y="104" width="96" height="10" rx="5" />
+				</g>
+				<g stroke="var(--brand)" stroke-width="2">
+					<path d="M40 12v126M100 12v126M160 12v126M220 12v126M280 12v126" />
+				</g>
+				<rect
+					x="40"
+					y="12"
+					width="240"
+					height="126"
+					stroke="var(--brand)"
+					stroke-opacity=".45"
+					stroke-width="2"
+					rx="2"
+				/>
+			</g>
+		)
+	}
+</svg>

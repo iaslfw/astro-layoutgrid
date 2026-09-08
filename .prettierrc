@@ -9,13 +9,16 @@
 	"bracketSpacing": true,
 	"bracketSameLine": true,
 	"arrowParens": "always",
-	"plugins": ["prettier-plugin-astro"],
+	"plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+	"tailwindStylesheet": "./apps/demos/astro/src/styles/global.css",
 	"overrides": [
 		{
 			"files": "*.astro",
-			"options": {
-				"parser": "astro"
-			}
+			"options": { "parser": "astro" }
+		},
+		{
+			"files": ["*.md", "*.yaml", "*.yml"],
+			"options": { "useTabs": false, "tabWidth": 2 }
 		}
 	]
 }

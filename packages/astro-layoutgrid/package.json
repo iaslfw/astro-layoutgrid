@@ -1,0 +1,53 @@
+{
+	"name": "astro-layoutgrid",
+	"version": "2.0.0",
+	"private": false,
+	"type": "module",
+	"description": "A responsive layout grid overlay for Astro, as a real integration with a Dev Toolbar app. Dev-only by construction.",
+	"author": "Sebastian Wolf, IaSlf",
+	"license": "MIT",
+	"homepage": "https://github.com/iaslfw/astro-layoutgrid",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/iaslfw/astro-layoutgrid.git",
+		"directory": "packages/astro-layoutgrid"
+	},
+	"bugs": {
+		"url": "https://github.com/iaslfw/astro-layoutgrid/issues"
+	},
+	"keywords": [
+		"astro-integration",
+		"withastro",
+		"astro-component",
+		"dev-toolbar",
+		"devtools",
+		"layout-grid",
+		"grid-overlay",
+		"design-system"
+	],
+	"exports": {
+		".": "./dist/index.js",
+		"./overlay": "./dist/overlay.js",
+		"./package.json": "./package.json"
+	},
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md",
+		"CHANGELOG.md",
+		"LICENCE"
+	],
+	"scripts": {
+		"build": "tsc",
+		"typecheck": "tsc --noEmit",
+		"test": "npm run build && node --test"
+	},
+	"peerDependencies": {
+		"astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
+	},
+	"devDependencies": {
+		"astro": "^7.3.1",
+		"linkedom": "0.18.13",
+		"typescript": "^7.0.2"
+	}
+}

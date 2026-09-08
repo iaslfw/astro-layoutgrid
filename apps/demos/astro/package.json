@@ -1,0 +1,24 @@
+{
+	"name": "astro-layoutgrid-demo",
+	"type": "module",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"animejs": "^4.5.0",
+		"astro": "^7.3.1",
+		"astro-layoutgrid": "*",
+		"canvas-confetti": "^1.9.4",
+		"tailwindcss": "^4.3.3"
+	},
+	"devDependencies": {
+		"@types/canvas-confetti": "^1.9.0"
+	},
+	"private": true,
+	"description": "Lokale Demo. Wird nicht deployt."
+}

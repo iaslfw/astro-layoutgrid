@@ -1,0 +1,15 @@
+---
+import type { SectionHeading } from '@/copy/sections';
+
+type Props = SectionHeading & { class?: string };
+
+const { title, body, class: className } = Astro.props;
+---
+
+<div class:list={['flex flex-col items-start text-left', className]}>
+	<h2
+		class="font-display text-headline-md sm:text-headline-lg lg:text-display-sm max-w-2xl font-extrabold text-balance">
+		{title}
+	</h2>
+	{body && <p class="text-muted-foreground text-body-lg mt-5 max-w-xl text-pretty">{body}</p>}
+</div>

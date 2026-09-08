@@ -1,59 +1,33 @@
 {
-	"name": "astro-layoutgrid",
-	"version": "1.2.0",
-	"description": "A zero-dependency layout grid component for AstroJS.",
-	"author": "Sebastian Wolf, IaSlf",
-	"homepage": "https://astro-layoutgrid-demo.iaslfw.workers.dev",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/iaslfw/astro-layoutgrid.git"
-	},
-	"keywords": [
-		"astro-component",
-		"withastro",
-		"devtools",
-		"dev-overlay",
-		"tooling",
-		"utils",
-		"component",
-		"integration"
-	],
+	"name": "astro-layoutgrid-monorepo",
+	"private": true,
 	"type": "module",
-	"main": "index.ts",
-	"types": "index.ts",
-	"module": "index.ts",
-	"exports": {
-		".": {
-			"import": "./index.ts",
-			"types": "./index.ts"
-		},
-		"./astro": "./src/astro.d.ts",
-		"./package.json": "./package.json"
+	"description": "Monorepo for astro-layoutgrid: the package, the website and the local demos.",
+	"license": "MIT",
+	"engines": {
+		"node": ">=22.12.0"
 	},
-	"files": [
-		"src",
-		"index.ts",
-		"README.md",
-		"LICENSE"
+	"workspaces": [
+		"packages/*",
+		"apps/website",
+		"apps/demos/*"
 	],
 	"scripts": {
-		"testLocal": "npm pack",
-		"typecheck": "tsc --noEmit",
-		"format": "npx prettier . --write",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
-	},
-	"peerDependencies": {
-		"astro": "^5.0.0"
+		"dev": "npm run dev --workspace astro-layoutgrid-website",
+		"dev:demo": "npm run dev --workspace astro-layoutgrid-demo",
+		"build": "npm run build --workspaces --if-present",
+		"typecheck": "npm run typecheck --workspaces --if-present",
+		"test": "npm run test --workspaces --if-present",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"format": "prettier . --write",
+		"format:check": "prettier . --check",
+		"ship:website": "npm run ship --workspace astro-layoutgrid-website"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.39.2",
-		"@typescript-eslint/eslint-plugin": "^8.53.0",
-		"@typescript-eslint/parser": "^8.53.0",
-		"astro": "^5.16.9",
-		"eslint": "^9.39.2",
-		"eslint-plugin-astro": "^1.5.0",
-		"typescript": "^5.9.3"
+		"oxlint": "1.82.0",
+		"prettier": "^3.9.6",
+		"prettier-plugin-astro": "0.14.1",
+		"prettier-plugin-tailwindcss": "^0.8.1"
 	}
 }

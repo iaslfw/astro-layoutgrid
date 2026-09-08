@@ -1,0 +1,329 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/dm-sans';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+	--font-heading: var(--font-sans);
+	--font-sans: 'DM Sans Variable', system-ui, sans-serif;
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar: var(--sidebar);
+	--color-chart-5: var(--chart-5);
+	--color-chart-4: var(--chart-4);
+	--color-chart-3: var(--chart-3);
+	--color-chart-2: var(--chart-2);
+	--color-chart-1: var(--chart-1);
+	--color-ring: var(--ring);
+	--color-input: var(--input);
+	--color-border: var(--border);
+	--color-destructive: var(--destructive);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent: var(--accent);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-muted: var(--muted);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary: var(--secondary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-popover: var(--popover);
+	--color-card-foreground: var(--card-foreground);
+	--color-card: var(--card);
+	--color-foreground: var(--foreground);
+	--color-background: var(--background);
+	--radius-sm: 0.5rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 1rem;
+	--radius-xl: var(--radius);
+	--radius-2xl: var(--radius);
+	--radius-3xl: var(--radius);
+	--radius-4xl: var(--radius);
+}
+
+:root {
+	--background: oklch(1 0 0);
+	--foreground: oklch(0.145 0 0);
+	--card: oklch(1 0 0);
+	--card-foreground: oklch(0.145 0 0);
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.145 0 0);
+	--primary: oklch(0.72 0.17 55);
+	--primary-foreground: oklch(0.18 0.02 55);
+	--secondary: oklch(0.97 0 0);
+	--secondary-foreground: oklch(0.205 0 0);
+	--muted: oklch(0.97 0 0);
+	--muted-foreground: oklch(0.556 0 0);
+	--accent: oklch(0.97 0 0);
+	--accent-foreground: oklch(0.205 0 0);
+	--destructive: oklch(0.577 0.245 27.325);
+	--border: oklch(0.922 0 0);
+	--input: oklch(0.922 0 0);
+	--ring: oklch(0.72 0.17 55);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
+	--sidebar: oklch(0.985 0 0);
+	--sidebar-foreground: oklch(0.145 0 0);
+	--sidebar-primary: oklch(0.205 0 0);
+	--sidebar-primary-foreground: oklch(0.985 0 0);
+	--sidebar-accent: oklch(0.97 0 0);
+	--sidebar-accent-foreground: oklch(0.205 0 0);
+	--sidebar-border: oklch(0.922 0 0);
+	--sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+	--background: oklch(0.145 0 0);
+	--foreground: oklch(0.985 0 0);
+	--card: oklch(0.205 0 0);
+	--card-foreground: oklch(0.985 0 0);
+	--popover: oklch(0.205 0 0);
+	--popover-foreground: oklch(0.985 0 0);
+	--primary: oklch(0.76 0.16 55);
+	--primary-foreground: oklch(0.18 0.02 55);
+	--secondary: oklch(0.269 0 0);
+	--secondary-foreground: oklch(0.985 0 0);
+	--muted: oklch(0.269 0 0);
+	--muted-foreground: oklch(0.708 0 0);
+	--accent: oklch(0.269 0 0);
+	--accent-foreground: oklch(0.985 0 0);
+	--destructive: oklch(0.704 0.191 22.216);
+	--border: oklch(1 0 0 / 10%);
+	--input: oklch(1 0 0 / 15%);
+	--ring: oklch(0.62 0.14 55);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
+	--sidebar: oklch(0.205 0 0);
+	--sidebar-foreground: oklch(0.985 0 0);
+	--sidebar-primary: oklch(0.488 0.243 264.376);
+	--sidebar-primary-foreground: oklch(0.985 0 0);
+	--sidebar-accent: oklch(0.269 0 0);
+	--sidebar-accent-foreground: oklch(0.985 0 0);
+	--sidebar-border: oklch(1 0 0 / 10%);
+	--sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+	html {
+		@apply font-sans;
+	}
+}
+
+/* Material 3 — tonale Palette aus Cloudflare-Orange als Quellfarbe. */
+:root {
+	--md-primary: oklch(0.53 0.155 48);
+	--md-on-primary: oklch(1 0 0);
+	--md-primary-container: oklch(0.92 0.062 62);
+	--md-on-primary-container: oklch(0.32 0.104 45);
+
+	--md-surface: oklch(0.99 0.004 60);
+	--md-surface-container-lowest: oklch(1 0 0);
+	--md-surface-container-low: oklch(0.975 0.005 60);
+	--md-surface-container: oklch(0.96 0.006 60);
+	--md-surface-container-high: oklch(0.94 0.007 60);
+	--md-surface-container-highest: oklch(0.92 0.008 60);
+	--md-on-surface: oklch(0.19 0.011 55);
+	--md-on-surface-variant: oklch(0.44 0.017 55);
+	--md-outline: oklch(0.6 0.016 55);
+	--md-outline-variant: oklch(0.87 0.01 58);
+	--md-error: oklch(0.51 0.19 27);
+
+	--brand: oklch(0.72 0.17 55);
+	--brand-soft: var(--md-primary-container);
+	--brand-ink: var(--md-primary);
+
+	/* Formskala aus Material 3: 4 / 8 / 12 / 16 / 28 px, 28 als Maximum. */
+	--radius: 1.75rem;
+
+	/* Zustandsebenen: Material legt eine Deckschicht der Vordergrundfarbe auf. */
+	--md-state-hover: 0.08;
+	--md-state-focus: 0.1;
+	--md-state-pressed: 0.1;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not(.light) {
+		--md-primary: oklch(0.82 0.135 62);
+		--md-on-primary: oklch(0.3 0.1 45);
+		--md-primary-container: oklch(0.42 0.128 48);
+		--md-on-primary-container: oklch(0.93 0.06 65);
+
+		--md-surface: oklch(0.17 0.008 55);
+		--md-surface-container-lowest: oklch(0.13 0.008 55);
+		--md-surface-container-low: oklch(0.2 0.009 55);
+		--md-surface-container: oklch(0.22 0.009 55);
+		--md-surface-container-high: oklch(0.26 0.01 55);
+		--md-surface-container-highest: oklch(0.31 0.011 55);
+		--md-on-surface: oklch(0.92 0.008 60);
+		--md-on-surface-variant: oklch(0.79 0.012 58);
+		--md-outline: oklch(0.6 0.014 58);
+		--md-outline-variant: oklch(0.36 0.012 55);
+		--md-error: oklch(0.75 0.14 25);
+	}
+}
+
+.dark {
+	--md-primary: oklch(0.82 0.135 62);
+	--md-on-primary: oklch(0.3 0.1 45);
+	--md-primary-container: oklch(0.42 0.128 48);
+	--md-on-primary-container: oklch(0.93 0.06 65);
+
+	--md-surface: oklch(0.17 0.008 55);
+	--md-surface-container-lowest: oklch(0.13 0.008 55);
+	--md-surface-container-low: oklch(0.2 0.009 55);
+	--md-surface-container: oklch(0.22 0.009 55);
+	--md-surface-container-high: oklch(0.26 0.01 55);
+	--md-surface-container-highest: oklch(0.31 0.011 55);
+	--md-on-surface: oklch(0.92 0.008 60);
+	--md-on-surface-variant: oklch(0.79 0.012 58);
+	--md-outline: oklch(0.6 0.014 58);
+	--md-outline-variant: oklch(0.36 0.012 55);
+	--md-error: oklch(0.75 0.14 25);
+}
+
+/* Die Rollen von shadcn auf die von Material abbilden. */
+:root,
+.dark {
+	--background: var(--md-surface);
+	--foreground: var(--md-on-surface);
+	--card: var(--md-surface-container-low);
+	--card-foreground: var(--md-on-surface);
+	--popover: var(--md-surface-container-high);
+	--popover-foreground: var(--md-on-surface);
+	--primary: var(--md-primary);
+	--primary-foreground: var(--md-on-primary);
+	--secondary: var(--md-surface-container);
+	--secondary-foreground: var(--md-on-surface);
+	--muted: var(--md-surface-container);
+	--muted-foreground: var(--md-on-surface-variant);
+	--accent: var(--md-surface-container-high);
+	--accent-foreground: var(--md-on-surface);
+	--destructive: var(--md-error);
+	--border: var(--md-outline-variant);
+	--input: var(--md-outline-variant);
+	--ring: var(--md-primary);
+}
+
+@theme inline {
+	--color-brand: var(--brand);
+	--color-brand-soft: var(--brand-soft);
+	--color-brand-ink: var(--brand-ink);
+	--color-md-primary: var(--md-primary);
+	--color-md-on-primary: var(--md-on-primary);
+	--color-md-primary-container: var(--md-primary-container);
+	--color-md-on-primary-container: var(--md-on-primary-container);
+	--color-md-surface-container: var(--md-surface-container);
+	--color-md-surface-container-high: var(--md-surface-container-high);
+	--color-md-outline: var(--md-outline);
+	--color-md-outline-variant: var(--md-outline-variant);
+
+	--font-display: 'DM Sans Variable', system-ui, sans-serif;
+
+	/* Typenskala aus Material 3. */
+	--text-display-lg: 3.5625rem;
+	--text-display-lg--line-height: 1.12;
+	--text-display-lg--letter-spacing: -0.015em;
+	--text-display-md: 2.8125rem;
+	--text-display-md--line-height: 1.16;
+	--text-display-md--letter-spacing: -0.01em;
+	--text-display-sm: 2.25rem;
+	--text-display-sm--line-height: 1.22;
+	--text-headline-lg: 2rem;
+	--text-headline-lg--line-height: 1.25;
+	--text-headline-md: 1.75rem;
+	--text-headline-md--line-height: 1.29;
+	--text-headline-sm: 1.5rem;
+	--text-headline-sm--line-height: 1.33;
+	--text-title-lg: 1.375rem;
+	--text-title-lg--line-height: 1.27;
+	--text-title-md: 1rem;
+	--text-title-md--line-height: 1.5;
+	--text-title-md--letter-spacing: 0.009em;
+	--text-body-lg: 1rem;
+	--text-body-lg--line-height: 1.5;
+	--text-body-lg--letter-spacing: 0.031em;
+	--text-body-md: 0.875rem;
+	--text-body-md--line-height: 1.43;
+	--text-body-md--letter-spacing: 0.018em;
+	--text-label-lg: 0.875rem;
+	--text-label-lg--line-height: 1.43;
+	--text-label-lg--letter-spacing: 0.007em;
+	--text-label-md: 0.75rem;
+	--text-label-md--line-height: 1.33;
+	--text-label-md--letter-spacing: 0.042em;
+}
+
+@layer components {
+	.surface {
+		background-color: var(--md-surface-container-low);
+		border: 1px solid var(--md-outline-variant);
+		border-radius: var(--radius);
+	}
+
+	.surface-brand {
+		background-color: var(--md-primary-container);
+		color: var(--md-on-primary-container);
+		border: 1px solid transparent;
+		border-radius: var(--radius);
+	}
+
+	/* Material legt bei Hover eine Deckschicht auf, statt die Farbe zu tauschen. */
+	.no-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.state-layer {
+		position: relative;
+		isolation: isolate;
+	}
+
+	.state-layer::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border-radius: inherit;
+		background-color: currentColor;
+		opacity: 0;
+		transition: opacity 120ms linear;
+	}
+
+	.state-layer:hover::after {
+		opacity: var(--md-state-hover);
+	}
+
+	.state-layer:focus-visible::after,
+	.state-layer:active::after {
+		opacity: var(--md-state-pressed);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.state-layer::after {
+		transition: none;
+	}
+}
