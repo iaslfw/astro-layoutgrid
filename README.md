@@ -90,9 +90,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Elsewhere
 
-I write about the decisions behind this and other projects on
-[Substack](https://substack.com/@iaslf) — longer pieces, less often. The rewrite from component to
-integration is covered there.
+- **[Substack](https://substack.com/@iaslf)** — longer pieces, less often. The rewrite from component
+  to integration is covered there, along with the reasoning behind it.
+- **[X](https://x.com/iaslfw)** — shorter things, more often.
 
 ## Licence
 
