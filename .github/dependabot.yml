@@ -3,7 +3,8 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
+      day: 'monday'
       time: '08:00'
       timezone: 'Europe/Berlin'
     open-pull-requests-limit: 5
@@ -13,14 +14,39 @@ updates:
       prefix: 'deps'
       include: 'scope'
     groups:
-      dev-dependencies:
-        dependency-type: 'development'
+      astro:
         patterns:
-          - '@typescript-eslint/*'
-          - 'eslint*'
+          - 'astro'
+          - '@astrojs/*'
+      tooling:
+        patterns:
+          - 'oxlint'
           - 'prettier*'
           - 'typescript'
-      astro-ecosystem:
+          - 'linkedom'
+      react:
         patterns:
-          - 'astro*'
-          - '@astrojs/*'
+          - 'react'
+          - 'react-dom'
+          - '@types/react*'
+          - '@base-ui/react'
+          - 'lucide-react'
+      styling:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+          - 'tw-animate-css'
+          - '@fontsource-variable/*'
+          - 'shadcn'
+          - 'cn'
+      cloudflare:
+        patterns:
+          - 'wrangler'
+          - '@cloudflare/*'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: 'ci'

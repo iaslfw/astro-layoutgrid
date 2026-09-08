@@ -77,6 +77,11 @@ there is no ESLint in this repository. Do not reintroduce per-workspace configs;
 
 To target one workspace: `npm run <script> --workspace astro-layoutgrid`.
 
+`ci.yaml` runs those five checks on every push and pull request, and the deploy and publish workflows
+reuse it through `workflow_call` rather than repeating the steps. If you add a check, add it there
+and all three get it. `ci.yaml` deliberately skips pushes to `main`, because the deploy workflow
+calls it for those and would otherwise run it twice.
+
 When you need a dev server, start it detached — `astro dev --background` — and manage it with
 `astro dev stop`, `astro dev status` and `astro dev logs`. A foreground server blocks the shell
 and tends to be left running.

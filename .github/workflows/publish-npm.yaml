@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Publish package
 
 on:
   release:
@@ -8,28 +8,26 @@ env:
   PACKAGE_DIR: packages/astro-layoutgrid
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm ci
-      - run: npm run typecheck --workspace astro-layoutgrid
-      - run: npm run lint --workspace astro-layoutgrid
+  checks:
+    uses: ./.github/workflows/ci.yaml
 
-  publish-npm:
-    needs: build
+  publish:
+    name: Publish to npm
+    needs: checks
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm run build --workspace astro-layoutgrid
       - run: npm publish
         working-directory: ${{ env.PACKAGE_DIR }}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

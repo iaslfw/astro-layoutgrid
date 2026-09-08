@@ -1,0 +1,40 @@
+name: Deploy website
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yaml
+
+  deploy:
+    name: Deploy to Cloudflare Workers
+    needs: checks
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://layoutgrid.iaslfw.workers.dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # The package first: the website reads it through a workspace link and
+      # needs its dist/ to exist.
+      - run: npm run build --workspace astro-layoutgrid
+      - run: npm run build --workspace astro-layoutgrid-website
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/website
+          command: deploy
