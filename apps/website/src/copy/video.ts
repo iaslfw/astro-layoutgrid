@@ -7,5 +7,5 @@ export const video = {
 		{ src: '/alg-demo_video.mp4', type: 'video/mp4' },
 	],
 	width: 1280,
-	height: 720,
+	height: 744,
 } as const;

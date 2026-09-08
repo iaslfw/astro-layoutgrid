@@ -59,5 +59,3 @@ Das Package wird von GitHub Actions veröffentlicht, sobald ein Release erstellt
 ## Mitmachen
 
 Siehe [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-Gut. Nun sind die Docs an der Reihe. Lass uns nun diese Überarbeiten. Das Root-Readme soll ein kleiner Einstiegspunkt werden. Dieser soll eine Übersicht, sowie die richtigen Badges anzeigen. Ebenfalls auf die eigentlichen Docs (Im package) verlinken und auf meinen Blog, Substack für weitere Infos
