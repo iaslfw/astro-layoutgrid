@@ -4,20 +4,9 @@ on:
   release:
     types: [created]
 
-env:
-  PACKAGE_DIR: packages/astro-layoutgrid
-
 jobs:
-  checks:
-    uses: ./.github/workflows/ci.yaml
-
   publish:
-    name: Publish to npm
-    needs: checks
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,8 +15,11 @@ jobs:
           cache: npm
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
       - run: npm run build --workspace astro-layoutgrid
       - run: npm publish
-        working-directory: ${{ env.PACKAGE_DIR }}
+        working-directory: packages/astro-layoutgrid
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
