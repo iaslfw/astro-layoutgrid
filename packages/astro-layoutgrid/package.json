@@ -1,7 +1,7 @@
 {
 	"name": "astro-layoutgrid",
 	"version": "2.0.0",
-	"private": true,
+	"private": false,
 	"type": "module",
 	"description": "A responsive layout grid overlay for Astro, as a real integration with a Dev Toolbar app. Dev-only by construction.",
 	"author": "Sebastian Wolf, IaSlf",
@@ -34,6 +34,7 @@
 	"files": [
 		"dist",
 		"README.md",
+		"CHANGELOG.md",
 		"LICENCE"
 	],
 	"scripts": {
