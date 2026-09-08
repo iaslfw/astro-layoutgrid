@@ -2,7 +2,7 @@
 	"name": "astro-layoutgrid-monorepo",
 	"private": true,
 	"type": "module",
-	"description": "Monorepo für astro-layoutgrid: das Package, die Demo und ein Playground.",
+	"description": "Monorepo for astro-layoutgrid: the package, the website and the local demos.",
 	"license": "MIT",
 	"engines": {
 		"node": ">=22.12.0"

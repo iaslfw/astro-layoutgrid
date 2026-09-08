@@ -115,12 +115,10 @@ describe('the virtual configuration module', () => {
 });
 
 describe('the toolbar app bundle', () => {
-	it('is emitted next to the integration', async () => {
+	it('is emitted next to the integration', () => {
 		// It cannot be imported here: it depends on the virtual module and on
 		// `astro/toolbar`, both of which only exist inside Vite. Its behaviour is
 		// verified in a browser; this only guards the path.
-		const { existsSync } = await import('node:fs');
-		const { fileURLToPath } = await import('node:url');
 		assert.ok(existsSync(fileURLToPath(new URL('../dist/toolbar-app.js', import.meta.url))));
 	});
 });

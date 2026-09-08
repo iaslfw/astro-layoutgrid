@@ -10,10 +10,10 @@ This repository is a monorepo holding the package together with the two projects
 
 `packages/` holds what you import; `apps/` holds what you run.
 
-| Path                        | Workspace               | What it is                                                                                                                   |
-| --------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `packages/astro-layoutgrid` | `astro-layoutgrid`      | The package: an Astro integration with a Dev Toolbar app, version 2. Still `private`, so it cannot be published by accident. |
-| `apps/demos/astro`          | `astro-layoutgrid-demo` | A local demo. Never deployed, allowed to be messy. `react/`, `svelte/` and `vue/` are empty placeholders.                    |
+| Path                        | Workspace               | What it is                                                                                                                                                                      |
+| --------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/astro-layoutgrid` | `astro-layoutgrid`      | The package: an Astro integration with a Dev Toolbar app, version 2. Published to npm from `publish-npm.yaml` via trusted publishing, so no npm token exists in the repository. |
+| `apps/demos/astro`          | `astro-layoutgrid-demo` | A local demo. Never deployed, allowed to be messy. `react/`, `svelte/` and `vue/` are empty placeholders.                                                                       |
 
 **`apps/website` does not exist yet.** It is being set up from scratch and will be the project's
 entry point and the only workspace that is deployed. Until it is there, nothing in this repository is
@@ -41,7 +41,7 @@ BL-01. See `docs/adr/0005-integration-neubau-dev-only.md` for the direction and 
 for the plan — both in the local, uncommitted `docs/` directory described under **Open work**. Start
 there rather than re-deriving the design.
 
-It is the only workspace with tests (`node:test` plus `linkedom`, 27 of them). They import from
+It is the only workspace with tests (`node:test` plus `linkedom`, 38 of them). They import from
 `dist/`, not `src/`, so that they exercise the emitted output — a package that typechecks but emits
 something unusable is the failure this repository has shipped twice. Keep new tests on `dist/` for
 the same reason, and run `npm test` from the root.
