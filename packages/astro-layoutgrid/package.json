@@ -46,7 +46,7 @@
 		"astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
-		"astro": "^7.3.1",
+		"astro": "^7.3.2",
 		"linkedom": "0.18.13",
 		"typescript": "^7.0.2"
 	}

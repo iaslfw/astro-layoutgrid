@@ -11,7 +11,7 @@
 	"dependencies": {
 		"@tailwindcss/vite": "^4.3.3",
 		"animejs": "^4.5.0",
-		"astro": "^7.3.1",
+		"astro": "^7.3.2",
 		"astro-layoutgrid": "*",
 		"canvas-confetti": "^1.9.4",
 		"tailwindcss": "^4.3.3"

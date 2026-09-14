@@ -14,12 +14,12 @@
 		"generate-types": "wrangler types"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.3.0",
+		"@astrojs/cloudflare": "^14.3.1",
 		"@astrojs/react": "^6.0.5",
 		"@base-ui/react": "^1.8.0",
 		"@fontsource-variable/dm-sans": "^5.3.0",
 		"@tailwindcss/vite": "^4.3.3",
-		"astro": "^7.3.1",
+		"astro": "^7.3.2",
 		"astro-layoutgrid": "*",
 		"class-variance-authority": "^0.7.1",
 		"cn": "^0.2.6",
