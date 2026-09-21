@@ -25,9 +25,9 @@
 		"ship:website": "npm run ship --workspace astro-layoutgrid-website"
 	},
 	"devDependencies": {
-		"oxlint": "1.82.0",
-		"prettier": "^3.9.6",
-		"prettier-plugin-astro": "0.14.1",
+		"oxlint": "1.83.0",
+		"prettier": "^3.9.8",
+		"prettier-plugin-astro": "1.0.1",
 		"prettier-plugin-tailwindcss": "^0.8.1"
 	}
 }
