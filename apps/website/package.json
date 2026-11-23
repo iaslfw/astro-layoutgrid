@@ -14,12 +14,12 @@
 		"generate-types": "wrangler types"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.3.2",
-		"@astrojs/react": "^6.0.6",
+		"@astrojs/cloudflare": "^14.4.9",
+		"@astrojs/react": "^7.1.9",
 		"@base-ui/react": "^1.9.0",
 		"@fontsource-variable/dm-sans": "^5.3.0",
 		"@tailwindcss/vite": "^4.3.4",
-		"astro": "^7.3.3",
+		"astro": "^7.4.13",
 		"astro-layoutgrid": "*",
 		"class-variance-authority": "^0.7.1",
 		"cn": "^0.5.2",
@@ -33,7 +33,7 @@
 	"description": "Die oeffentliche Website des Projekts. Deployt auf Cloudflare Workers.",
 	"private": true,
 	"devDependencies": {
-		"@astrojs/sitemap": "^3.7.4",
+		"@astrojs/sitemap": "^3.7.6",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
 		"wrangler": "^4.165.0"
